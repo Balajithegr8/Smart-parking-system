@@ -35,13 +35,16 @@ const CurrentBookingComponent = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop : 30,
     flex: 1,
     alignItems: 'center',
-
+    backgroundColor : 'black',
+    paddingTop : 20,
+    borderTopWidth : 1,
+    borderBottomColor : "#898989",
+    borderBottomWidth : 1,
   },
   shadowContainer: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#1F1F1F',
     borderRadius: 10,
     shadowColor: '#000000',
     shadowOpacity: 0.5,
@@ -57,16 +60,17 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
+    color : '#898989',
   },
   timeText: {
     fontSize: 16,
     marginBottom: 20,
+    color : '#898989',
   },
   buttonContainer: {
     flexDirection: 'row',
   },
   button: {
-    backgroundColor: '#DDDDDD',
     borderRadius: 20,
     width : 80,
     marginRight : 20,

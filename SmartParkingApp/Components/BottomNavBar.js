@@ -6,22 +6,22 @@ const BottomNavBar = () => {
   return (
     <View style={styles.container}>
       <TouchableOpacity style={styles.navButton}>
-        <Ionicons name="home-outline" size={24} color="#292725" />
+        <Ionicons name="home-outline" size={24} color="#898989" />
         <Text style={styles.buttonText}>Today</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton}>
-        <Ionicons name="warning-outline" size={24} color="#292725" />
+        <Ionicons name="warning-outline" size={24} color="#898989" />
         <Text style={styles.buttonText}>Enforcement</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.addButton}>
         <Ionicons name="add" size={32} color="#ffffff" />
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton}>
-        <Ionicons name="briefcase-outline" size={24} color="#292725" />
+        <Ionicons name="briefcase-outline" size={24} color="#898989" />
         <Text style={styles.buttonText}>Out of Off Co</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.navButton}>
-        <Ionicons name="person-outline" size={24} color="#292725" />
+        <Ionicons name="person-outline" size={24} color="#898989" />
         <Text style={styles.buttonText}>Profile</Text>
       </TouchableOpacity>
     </View>
@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 10,
+      backgroundColor : "#1F1F1F",
   },
   navButton: {
     alignItems: 'center',
@@ -48,7 +49,7 @@ const styles = StyleSheet.create({
     color : "ffffff",
   },
   buttonText: {
-    color: '#292725',
+    color: '#898989',
     marginTop: 5,
   },
 });

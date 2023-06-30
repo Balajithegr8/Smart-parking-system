@@ -22,16 +22,19 @@ const styles =  StyleSheet.create({
     container : {
         paddingTop : '13%',
         paddingLeft : '10%',
-        borderBottomColor : "#C5B9AD",
         paddingBottom : 10,
-        borderBottomWidth : 1,
+        backgroundColor : '#1F1F1F',
+        borderBottomColor : "#898989",
+        borderBottomWidth : 0.5,
     },
     Text1 : {
         fontSize : 16,
+        color : '#ffffff'
     },
     Text2 : {
         fontSize : 24,
         fontWeight : 'bold',
+        color : '#ffffff'
     },
     date : {
         fontSize : 16,

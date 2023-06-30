@@ -1,17 +1,13 @@
 import React from 'react';
 import { View, StyleSheet,Text } from 'react-native';
-import DHeader from './Components/Dashboard/DHeader';
-import CalendarScreen from './Components/Dashboard/CalendarScreen';
-import CurrentBookingComponent from './Components/Dashboard/CurrentBookingComponent';
-import BottomNavBar from './Components/BottomNavBar';
+import Dashboard from './Dashboard';
+import Indexpage from "./indexpage";
+import ParkingRequest from "./ParkingRequest";
 
 const App = () => {
   return (
     <View style={styles.container}>
-          <DHeader name = "Paddy"/>
-          <CalendarScreen/>
-          <CurrentBookingComponent/>
-          <BottomNavBar/>
+          <ParkingRequest/>
     </View>
   );
 };
