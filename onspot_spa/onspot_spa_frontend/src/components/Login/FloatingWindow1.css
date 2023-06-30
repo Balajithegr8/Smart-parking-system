@@ -1,0 +1,90 @@
+.floating-window1 {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: 'rgba(52, 52, 52, 0.5)';
+  background-image:linear-gradient(to bottom right, rgba(255,255,255,0.9), rgba(255,255,255,0.9));
+  width: 880px;
+  height: 500px;
+  z-index: 9999;
+  backdrop-filter: "blur(100px)";
+  display: flex;
+  justify-content: center;
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.1), -10px -10px 10px rgba(30, 30, 30, 0.3);
+  border-radius: 62px;
+
+}
+
+.header {
+  padding-bottom: 450px; /* Adjust the margin as desired */
+  font-size: 42px;
+  color: #463ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.boxers{
+  position: absolute;
+  top: 120px; /* Adjust the top position as desired */
+  left: 87px; /* Adjust the left position as desired */
+
+}
+
+.boxers2{
+  position: absolute;
+  top: 220px; /* Adjust the top position as desired */
+  left: 87px; /* Adjust the left position as desired */
+  
+
+}
+
+
+
+.boxers8{
+  position: absolute;
+  top: 320px; /* Adjust the top position as desired */
+  left: 355px;
+  
+}
+
+.boxers5{
+  height: 50px;
+  width: 180px;
+  border-radius: 10px;
+  border-color: #2548f1;
+  color: rgb(255, 255, 255);
+  font-size: large;
+  background-color: #2548f1;
+}
+
+.boxers9{
+  position: absolute;
+  top: 367px; /* Adjust the top position as desired */
+  left: 380px;
+  font-size: 20px;
+  
+}
+
+.boxers10{
+  position: absolute;
+  top: 440px; /* Adjust the top position as desired */
+  left: 425px;
+}
+
+.boxes{
+  width: 320px;
+  height: 45px;
+  border: 2px solid rgba(163, 152, 152, 0);
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.05), -10px -10px 10px rgba(30, 30, 30, 0.05);
+  font-size: 20px;
+}
+
+.boxes1{
+  width: 680px;
+  height: 45px;
+  border: 2px solid rgba(163, 152, 152, 0);
+  box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.05), -10px -10px 10px rgba(30, 30, 30, 0.05);
+  font-size: 20px;
+}
