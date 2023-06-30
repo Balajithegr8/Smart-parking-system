@@ -6,7 +6,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 // A custom component to render a single day in the calendar
 const Day = ({ date, selected }) => {
   const day = moment(date).format('D');
-  const backgroundColor = selected ? '#4886FF' : '#ffffff';
+  const backgroundColor = selected ? '#4886FF' : '#1F1F1F';
   return (
     <View style={[styles.day, { backgroundColor }]}>
       <Text style={styles.dayText}>{day}</Text>
@@ -15,7 +15,7 @@ const Day = ({ date, selected }) => {
 };
 const Week = ({ date, selected }) => {
   const day = moment(date).format('ddd');
-  const backgroundColor = '#ffffff';
+  const backgroundColor = '#1F1F1F';
   return (
     <View style={[styles.day, { backgroundColor }]}>
       <Text style={styles.WeekText}>{day}</Text>
@@ -60,11 +60,11 @@ const CalendarScreen = () => {
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handlePrevWeek}>
-          <MaterialIcons name="chevron-left" size={24} color="#333333" />
+          <MaterialIcons name="chevron-left" size={24} color="#FFFFFF" />
         </TouchableOpacity>
         <Text style={styles.monthYearText}>{monthYear}</Text>
         <TouchableOpacity onPress={handleNextWeek}>
-          <MaterialIcons name="chevron-right" size={24} color="#333333" />
+          <MaterialIcons name="chevron-right" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>
       <View>
@@ -100,7 +100,12 @@ const CalendarScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop : 20,
+    backgroundColor : '#1F1F1F',
+    paddingTop : 21,
+    paddingBottom : 20,
+    borderTopWidth : 1,
+    borderBottomColor : "#898989",
+    borderBottomWidth : 1,
   },
   header: {
     flexDirection: 'row',
@@ -111,11 +116,13 @@ const styles = StyleSheet.create({
   monthYearText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333333',
+    color: '#FFFFFF',
+
   },
   daysContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    color : '#000000',
   },
   day: {
     flex: 1,
@@ -128,12 +135,13 @@ const styles = StyleSheet.create({
   dayText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333333',
+    color: '#FFFFFF',
   },
   WeekText : {
     fontSize: 16,
     fontWeight: 'bold',
-    color: '#333333',
+    color: '#FFFFFF',
+
   },
   MonthText : {
     paddingTop : 20,
@@ -141,7 +149,7 @@ const styles = StyleSheet.create({
   },
   AvailCont : {
     borderWidth : 1,
-    borderColor : '#4886FF',
+    backgroundColor : '#4886FF',
     alignItems: 'center',
     marginTop : 50,
     width : '90%',
@@ -150,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   AvailText : {
-    color : '#4886FF',
+    color : '#ffffff',
     fontSize : 16,
     fontWeight : 'bold',
     alignItems: 'center',
