@@ -3,11 +3,13 @@ import { View, StyleSheet,Text } from 'react-native';
 import Dashboard from './Dashboard';
 import Indexpage from "./indexpage";
 import ParkingRequest from "./ParkingRequest";
+import Enforcement from "./Enforcement";
+import OutOfOffice from "./OutOfOffice";
 
 const App = () => {
   return (
     <View style={styles.container}>
-          <ParkingRequest/>
+          <OutOfOffice/>
     </View>
   );
 };
