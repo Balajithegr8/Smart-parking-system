@@ -37,14 +37,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor : 'black',
+    backgroundColor : '#1F1F1F',
     paddingTop : 20,
     borderTopWidth : 1,
     borderBottomColor : "#898989",
     borderBottomWidth : 1,
   },
   shadowContainer: {
-    backgroundColor: '#1F1F1F',
+    backgroundColor: '#262626',
     borderRadius: 10,
     shadowColor: '#000000',
     shadowOpacity: 0.5,
