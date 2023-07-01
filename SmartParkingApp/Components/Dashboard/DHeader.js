@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet ,TouchableOpacity ,Image} from 'react-native';
 import moment from 'moment';
-import Bell from "../../assets/bell.svg"
 
 const DHeader = (props) => {
     const currentDate = moment().format('dddd DD MMMM YYYY');
