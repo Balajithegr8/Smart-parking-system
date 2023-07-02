@@ -1,10 +1,15 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { useNavigation } from '@react-navigation/native';
 
 const ParkingRequestScreen = () => {
+    const navigation = useNavigation();
+
     const handleCancelButtonPress = () => {
         // Handle cancel button press logic here
+        navigation.navigate('Dashboard');
+
     };
 
     return (

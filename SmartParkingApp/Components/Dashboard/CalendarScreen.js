@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
 import moment from 'moment';
 import { MaterialIcons } from '@expo/vector-icons';
+import {useNavigation} from "@react-navigation/native";
 
 // A custom component to render a single day in the calendar
 const Day = ({ date, selected }) => {
@@ -49,7 +50,10 @@ const CalendarScreen = () => {
       translateX.setValue(0);
     });
   };
-
+  const navigation = useNavigation();
+  const navigateToScreen = (screenName) => {
+    navigation.navigate(screenName);
+  };
   const dates = Array.from({ length: 7 }, (v, i) =>
     moment(startOfWeek).add(i, 'days').toDate()
   );
@@ -89,11 +93,13 @@ const CalendarScreen = () => {
         ))}
       </Animated.View>
       </View>
+      <TouchableOpacity onPress={() => navigateToScreen('TodayAvail')}>
       <View style= {styles.AvailCont}>
         <Text style={styles.AvailText}>
         Check Today's Availability
         </Text>
       </View>
+    </TouchableOpacity>
     </View>
   );
 };
