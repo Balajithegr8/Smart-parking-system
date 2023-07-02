@@ -73,17 +73,12 @@
 
 .boxers6{
   position: absolute;
-  top: 467px; /* Adjust the top position as desired */
+  top: 490px; /* Adjust the top position as desired */
   left: 380px;
   font-size: 20px;
   
 }
 
-.boxers7{
-  position: absolute;
-  top: 540px; /* Adjust the top position as desired */
-  left: 425px;
-}
 
 .boxes{
   width: 320px;

@@ -1,12 +1,12 @@
 import './Login.css';
 import Bg from '../Bg';
 import FloatingWindow1 from './FloatingWindow1';
-function Login() {
+function Login({setLoginUser}) {
   return (
     <div>
       
       <Bg />
-      <FloatingWindow1 />
+      <FloatingWindow1 setLoginUser={setLoginUser} />
     </div>
   );
 }

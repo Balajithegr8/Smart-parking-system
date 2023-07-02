@@ -1,9 +1,12 @@
 import React, { useState } from "react"
 import './FloatingWindow.css';
 
-import { ReactComponent as Icon } from '../../static/icon.svg';
+import axios from 'axios';
+import { useNavigate} from 'react-router-dom';
 
 const FloatingWindow = () => {
+
+  const history = useNavigate();
 
   const [ user, setUser] = useState({
     firstname: "",
@@ -19,7 +22,24 @@ const handleChange = e => {
         [name]: value
     })
 }  
+
+const register = () =>{
+  const{firstname ,lastname ,id ,password } = user
+
+  if(firstname && lastname && id && password){
+    
+    axios.post('http://localhost:9000/Register', user)
+    .then((res)=> {
+      alert(res.data.message)
+      history("/login")
+    })
   
+  }
+  else{
+    alert("Invalid inputs");
+  }
+
+}  
   
   return (
 
@@ -40,20 +60,18 @@ const handleChange = e => {
         </div>
 
         <div className='boxers3'>
-        <input className="boxes1" type="text" name="password"  placeholder="Password" value={user.password} onChange={ handleChange } ></input>
+        <input className="boxes1" type="password" name="password"  placeholder="Password" value={user.password} onChange={ handleChange } ></input>
         </div>
 
         <div className='boxers4'>
-          <button className='boxers5'>Register</button>
+          <button className='boxers5' onClick={register}>Register</button>
         </div>
 
         <div className='boxers6'>
-          <p><b>Or Login With</b></p>
+          <p onClick={()=> history("/login")}>Already a user?</p>
         </div>
 
-        <div className='boxers7'>
-          <Icon style={{ width: '32px', height: '32px' }} />
-        </div>
+        
 
       </div>  
   
