@@ -15,7 +15,7 @@ function App() {
      <Routes>
         <Route exact path="/" element={<Register />} />
         <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
-        <Route path="/dashboard" element={user._id ? <Test /> : <Login setLoginUser={setLoginUser}/> } />
+        <Route path="/dashboard" element={user?._id ? <Test /> : <Login setLoginUser={setLoginUser}/> } />
      </Routes>
     </Router>
     </div>
