@@ -20,8 +20,7 @@ import {
   Search,
   SettingsOutlined,
   ArrowDropDownOutlined,
-  GitHub,
-} from "@mui/icons-material";
+  } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
 import profileImage from "assets/profile.jpeg";
@@ -120,7 +119,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   sx={{ color: theme.palette.secondary[100] }}
                 >
                   {/*{user.name}*/}
-                  Yashwardhan Khanna
+                  Balaji Prakasam
                 </Typography>
                 <Typography
                   fontSize="0.75rem"

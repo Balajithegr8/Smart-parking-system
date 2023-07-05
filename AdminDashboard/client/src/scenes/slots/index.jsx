@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Card,
@@ -7,7 +7,6 @@ import {
   Collapse,
   Button,
   Typography,
-  Rating,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -16,13 +15,13 @@ import { useGetSlotsQuery } from "state/api";
 import { Header } from "components";
 
 // Product
-const Product = ({
-  loc,slot_no,v_type,
+const Slot = ({
+  loc,
+  slot_no,
+  v_type
 }) => {
   // theme
   const theme = useTheme();
-  // is expanded
-  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <Card
@@ -32,16 +31,30 @@ const Product = ({
         borderRadius: "0.55rem",
       }}
     >
+      {/* Content */}
       <CardContent>
+        {/* Category */}
+        <Typography
+          sx={{ fontSize: 14 }}
+          color={theme.palette.secondary[700]}
+          gutterBottom
+        >
+          {loc}
+        </Typography>
+
+        {/* Name */}
         <Typography variant="h5" component="div">
           {slot_no}
         </Typography>
+
+        {/* Description */}
+        <Typography variant="body2">{v_type}</Typography>
       </CardContent>
     </Card>
   );
 };
 
-// Slots
+// Products
 const Slots = () => {
   // get data
   const { data, isLoading } = useGetSlotsQuery();
@@ -51,7 +64,7 @@ const Slots = () => {
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
-      <Header title="SLOTS" subtitle="See your list of available sites where people can park." />
+      <Header title="SLOTS" subtitle="List Of Available Location For Parking" />
 
       {/* Content */}
       {data || !isLoading ? (
@@ -69,9 +82,14 @@ const Slots = () => {
           {/* Loop over each product */}
           {data.map(
             ({
-              loc,slot_no,v_type
+              _id,
+              loc,
+              slot_no,      
+              v_type,
             }) => (
-              <Slots
+              <Slot
+                key={_id}
+                _id={_id}
                 loc={loc}
                 slot_no={slot_no}
                 v_type={v_type}
