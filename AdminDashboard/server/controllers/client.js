@@ -6,6 +6,7 @@ import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
+import Slot from "../models/Slots.js";
 
 // Get Products
 export const getProducts = async (_, res) => {
@@ -35,6 +36,16 @@ export const getCustomers = async (req, res) => {
   try {
     const customers = await User.find({ role: "user" }).select("-password");
     res.status(200).json(customers);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// Get Slots
+export const getSlots = async (req, res) => {
+  try {
+    const slots = await Slot.find({ loc: "TP" });
+    res.status(200).json(slots);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

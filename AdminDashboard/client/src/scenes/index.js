@@ -4,9 +4,9 @@
 import Layout from "./layout";
 import Dashboard from "./dashboard";
 import Products from "./products";
-import Customers from "./customers";
+import User from "./users";
+import Slots from "./slots";
 import Transactions from "./transactions";
-import Geography from "./geography";
 import Overview from "./overview";
 import Daily from "./daily";
 import Monthly from "./monthly";
@@ -19,9 +19,9 @@ export {
   Layout,
   Dashboard,
   Products,
-  Customers,
+  User,
+  Slots,
   Transactions,
-  Geography,
   Overview,
   Daily,
   Monthly,

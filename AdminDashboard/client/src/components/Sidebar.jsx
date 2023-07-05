@@ -21,13 +21,13 @@ import {
   ShoppingCartOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
-  PublicOutlined,
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
+  ViewWeekOutlined,
 } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
@@ -48,16 +48,16 @@ const navItems = [
     icon: <ShoppingCartOutlined />,
   },
   {
-    text: "Customers",
+    text: "User",
     icon: <Groups2Outlined />,
+  },
+  {
+    text: "Slots",
+    icon: <ViewWeekOutlined />,
   },
   {
     text: "Transactions",
     icon: <ReceiptLongOutlined />,
-  },
-  {
-    text: "Geography",
-    icon: <PublicOutlined />,
   },
   {
     text: "Sales",

@@ -12,9 +12,9 @@ import {
   Layout,
   Dashboard,
   Products,
-  Customers,
+  Slots,
+  User,
   Transactions,
-  Geography,
   Overview,
   Daily,
   Monthly,
@@ -42,9 +42,9 @@ const App = () => {
               <Route path="/" element={<Navigate to="/dashboard" replace />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/products" element={<Products />} />
-              <Route path="/customers" element={<Customers />} />
+              <Route path="/user" element={<User />} />
+              <Route path="/slots" element={<Slots />} />
               <Route path="/transactions" element={<Transactions />} />
-              <Route path="/geography" element={<Geography />} />
               <Route path="/overview" element={<Overview />} />
               <Route path="/daily" element={<Daily />} />
               <Route path="/monthly" element={<Monthly />} />

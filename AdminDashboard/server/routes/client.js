@@ -5,6 +5,7 @@ import {
   getCustomers,
   getTransactions,
   getGeography,
+  getSlots,
 } from "../controllers/client.js";
 
 const router = express.Router();
@@ -12,6 +13,7 @@ const router = express.Router();
 // Routes
 router.get("/products", getProducts);
 router.get("/customers", getCustomers);
+router.get("/slots", getSlots);
 router.get("/transactions", getTransactions);
 router.get("/occupancy", getGeography);
 
