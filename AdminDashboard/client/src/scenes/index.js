@@ -11,6 +11,7 @@ import Overview from "./overview";
 import Daily from "./daily";
 import Monthly from "./monthly";
 import Breakdown from "./breakdown";
+import CCTV from "./cctv";
 import Admin from "./admin";
 import Performance from "./performance";
 
@@ -26,6 +27,7 @@ export {
   Daily,
   Monthly,
   Breakdown,
+  CCTV,
   Admin,
   Performance,
 };

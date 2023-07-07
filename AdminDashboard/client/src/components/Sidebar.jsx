@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import CameraOutdoorIcon from '@mui/icons-material/CameraOutdoor';
 import {
   Box,
   Divider,
@@ -86,6 +87,10 @@ const navItems = [
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+  },
+  {
+    text: "CCTV",
+    icon: <CameraOutdoorIcon  />,
   },
   {
     text: "Performance",
