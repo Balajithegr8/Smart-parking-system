@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "react-video-js-player": "^1.1.1",
+    "video.js": "^8.3.0",
+    "videojs-vimeo": "^2.0.2"
+  }
+}

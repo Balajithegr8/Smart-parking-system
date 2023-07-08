@@ -5,7 +5,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl:
       process.env.REACT_APP_BASE_URL ||
-      "http://localhost:5001",
+      "http://localhost:9000",
   }), // base url
   reducerPath: "adminApi",
   // tags
@@ -18,6 +18,7 @@ export const api = createApi({
     "Transactions",
     "Geography",
     "Sales",
+    "CCTV",
     "Admins",
     "Performance",
     "Dashboard",
@@ -60,6 +61,10 @@ export const api = createApi({
       query: () => "sales/sales",
       providesTags: ["Sales"],
     }),
+    getCCTV: build.query({
+      query: () => "management/cctv",
+      providesTags: ["CCTV"],
+    }),
     getAdmins: build.query({
       query: () => "management/admins",
       providesTags: ["Admins"],
@@ -85,6 +90,8 @@ export const {
   useGetTransactionsQuery,
   useGetGeographyQuery,
   useGetSalesQuery,
+  useGetCCTVQuery,
+  useGetCCTVCamerasQuery,
   useGetAdminsQuery,
   useGetUserPerformanceQuery,
   useGetDashboardQuery,

@@ -1,8 +1,20 @@
 import mongoose from "mongoose";
 
 // Models import
+import CCTV from "../models/CCTV.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
+
+// Get CCTV
+export const getCCTV = async (_, res) => {
+  try {
+    const cctv = await CCTV.find({ role: "cctv" }).select("-password");
+
+    res.status(200).json(cctv);
+  } catch (error) {
+    res.status(200).json({ message: error.message });
+  }
+};
 
 // Get Admins
 export const getAdmins = async (_, res) => {
