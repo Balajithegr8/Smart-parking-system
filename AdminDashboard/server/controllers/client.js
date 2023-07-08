@@ -7,6 +7,7 @@ import ProductStat from "../models/ProductStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Slot from "../models/Slots.js";
+import Location from "../models/Locations.js";
 
 // Get Products
 export const getProducts = async (_, res) => {
@@ -46,6 +47,16 @@ export const getSlots = async (req, res) => {
   try {
     const slots = await Slot.find({ loc: "TP" });
     res.status(200).json(slots);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// Get Locations
+export const getLocations = async (req, res) => {
+  try {
+    const locations = await Location.find();
+    res.status(200).json(locations);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

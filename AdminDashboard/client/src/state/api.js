@@ -14,6 +14,7 @@ export const api = createApi({
     "Producs",
     "Customers",
     "Slots",
+    "Locations",
     "Transactions",
     "Geography",
     "Sales",
@@ -38,6 +39,10 @@ export const api = createApi({
     getSlots: build.query({
       query: () => "client/slots",
       providesTags: ["Slots"],
+    }),
+    getLocations: build.query({
+      query: () => "client/locations",
+      providesTags: ["Locations"],
     }),
     getTransactions: build.query({
       query: ({ page, pageSize, sort, search }) => ({
@@ -76,6 +81,7 @@ export const {
   useGetProductsQuery,
   useGetCustomersQuery,
   useGetSlotsQuery,
+  useGetLocationsQuery,
   useGetTransactionsQuery,
   useGetGeographyQuery,
   useGetSalesQuery,

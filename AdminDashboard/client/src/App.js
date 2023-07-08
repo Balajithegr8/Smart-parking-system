@@ -13,6 +13,7 @@ import {
   Dashboard,
   Products,
   Slots,
+  Locations,
   User,
   Transactions,
   Overview,
@@ -44,6 +45,7 @@ const App = () => {
               <Route path="/products" element={<Products />} />
               <Route path="/user" element={<User />} />
               <Route path="/slots" element={<Slots />} />
+              <Route path="/locations" element={<Locations />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/overview" element={<Overview />} />
               <Route path="/daily" element={<Daily />} />

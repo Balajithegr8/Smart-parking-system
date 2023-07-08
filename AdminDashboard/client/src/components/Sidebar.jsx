@@ -28,6 +28,7 @@ import {
   TrendingUpOutlined,
   PieChartOutlined,
   ViewWeekOutlined,
+  LocalParkingOutlined,
 } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
@@ -54,6 +55,10 @@ const navItems = [
   {
     text: "Slots",
     icon: <ViewWeekOutlined />,
+  },
+  {
+    text: "Locations",
+    icon: <LocalParkingOutlined />,
   },
   {
     text: "Transactions",

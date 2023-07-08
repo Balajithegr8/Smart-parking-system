@@ -13,6 +13,7 @@ import Monthly from "./monthly";
 import Breakdown from "./breakdown";
 import Admin from "./admin";
 import Performance from "./performance";
+import Locations from "./location";
 
 // export scenes
 export {
@@ -21,6 +22,7 @@ export {
   Products,
   User,
   Slots,
+  Locations,
   Transactions,
   Overview,
   Daily,
