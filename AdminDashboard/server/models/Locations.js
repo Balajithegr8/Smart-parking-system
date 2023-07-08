@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Product Schema
+// Location Schema
 const LocationSchema = new mongoose.Schema(
   {
     

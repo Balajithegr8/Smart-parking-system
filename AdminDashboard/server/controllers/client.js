@@ -55,12 +55,35 @@ export const getSlots = async (req, res) => {
 // Get Locations
 export const getLocations = async (req, res) => {
   try {
-    const locations = await Location.find();
+    const locations = await Location.aggregate([
+      {
+        $group: {
+          _id: "$loc",
+          count: { $sum: 1 },
+          slots: { $push: "$slot_no" }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          loc: "$_id",
+          slot_no: {
+            $cond: {
+              if: { $eq: [{ $size: "$slots" }, 1] },
+              then: "1",
+              else: { $size: "$slots" }
+            }
+          }
+        }
+      }
+    ]);
+
     res.status(200).json(locations);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
+
 
 // Get Transactions
 export const getTransactions = async (req, res) => {

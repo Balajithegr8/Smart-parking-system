@@ -254,7 +254,7 @@ const Sidebar = ({
                   sx={{ color: theme.palette.secondary[100] }}
                 >
                   {/*{user.name}*/}
-                  Yashwardhan Khanna
+                  Balaji Prakasam
                 </Typography>
                 <Typography
                   fontSize="0.8rem"

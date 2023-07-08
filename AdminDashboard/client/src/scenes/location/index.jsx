@@ -6,8 +6,9 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Button,
 } from "@mui/material";
-
+import { useNavigate } from "react-router-dom";
 import { useGetLocationsQuery } from "state/api";
 import { Header } from "components";
 
@@ -15,24 +16,34 @@ import { Header } from "components";
 const Location = ({
   loc,
   slot_no,
-  v_type
+  totalSlots,
+  availableSlots,
 }) => {
   // theme
   const theme = useTheme();
+  const history = useNavigate();
+
+  const handleClick = () => {
+    history(`/locations/${loc}`); // Redirect to the details page for the specific location
+  };
 
   return (
-    <Card
+    
+    <Card 
       sx={{
-        backgroundImage: "none",
+        backgroundImage: "none",  
         backgroundColor: theme.palette.background.alt,
         borderRadius: "0.55rem",
       }}
+      
     >
+      <Box >
       {/* Content */}
-      <CardContent>
+      <CardContent >
         {/* Category */}
-        <Typography
-          sx={{ fontSize: 14 }}
+
+        <Typography 
+          sx={{ fontSize: 20 }}
           color={theme.palette.secondary[700]}
           gutterBottom
         >
@@ -41,28 +52,61 @@ const Location = ({
 
         {/* Name */}
         <Typography variant="h5" component="div">
-          {slot_no}
-        </Typography>
+          Slots taken : {slot_no}
+        </Typography>     
 
-        {/* Description */}
-        <Typography variant="body2">{v_type}</Typography>
+        {/* Available Slots */}
+        
+          <Typography variant="h5" component="div">
+            Available slots: {totalSlots-slot_no}
+          </Typography>
+
+          {/* Total Slots */}
+        
+          <Typography variant="h5" component="div">
+            Total slots: {totalSlots}
+          </Typography>
+        <br/>
+          <Button onClick={handleClick}
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "5px 13px",
+
+              "&:hover": {
+                backgroundColor: theme.palette.background.alt,
+                color: theme.palette.secondary.light,
+              },
+            }}
+          >
+            
+            Book a Slot
+          </Button>
+
       </CardContent>
+      </Box>
     </Card>
   );
 };
 
-// Products
+// Locations
 const Locations = () => {
   // get data
   const { data, isLoading } = useGetLocationsQuery();
   // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
 
+  // Calculate total and available slots for TP location
+  const totalSlotsTP = 50;
+  const availableSlotsTP = totalSlotsTP - data?.filter((location) => location.loc === "TP" && location.slot_no).length;
+
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
-      <Header title="SLOTS" subtitle="List Of Available Location For Parking" />
-
+      <Header title="LOCATIONS" subtitle="List Of Available Location For Parking" />
+      <br/>
       {/* Content */}
       {data || !isLoading ? (
         <Box
@@ -82,14 +126,16 @@ const Locations = () => {
               _id,
               loc,
               slot_no,      
-              v_type,
+             
             }) => (
               <Location
                 key={_id}
                 _id={_id}
                 loc={loc}
                 slot_no={slot_no}
-                v_type={v_type}
+                totalSlots={totalSlotsTP}
+                availableSlots={availableSlotsTP}
+                
               />
             )
           )}
