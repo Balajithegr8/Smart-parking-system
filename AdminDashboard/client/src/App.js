@@ -19,6 +19,7 @@ import {
   Daily,
   Monthly,
   Breakdown,
+  CCTV,
   Admin,
   Performance,
 } from "scenes";
@@ -49,6 +50,7 @@ const App = () => {
               <Route path="/daily" element={<Daily />} />
               <Route path="/monthly" element={<Monthly />} />
               <Route path="/breakdown" element={<Breakdown />} />
+              <Route path="/cctv" element={<CCTV />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/performance" element={<Performance />} />
             </Route>

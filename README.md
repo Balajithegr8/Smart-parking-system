@@ -27,6 +27,15 @@ The Smart Parking System is built using modern web technologies. Our tech stack 
 - **Database:** MongoDB for data storage.
 - **API Communication:** RESTful APIs for frontend and backend communication.
 
+## For Developers
+
+To add a new feature, changes will be required in the below files:
+- src->components
+- scenes->make a new folder->index.js
+- api.js
+- App.js
+- controllers
+
 ## Contributors
 The project is only possible due to the effort of these people, thanks for your wonderful contributions!
 
