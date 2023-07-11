@@ -41,11 +41,20 @@ export const getCustomers = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+//Get Name
+// export const getname = async (req, res) => {
+//   try {
+//     const name = await User.findOne({ email: email });
+//     res.status(200).json(name);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+//   };
 
 // Get Slots
 export const getSlots = async (req, res) => {
   try {
-    const slots = await Slot.find({ loc: "TP" });
+    const slots = await Location.find();
     res.status(200).json(slots);
   } catch (error) {
     res.status(404).json({ message: error.message });

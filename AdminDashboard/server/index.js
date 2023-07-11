@@ -5,7 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import User from "./models/User.js";
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
 
@@ -72,3 +72,72 @@ mongoose
     */
   })
   .catch((error) => console.log(`${error} did not connect.`));
+  
+  //routes
+  
+  app.post("/login", (req,res) =>{
+  
+    const {email, password }  = req.body
+  
+    User.findOne({ email: email })
+      .then((user) => {
+  
+        if (user) {
+  
+          if(password === user.password){
+            res.send({message:"Login success",user:user})
+          }
+          else{
+            res.send({message:"password dint match"})
+          }
+        
+        } else {
+  
+          res.send({message: "User not registered"})
+  
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
+  
+  })
+  
+  app.post("/Register", (req,res) =>{
+  
+    const { name, email, password ,occupation="Faculty" ,phoneNumber ,transaction=[],role="guard"}  = req.body
+  
+    User.findOne({email: email })
+      .then((user) => {
+        if (user) {
+          res.send({ message: "User Already registered" });
+        } else {
+          const newUser = new User({
+            name,
+            email,
+            password,
+            occupation,
+            phoneNumber,
+            transaction,
+            role
+          });
+          newUser
+            .save() // Removed the callback function here
+            .then(() => {
+              res.send({ message: "Successfully Registered, Please login now. " });
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send({ message: "Server error" });
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
+  
+  
+  
+  });  

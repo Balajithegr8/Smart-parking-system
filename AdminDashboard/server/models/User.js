@@ -28,8 +28,8 @@ const UserSchema = new mongoose.Schema(
     transactions: Array,
     role: {
       type: String,
-      enum: ["user", "admin", "superadmin"],
-      default: "admin",
+      enum: ["user", "admin", "superadmin","guard"],
+      default: "guard",
     },
   },
   { timestamps: true }

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-// Product Schema
+// Slot Schema
 const SlotSchema = new mongoose.Schema(
   {
     

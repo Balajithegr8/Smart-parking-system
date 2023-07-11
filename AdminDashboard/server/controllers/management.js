@@ -19,7 +19,7 @@ export const getCCTV = async (_, res) => {
 // Get Admins
 export const getAdmins = async (_, res) => {
   try {
-    const admins = await User.find({ role: "admin" }).select("-password");
+    const admins = await User.find({ role: { $in: ["admin", "guard","superadmin"] } }).select("-password");
 
     res.status(200).json(admins);
   } catch (error) {

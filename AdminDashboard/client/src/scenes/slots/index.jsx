@@ -2,15 +2,12 @@ import React from "react";
 import {
   Box,
   Card,
-  CardActions,
   CardContent,
-  Collapse,
-  Button,
   Typography,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
-
+import { useLocation } from "react-router-dom";
 import { useGetSlotsQuery } from "state/api";
 import { Header } from "components";
 
@@ -54,12 +51,17 @@ const Slot = ({
   );
 };
 
-// Products
+// Slots
 const Slots = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const loc = searchParams.get("loc");  
   // get data
   const { data, isLoading } = useGetSlotsQuery();
   // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
+
+  const filteredData = data ? data.filter(slot => slot.loc === loc) : [];
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -67,7 +69,7 @@ const Slots = () => {
       <Header title="SLOTS" subtitle="List Of Available Location For Parking" />
 
       {/* Content */}
-      {data || !isLoading ? (
+      {filteredData.length > 0 || !isLoading ?  (
         <Box
           mt="20px"
           display="grid"
@@ -80,7 +82,7 @@ const Slots = () => {
           }}
         >
           {/* Loop over each product */}
-          {data.map(
+          {filteredData.map(
             ({
               _id,
               loc,

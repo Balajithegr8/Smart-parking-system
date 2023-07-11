@@ -7,7 +7,8 @@ import { Navbar, Sidebar } from "components";
 import { useGetUserQuery } from "state/api";
 
 // Layout
-const Layout = () => {
+const Layout = (abc) => {
+  console.log(abc)
   // is desktop
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   // is sidebar open
@@ -21,11 +22,12 @@ const Layout = () => {
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
       {/* Sidebar */}
       <Sidebar
-        user={data || {}}
+        abc={abc}
         isNonMobile={isNonMobile}
         drawerWidth="250px"
         isSidebarOpen={isSidebarOpen}
         setIsSidebarOpen={setIsSidebarOpen}
+        
       />
 
       {/* Navbar */}

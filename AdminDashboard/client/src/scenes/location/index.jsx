@@ -17,14 +17,13 @@ const Location = ({
   loc,
   slot_no,
   totalSlots,
-  availableSlots,
 }) => {
   // theme
   const theme = useTheme();
   const history = useNavigate();
 
   const handleClick = () => {
-    history(`/locations/${loc}`); // Redirect to the details page for the specific location
+    history(`/slots?loc=${loc}`); // Redirect to the details page for the specific location
   };
 
   return (

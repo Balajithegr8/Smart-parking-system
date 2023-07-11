@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CameraOutdoorIcon from '@mui/icons-material/CameraOutdoor';
+
 import {
   Box,
   Divider,
@@ -28,7 +29,6 @@ import {
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
-  ViewWeekOutlined,
   LocalParkingOutlined,
 } from "@mui/icons-material";
 
@@ -52,10 +52,6 @@ const navItems = [
   {
     text: "User",
     icon: <Groups2Outlined />,
-  },
-  {
-    text: "Slots",
-    icon: <ViewWeekOutlined />,
   },
   {
     text: "Locations",
@@ -105,13 +101,15 @@ const navItems = [
 
 // Sidebar
 const Sidebar = ({
-  user,
+  abc,
   isNonMobile,
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
 }) => {
   // config
+  console.log(abc)
+  const { name, role } = abc; 
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
@@ -122,6 +120,8 @@ const Sidebar = ({
     setActive(pathname.substring(1));
   }, [pathname]);
 
+  // get data
+  // const { data, isLoading } = useGetnameQuery();
   return (
     <Box component="nav">
       {isSidebarOpen && (
@@ -190,7 +190,7 @@ const Sidebar = ({
 
                 // lowercase text
                 const lcText = text.toLowerCase();
-
+                // name1=getname();
                 return (
                   <ListItem key={text} title={text} disablePadding>
                     <ListItemButton
@@ -253,14 +253,16 @@ const Sidebar = ({
                   fontSize="0.9rem"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
-                  {/*{user.name}*/}
-                  Balaji Prakasam
+                  {/* {name} */}
+                  Balaji prakasam
+                  
+                  
                 </Typography>
                 <Typography
                   fontSize="0.8rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {/*{user.occupation}*/}
+                  {/* {role} */}
                   Admin
                 </Typography>
               </Box>
