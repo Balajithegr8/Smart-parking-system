@@ -2,12 +2,12 @@ import getCountryISO3 from "country-iso-2-to-3";
 import _ from "lodash";
 
 // Models import
-import Product from "../models/Product.js";
-import ProductStat from "../models/ProductStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Slot from "../models/Slots.js";
 import Location from "../models/Locations.js";
+import Product from "../models/Product.js";
+import ProductStat from "../models/ProductStat.js";
 
 // Get Products
 export const getProducts = async (_, res) => {
@@ -31,6 +31,8 @@ export const getProducts = async (_, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+
 
 // Get Customers
 export const getCustomers = async (req, res) => {

@@ -1,12 +1,13 @@
 import express from "express";
 
 import {
-  getProducts,
   getCustomers,
   getTransactions,
   getGeography,
   getSlots,
   getLocations,
+  getProducts,
+
 } from "../controllers/client.js";
 
 const router = express.Router();
