@@ -14,7 +14,6 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-
 import { useGetDashboardQuery } from "state/api";
 import {
   FlexBetween,
@@ -24,14 +23,15 @@ import {
   StatBox,
 } from "components";
 
-const Dashboard = () => {
+const Dashboard = (abc) => {
   // theme
   const theme = useTheme();
   // is large desktop screen
   const isNonMediumScreen = useMediaQuery("(min-width: 1200px)");
   // get data
   const { data, isLoading } = useGetDashboardQuery();
-
+  abc=abc.abc;
+  if(abc.name===undefined){abc.name="Elon Musk"}
   // data columns
   const columns = [
     {
@@ -68,7 +68,7 @@ const Dashboard = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         {/* Header */}
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        <Header title="DASHBOARD" subtitle={`Welcome to your dashboard, ${abc.name}`} />
 
         {/* Content */}
         <Box>

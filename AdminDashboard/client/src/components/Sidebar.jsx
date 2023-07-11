@@ -30,6 +30,7 @@ import {
   TrendingUpOutlined,
   PieChartOutlined,
   LocalParkingOutlined,
+  FeedbackOutlined,
 } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
@@ -45,10 +46,7 @@ const navItems = [
     text: "Client Facing",
     icon: null,
   },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
+  
   {
     text: "User",
     icon: <Groups2Outlined />,
@@ -64,38 +62,61 @@ const navItems = [
   {
     text: "Sales",
     icon: null,
+    condition: (role) => role === "admin" || role === "superadmin",
   },
   {
     text: "Overview",
     icon: <PointOfSaleOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
+  },
+  {
+    text: "Feedback",
+    icon: <FeedbackOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+    
   },
   {
     text: "Daily",
     icon: <TodayOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Monthly",
     icon: <CalendarMonthOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Breakdown",
     icon: <PieChartOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Management",
     icon: null,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "CCTV",
     icon: <CameraOutdoorIcon  />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Performance",
     icon: <TrendingUpOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
 ];
 
@@ -108,7 +129,6 @@ const Sidebar = ({
   setIsSidebarOpen,
 }) => {
   // config
-  console.log(abc)
   const { name, role } = abc; 
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
@@ -151,7 +171,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography
-                    variant="h4"
+                    variant="h1"
                     fontWeight="bold"
                     onClick={() => {
                       navigate("/dashboard");
@@ -179,9 +199,13 @@ const Sidebar = ({
 
             {/* Sidebar items */}
             <List>
-              {navItems.map(({ text, icon }) => {
-                if (!icon) {
+              {navItems.map(({ text, icon, condition }) => {
+                if (!icon ) {
+                  if (condition && !condition(role)) {
+                    return null; // Skip rendering this item
+                  }
                   return (
+                    
                     <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
                       {text}
                     </Typography>
@@ -190,6 +214,11 @@ const Sidebar = ({
 
                 // lowercase text
                 const lcText = text.toLowerCase();
+
+                if (condition && !condition(role)) {
+                  return null; // Skip rendering this item
+                }
+            
                 // name1=getname();
                 return (
                   <ListItem key={text} title={text} disablePadding>
@@ -253,8 +282,8 @@ const Sidebar = ({
                   fontSize="0.9rem"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
-                  {/* {name} */}
-                  Balaji prakasam
+                  {name}
+                  {/* Balaji prakasam */}
                   
                   
                 </Typography>
@@ -262,8 +291,8 @@ const Sidebar = ({
                   fontSize="0.8rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {/* {role} */}
-                  Admin
+                  {role}
+                  {/* Admin */}
                 </Typography>
               </Box>
               <SettingsOutlined
@@ -276,5 +305,6 @@ const Sidebar = ({
     </Box>
   );
 };
+
 
 export default Sidebar;

@@ -31,7 +31,6 @@ import {
 const App = () => {
   const [user,setLoginUser]= useState({})
   const abc=user
-  console.log(abc)
   
   // Dark/Light mode
   const mode = useSelector((state) => state.global.mode);
@@ -49,8 +48,8 @@ const App = () => {
               <Route exact path="/" element={<Register />} />
               <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
               <Route element={<Layout abc={abc}/>}>
-              <Route path="/dashboard" element={<Dashboard/> } />
-              <Route path="/products" element={<Products />} /> 
+              <Route path="/dashboard" element={<Dashboard abc={abc}/> } />
+              <Route path="/feedback" element={<Products />} /> 
               <Route path="/user" element={<User />} />
               <Route path="/slots" element={<Slots />} />
               <Route path="/locations" element={<Locations />} />

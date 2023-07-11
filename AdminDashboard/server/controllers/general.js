@@ -2,12 +2,14 @@
 import User from "../models/User.js";
 import OverallStat from "../models/OverallStat.js";
 import Transaction from "../models/Transaction.js";
+import Product from "../models/Product.js";
+import ProductStat from "../models/ProductStat.js";
 
 // Get User
 export const getUser = async (req, res) => {
   try {
-    const { id } = req.params;
-    const user = await User.findById(id);
+    const { email } = req.params;
+    const user = await User.findById(email);
     res.status(200).json(user);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -58,6 +60,29 @@ export const getDashboardStats = async (_, res) => {
       todayStats,
       transactions,
     });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+// Get Products
+export const getProducts = async (_, res) => {
+  try {
+    const products = await Product.find();
+    const productsWithStats = await Promise.all(
+      products.map(async (product) => {
+        const stat = await ProductStat.find({
+          productId: product._id,
+        });
+
+        return {
+          ...product._doc,
+          stat,
+        };
+      })
+    );
+
+    res.status(200).json(productsWithStats);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
