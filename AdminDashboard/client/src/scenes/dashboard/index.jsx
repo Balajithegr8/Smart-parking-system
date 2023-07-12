@@ -31,7 +31,7 @@ const Dashboard = (abc) => {
   // get data
   const { data, isLoading } = useGetDashboardQuery();
   abc=abc.abc;
-  if(abc.name===undefined){abc.name="Elon Musk"}
+  // if(abc.name===undefined){abc.name="Elon Musk"}
   // data columns
   const columns = [
     {

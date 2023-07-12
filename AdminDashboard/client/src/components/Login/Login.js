@@ -6,7 +6,7 @@ function Login({setLoginUser}) {
     <div>
       
       <Bg />
-      <FloatingWindow1 setLoginUser={setLoginUser} />
+      <FloatingWindow1 setLoginUser={setLoginUser}/>
     </div>
   );
 }

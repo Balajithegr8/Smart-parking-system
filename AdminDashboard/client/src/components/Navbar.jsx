@@ -27,6 +27,12 @@ import profileImage from "assets/profile.jpeg";
 
 // Navbar
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
+  
+  if(user.name===undefined){
+    user.name=localStorage.getItem('name')
+    user.role=localStorage.getItem('role')
+    console.log(user.name,user.role)
+  }
   // redux dispatch items
   const dispatch = useDispatch();
   // theme

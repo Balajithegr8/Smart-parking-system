@@ -84,7 +84,11 @@ mongoose
   
         if (user) {
   
-          if(password === user.password){
+          if(password === user.password && user.role==="user"){
+            res.send({message:"you are not allowed, Yowai mo"})
+          }
+          else if(password === user.password){
+            
             res.send({message:"Login success",user:user})
           }
           else{

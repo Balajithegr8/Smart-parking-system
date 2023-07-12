@@ -20,7 +20,6 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
   PointOfSaleOutlined,
@@ -129,11 +128,17 @@ const Sidebar = ({
   setIsSidebarOpen,
 }) => {
   // config
-  const { name, role } = abc; 
+  var { name, role } = abc; 
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  if(name===undefined){
+    name=localStorage.getItem('name')
+    role=localStorage.getItem('role')
+  }
+
+  
 
   // set active path
   useEffect(() => {
