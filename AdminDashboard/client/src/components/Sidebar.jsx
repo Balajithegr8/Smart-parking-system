@@ -133,19 +133,18 @@ const Sidebar = ({
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  
+  //to retrieve the name and role after reload 
   if(name===undefined){
     name=localStorage.getItem('name')
     role=localStorage.getItem('role')
   }
-
-  
 
   // set active path
   useEffect(() => {
     setActive(pathname.substring(1));
   }, [pathname]);
 
-  // get data
   // const { data, isLoading } = useGetnameQuery();
   return (
     <Box component="nav">

@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
+import { useNavigate } from "react-router-dom";
+
 import {
   AppBar,
   useTheme,
@@ -27,11 +29,11 @@ import profileImage from "assets/profile.jpeg";
 
 // Navbar
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
-  
+  const navigate=useNavigate();
   if(user.name===undefined){
     user.name=localStorage.getItem('name')
     user.role=localStorage.getItem('role')
-    console.log(user.name,user.role)
+    
   }
   // redux dispatch items
   const dispatch = useDispatch();
@@ -44,7 +46,17 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
 
   // handle
   const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = () => {
+    setAnchorEl(null)
+  };
+
+  const logout = () => {
+    setAnchorEl(null)
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    navigate("/login");
+  };
+
 
   return (
     <AppBar
@@ -150,7 +162,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
               {/* log out */}
-              <MenuItem onClick={handleClose} title="Log Out">
+              <MenuItem onClick={ logout} title="Log Out">
                 Log Out
               </MenuItem>
             </Menu>
