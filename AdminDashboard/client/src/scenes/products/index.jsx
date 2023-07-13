@@ -110,7 +110,7 @@ const Products = () => {
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
-      <Header title="PRODUCTS" subtitle="See your list of products." />
+      <Header title="FEEDBACK" subtitle="See the list of Feedbacks." />
 
       {/* Content */}
       {data || !isLoading ? (

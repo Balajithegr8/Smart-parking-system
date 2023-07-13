@@ -14,6 +14,7 @@ import Breakdown from "./breakdown";
 import CCTV from "./cctv";
 import Admin from "./admin";
 import Performance from "./performance";
+import Locations from "./location";
 
 // export scenes
 export {
@@ -22,6 +23,7 @@ export {
   Products,
   User,
   Slots,
+  Locations,
   Transactions,
   Overview,
   Daily,

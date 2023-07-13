@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CameraOutdoorIcon from '@mui/icons-material/CameraOutdoor';
+
 import {
   Box,
   Divider,
@@ -19,7 +20,6 @@ import {
   ChevronLeft,
   ChevronRightOutlined,
   HomeOutlined,
-  ShoppingCartOutlined,
   Groups2Outlined,
   ReceiptLongOutlined,
   PointOfSaleOutlined,
@@ -28,7 +28,8 @@ import {
   AdminPanelSettingsOutlined,
   TrendingUpOutlined,
   PieChartOutlined,
-  ViewWeekOutlined,
+  LocalParkingOutlined,
+  FeedbackOutlined,
 } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
@@ -44,17 +45,14 @@ const navItems = [
     text: "Client Facing",
     icon: null,
   },
-  {
-    text: "Products",
-    icon: <ShoppingCartOutlined />,
-  },
+  
   {
     text: "User",
     icon: <Groups2Outlined />,
   },
   {
-    text: "Slots",
-    icon: <ViewWeekOutlined />,
+    text: "Locations",
+    icon: <LocalParkingOutlined />,
   },
   {
     text: "Transactions",
@@ -63,60 +61,91 @@ const navItems = [
   {
     text: "Sales",
     icon: null,
+    condition: (role) => role === "admin" || role === "superadmin",
   },
   {
     text: "Overview",
     icon: <PointOfSaleOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
+  },
+  {
+    text: "Feedback",
+    icon: <FeedbackOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+    
   },
   {
     text: "Daily",
     icon: <TodayOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Monthly",
     icon: <CalendarMonthOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Breakdown",
     icon: <PieChartOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Management",
     icon: null,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Admin",
     icon: <AdminPanelSettingsOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "CCTV",
     icon: <CameraOutdoorIcon  />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
   {
     text: "Performance",
     icon: <TrendingUpOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin",
+
   },
 ];
 
 // Sidebar
 const Sidebar = ({
-  user,
+  abc,
   isNonMobile,
   drawerWidth,
   isSidebarOpen,
   setIsSidebarOpen,
 }) => {
   // config
+  var { name, role } = abc; 
   const { pathname } = useLocation();
   const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  
+  //to retrieve the name and role after reload 
+  if(name===undefined){
+    name=localStorage.getItem('name')
+    role=localStorage.getItem('role')
+  }
 
   // set active path
   useEffect(() => {
     setActive(pathname.substring(1));
   }, [pathname]);
 
+  // const { data, isLoading } = useGetnameQuery();
   return (
     <Box component="nav">
       {isSidebarOpen && (
@@ -146,7 +175,7 @@ const Sidebar = ({
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
                   <Typography
-                    variant="h4"
+                    variant="h1"
                     fontWeight="bold"
                     onClick={() => {
                       navigate("/dashboard");
@@ -174,9 +203,13 @@ const Sidebar = ({
 
             {/* Sidebar items */}
             <List>
-              {navItems.map(({ text, icon }) => {
-                if (!icon) {
+              {navItems.map(({ text, icon, condition }) => {
+                if (!icon ) {
+                  if (condition && !condition(role)) {
+                    return null; // Skip rendering this item
+                  }
                   return (
+                    
                     <Typography key={text} sx={{ m: "2.25rem 0 1rem 3rem" }}>
                       {text}
                     </Typography>
@@ -186,6 +219,11 @@ const Sidebar = ({
                 // lowercase text
                 const lcText = text.toLowerCase();
 
+                if (condition && !condition(role)) {
+                  return null; // Skip rendering this item
+                }
+            
+                // name1=getname();
                 return (
                   <ListItem key={text} title={text} disablePadding>
                     <ListItemButton
@@ -248,15 +286,17 @@ const Sidebar = ({
                   fontSize="0.9rem"
                   sx={{ color: theme.palette.secondary[100] }}
                 >
-                  {/*{user.name}*/}
-                  Yashwardhan Khanna
+                  {name}
+                  {/* Balaji prakasam */}
+                  
+                  
                 </Typography>
                 <Typography
                   fontSize="0.8rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {/*{user.occupation}*/}
-                  Admin
+                  {role}
+                  {/* Admin */}
                 </Typography>
               </Box>
               <SettingsOutlined
@@ -269,5 +309,6 @@ const Sidebar = ({
     </Box>
   );
 };
+
 
 export default Sidebar;

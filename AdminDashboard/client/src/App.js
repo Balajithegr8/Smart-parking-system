@@ -2,8 +2,10 @@ import React, { useMemo } from "react";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import { createTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-
+import Register from './components/Register/Register';
+import Login from './components/Login/Login';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from 'react';
 // Theme
 import { themeSettings } from "theme";
 
@@ -13,6 +15,7 @@ import {
   Dashboard,
   Products,
   Slots,
+  Locations,
   User,
   Transactions,
   Overview,
@@ -26,12 +29,15 @@ import {
 
 // App
 const App = () => {
+  const [user,setLoginUser]= useState({})
+  const abc=user
+  
   // Dark/Light mode
   const mode = useSelector((state) => state.global.mode);
   // theme setting
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-
   return (
+    
     <div className="app">
       <BrowserRouter>
         {/* Theme Provider */}
@@ -39,12 +45,14 @@ const App = () => {
           <CssBaseline />
           <Routes>
             {/* Routes */}
-            <Route element={<Layout />}>
-              <Route path="/" element={<Navigate to="/dashboard" replace />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/products" element={<Products />} />
+              <Route exact path="/" element={<Register />} />
+              <Route path="/login" element={<Login setLoginUser={setLoginUser} />} />
+              <Route element={<Layout abc={abc}/>}>
+              <Route path="/dashboard" element={<Dashboard abc={abc}/> } />
+              <Route path="/feedback" element={<Products />} /> 
               <Route path="/user" element={<User />} />
               <Route path="/slots" element={<Slots />} />
+              <Route path="/locations" element={<Locations />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/overview" element={<Overview />} />
               <Route path="/daily" element={<Daily />} />
@@ -55,7 +63,7 @@ const App = () => {
               <Route path="/performance" element={<Performance />} />
             </Route>
           </Routes>
-        </ThemeProvider>
+          </ThemeProvider>
       </BrowserRouter>
     </div>
   );

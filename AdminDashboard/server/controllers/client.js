@@ -2,11 +2,12 @@ import getCountryISO3 from "country-iso-2-to-3";
 import _ from "lodash";
 
 // Models import
-import Product from "../models/Product.js";
-import ProductStat from "../models/ProductStat.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Slot from "../models/Slots.js";
+import Location from "../models/Locations.js";
+import Product from "../models/Product.js";
+import ProductStat from "../models/ProductStat.js";
 
 // Get Products
 export const getProducts = async (_, res) => {
@@ -31,6 +32,8 @@ export const getProducts = async (_, res) => {
   }
 };
 
+
+
 // Get Customers
 export const getCustomers = async (req, res) => {
   try {
@@ -40,16 +43,58 @@ export const getCustomers = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+//Get Name
+// export const getname = async (req, res) => {
+//   try {
+//     const name = await User.findOne({ email: email });
+//     res.status(200).json(name);
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+//   };
 
 // Get Slots
 export const getSlots = async (req, res) => {
   try {
-    const slots = await Slot.find({ loc: "TP" });
+    const slots = await Location.find();
     res.status(200).json(slots);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
+
+// Get Locations
+export const getLocations = async (req, res) => {
+  try {
+    const locations = await Location.aggregate([
+      {
+        $group: {
+          _id: "$loc",
+          count: { $sum: 1 },
+          slots: { $push: "$slot_no" }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          loc: "$_id",
+          slot_no: {
+            $cond: {
+              if: { $eq: [{ $size: "$slots" }, 1] },
+              then: "1",
+              else: { $size: "$slots" }
+            }
+          }
+        }
+      }
+    ]);
+
+    res.status(200).json(locations);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 
 // Get Transactions
 export const getTransactions = async (req, res) => {
