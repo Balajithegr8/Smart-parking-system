@@ -7,10 +7,13 @@ import {
   Typography,
   List,
   ListItem,
+  useTheme,
   Button,
 } from "@mui/material";
-import { Header } from "components";
+import { Header, CustomColumnMenu } from "components";
 import VideoJS from "./videoJS";
+import { DataGrid } from "@mui/x-data-grid";
+import { useGetCCTVQuery } from "state/api";
 
 // CCTV
 const CCTV = () => {
@@ -24,6 +27,21 @@ const CCTV = () => {
 
   // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
+  const theme = useTheme();
+  const { data_, isLoading } = useGetCCTVQuery();
+
+  const columns = [
+    {
+      field: "date",
+      headerName: "Date",
+      flex: 1,
+    },
+    {
+      field: "duration",
+      headerName: "Duration",
+      flex: 0.5,
+    },
+  ];
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -31,7 +49,6 @@ const CCTV = () => {
       <Header title="CCTV" subtitle="Live and Recorded CCTV footages" />
 
       {/* Content */}
-      
       <Box display="flex">
         {/* Video Player */}
         <Box flex="1" mr={2}>
@@ -68,6 +85,45 @@ const CCTV = () => {
             </CardContent>
           </CardWrapper>
         </Box>
+      </Box>
+      <Box
+        mt="40px"
+        height="75vh"
+        sx={{
+          "& .MuiDataGrid-root": {
+            border: "none",
+          },
+          "& .MuiDataGrid-cell": {
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-columnHeaders": {
+            backgroundColor: theme.palette.background.alt,
+            color: theme.palette.secondary[100],
+            borderBottom: "none",
+          },
+          "& .MuiDataGrid-virtualScroller": {
+            backgroundColor: theme.palette.primary.light,
+          },
+          "& .MuiDataGrid-footerContainer": {
+            backgroundColor: theme.palette.primary.light,
+            color: theme.palette.secondary[100],
+            borderTop: "none",
+          },
+          "& .MuiDataGrid-toolbarContainer .MuiButtom-text": {
+            color: `${theme.palette.secondary[200]} !important`,
+          },
+        }}
+      >
+        {/* Grid Table */}
+        <DataGrid
+          loading={isLoading || !data_}
+          getRowId={(row) => row._id}
+          rows={data_ || []}
+          columns={columns}
+          components={{
+            ColumnMenu: CustomColumnMenu,
+          }}
+        />
       </Box>
     </Box>
   );

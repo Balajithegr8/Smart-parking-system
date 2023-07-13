@@ -10,7 +10,7 @@ export const getCCTV = async (_, res) => {
   try {
     const cctv = await CCTV.find({ role: "cctv" }).select("-password");
 
-    res.status(200).json(cctv);
+    res.status(200).json(cctvs);
   } catch (error) {
     res.status(200).json({ message: error.message });
   }

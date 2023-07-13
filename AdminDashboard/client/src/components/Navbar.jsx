@@ -23,7 +23,7 @@ import {
   } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
-import profileImage from "assets/profile.jpeg";
+import profileImage from "assets/profile1.jpeg";
 
 // Navbar
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
@@ -119,7 +119,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                   sx={{ color: theme.palette.secondary[100] }}
                 >
                   {/*{user.name}*/}
-                  Balaji Prakasam
+                  Yashwardhan Khanna
                 </Typography>
                 <Typography
                   fontSize="0.75rem"

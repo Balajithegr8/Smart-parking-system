@@ -57,7 +57,7 @@ export const api = createApi({
       providesTags: ["Sales"],
     }),
     getCCTV: build.query({
-      query: () => "management/cctv",
+      query: () => "management/cctvs",
       providesTags: ["CCTV"],
     }),
     getAdmins: build.query({
