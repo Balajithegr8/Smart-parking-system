@@ -14,21 +14,13 @@ import { Header, CustomColumnMenu } from "components";
 import VideoJS from "./videoJS";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetCCTVQuery } from "state/api";
+import { useGetCCTVCamerasQuery } from "state/api";
 
-// CCTV
 const CCTV = () => {
-  // Dummy data for CCTV cameras
-  const data = [
-    { id: "cctv1", name: "Camera 1" },
-    { id: "cctv2", name: "Camera 2" },
-    { id: "cctv3", name: "Camera 3" },
-    { id: "cctv1", name: "Camera 1" },
-  ];
-
-  // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
   const theme = useTheme();
-  const { data_, isLoading } = useGetCCTVQuery();
+  const { data: cameras, isLoading: camerasLoading } = useGetCCTVCamerasQuery();
+  const { data: footage, isLoading: footageLoading } = useGetCCTVQuery();
 
   const columns = [
     {
@@ -45,34 +37,29 @@ const CCTV = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      {/* Header */}
       <Header title="CCTV" subtitle="Live and Recorded CCTV footages" />
 
-      {/* Content */}
       <Box display="flex">
-        {/* Video Player */}
         <Box flex="1" mr={2}>
           <VideoJS />
         </Box>
 
-        {/* CCTV Camera List */}
         <Box flex="1">
           <CardWrapper>
             <CardContent>
               <Typography variant="h6" component="div" mb={2}>
                 CCTV Cameras
               </Typography>
-              {data && data.length > 0 ? (
+              {camerasLoading ? (
+                <Typography variant="body2" color="textSecondary">
+                  Loading cameras...
+                </Typography>
+              ) : cameras && cameras.length > 0 ? (
                 <List>
-                  {data.map((cctv) => (
-                    <ListItem key={cctv.id}>
-                      <Button
-                        component="a"
-                        href="#"
-                        variant="text"
-                        fullWidth
-                      >
-                        {`CCTV ${cctv.name}`}
+                  {cameras.map(({ id, name }) => (
+                    <ListItem key={id}>
+                      <Button component="a" href="#" variant="text" fullWidth>
+                        {`${name}`}
                       </Button>
                     </ListItem>
                   ))}
@@ -86,39 +73,12 @@ const CCTV = () => {
           </CardWrapper>
         </Box>
       </Box>
-      <Box
-        mt="40px"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-columnHeaders": {
-            backgroundColor: theme.palette.background.alt,
-            color: theme.palette.secondary[100],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: theme.palette.primary.light,
-          },
-          "& .MuiDataGrid-footerContainer": {
-            backgroundColor: theme.palette.primary.light,
-            color: theme.palette.secondary[100],
-            borderTop: "none",
-          },
-          "& .MuiDataGrid-toolbarContainer .MuiButtom-text": {
-            color: `${theme.palette.secondary[200]} !important`,
-          },
-        }}
-      >
-        {/* Grid Table */}
+
+      <Box mt="40px" height="75vh">
         <DataGrid
-          loading={isLoading || !data_}
+          loading={footageLoading}
           getRowId={(row) => row._id}
-          rows={data_ || []}
+          rows={footage || []}
           columns={columns}
           components={{
             ColumnMenu: CustomColumnMenu,
@@ -134,8 +94,8 @@ const CardWrapper = ({ children }) => (
     sx={{
       height: "100%",
       overflow: "auto",
-      maxHeight: "500px", // Set the desired max height
-      backgroundColor: "#21262e", // Set the desired background color
+      maxHeight: "500px",
+      backgroundColor: "#21262e",
       borderRadius: "0.55rem",
     }}
   >
