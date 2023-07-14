@@ -7,6 +7,7 @@ const LocationSchema = new mongoose.Schema(
     loc: String,
     slot_no:String,
     v_type: String,
+    booked: String,
     
   },
  );

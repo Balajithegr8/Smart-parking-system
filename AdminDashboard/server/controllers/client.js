@@ -43,15 +43,6 @@ export const getCustomers = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-//Get Name
-// export const getname = async (req, res) => {
-//   try {
-//     const name = await User.findOne({ email: email });
-//     res.status(200).json(name);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-//   };
 
 // Get Slots
 export const getSlots = async (req, res) => {
@@ -67,11 +58,14 @@ export const getSlots = async (req, res) => {
 export const getLocations = async (req, res) => {
   try {
     const locations = await Location.aggregate([
+      
       {
         $group: {
           _id: "$loc",
           count: { $sum: 1 },
-          slots: { $push: "$slot_no" }
+          slots: { $push: "$slot_no" },
+          booked: { $sum: { $cond: [{ $eq: ["$booked", "yes"] }, 1, 0] } },
+          
         }
       },
       {
@@ -84,11 +78,12 @@ export const getLocations = async (req, res) => {
               then: "1",
               else: { $size: "$slots" }
             }
-          }
+          },
+          booked: 1
         }
       }
     ]);
-
+    console.log(locations)
     res.status(200).json(locations);
   } catch (error) {
     res.status(404).json({ message: error.message });
