@@ -25,7 +25,7 @@ import {
   } from "@mui/icons-material";
 
 import { FlexBetween } from ".";
-import profileImage from "assets/profile.jpeg";
+import profileImage from "assets/profile1.jpeg";
 
 // Navbar
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {

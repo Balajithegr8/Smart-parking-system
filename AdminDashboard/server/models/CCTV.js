@@ -3,8 +3,8 @@ import mongoose from "mongoose";
 // Product Schema
 const CCTVSchema = new mongoose.Schema(
   {
-    Date: String,
-    Duration:String,
+    date: String,
+    duration:String,
   },
  );
 
