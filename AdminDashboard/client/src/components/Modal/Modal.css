@@ -47,7 +47,7 @@
   z-index: 10000; /* Set a higher z-index value than other elements */
   display: flex;
   background-color: #282c34;
-  box-shadow: 0px 0px 18px 0px #8fc3ffbf;
+  /* box-shadow: 0px 0px 18px 0px #8fc3ffbf; */
   border-radius: 8px;
 }
 

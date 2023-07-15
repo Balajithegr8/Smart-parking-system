@@ -27,8 +27,7 @@ const handleChange = e => {
 }  
 
 const register = () =>{
-  const{name ,email ,password ,occupation ,phoneNumber ,transaction,role} = user
-  console.log(user);
+  const{name ,email ,password  ,phoneNumber } = user
 
   if(name && phoneNumber && email && password){
     

@@ -7,6 +7,9 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Collapse,
+  CardActions,
+
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useGetSlotsQuery } from "state/api";
@@ -18,8 +21,11 @@ const Slot = ({
   loc,
   slot_no,
   v_type,
-  booked
+  booked,
+  name,
+  licence_no
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
   // theme
   const theme = useTheme();
@@ -30,6 +36,9 @@ const Slot = ({
   // Defining the font color based on the booked status
   const fontColor = booked === "yes" ? "#384051" : theme.palette.secondary[700];
   const fontc = booked === "yes" ? "#384051" : "#ffffff";
+  
+  
+
   function Judge(){
     if(role==="guard" && booked ==="no"){
       return(
@@ -91,11 +100,37 @@ const Slot = ({
         </Typography>
         <br/>
         <Judge/>
-        
       </CardContent>
+
       
+          {/* See More/See Less */}
+          {booked === "yes" && (
+          <CardActions sx={{ mt: -1 }}>
+            <Button
+              variant="primary"
+              size="small"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              {isExpanded ? "See Less" : "See More"}
+            </Button>
+          </CardActions>
+        )}
+          {/* More Info */}
+          <Collapse
+            in={isExpanded}
+            timeout="auto"
+            unmountOnExit
+            sx={{ color: theme.palette.neutral[300] }}
+          >
+            <CardContent>
+              <Typography>Booked by : {name}</Typography>
+              <Typography>Licence Number: {licence_no}</Typography>
+            </CardContent>
+          </Collapse>
+
+        
     </Card>
-    {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type}/>}
+    {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
     </Box>
   );
 };
@@ -139,6 +174,8 @@ const Slots = () => {
               slot_no,      
               v_type,
               booked,
+              name,
+              licence_no
             }) => (
               <Slot
                 key={slot_no}
@@ -147,6 +184,9 @@ const Slots = () => {
                 slot_no={slot_no}
                 v_type={v_type}
                 booked={booked}
+                name={name}
+                licence_no={licence_no}
+               
               />
             )
           )}

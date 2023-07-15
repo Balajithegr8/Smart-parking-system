@@ -83,7 +83,6 @@ export const getLocations = async (req, res) => {
         }
       }
     ]);
-    console.log(locations)
     res.status(200).json(locations);
   } catch (error) {
     res.status(404).json({ message: error.message });
