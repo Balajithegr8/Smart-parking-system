@@ -149,32 +149,55 @@ mongoose
   
   
   app.post("/slots", (req, res) => {
-    const { name, licence_no, slot_no,loc, v_type, booked = "yes" } = req.body;
-  
-    Location.findOne({ loc, slot_no })
-      .then((existingLocation) => {
-        console.log(existingLocation,loc,slot_no);
-        if (existingLocation) {
-          // Update the existing data
-          existingLocation.name = name;
-          existingLocation.licence_no = licence_no;
-          existingLocation.booked = "yes";
-  
-          existingLocation.save()
-            .then(() => {
-              res.send({ message: "Successfully updated, Arigato" });
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
-        } else {
-          console.log("nooooo")
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
+    const { name, licence_no, slot_no,loc, v_type, booked  } = req.body;
+    if(booked==="yes"){
+      Location.findOne({ loc, slot_no })
+        .then((existingLocation) => {
+          if (existingLocation) {
+            // Update the existing data
+            existingLocation.name = name;
+            existingLocation.licence_no = licence_no;
+            existingLocation.booked = "yes";
+    
+            existingLocation.save()
+              .then(() => {
+                res.send({ message: "Successfully updated, Arigato" });
+              })
+              .catch((err) => {
+                console.error(err);
+                res.status(500).send({ message: "Server error" });
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error" });
+        });
+    }
+    else{
+      Location.findOne({ loc, slot_no })
+        .then((existingLocation) => {
+          if (existingLocation) {
+            // Update the existing data
+            existingLocation.name = "";
+            existingLocation.licence_no = "";
+            existingLocation.booked = "no";
+    
+            existingLocation.save()
+              .then(() => {
+                res.send({ message: "Successfully updated, Arigato" });
+              })
+              .catch((err) => {
+                console.error(err);
+                res.status(500).send({ message: "Server error" });
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error" });
+        });
+    }
   });
+
   

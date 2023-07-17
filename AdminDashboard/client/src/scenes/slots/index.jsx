@@ -16,6 +16,7 @@ import { useGetSlotsQuery } from "state/api";
 import { Header } from "components";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
+import Pop from "../../components/Pop/Pop";
 // Slot
 const Slot = ({
   loc,
@@ -27,6 +28,7 @@ const Slot = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
+  const [openPop,setopenPop] = useState(false,);
   // theme
   const theme = useTheme();
   
@@ -36,7 +38,6 @@ const Slot = ({
   // Defining the font color based on the booked status
   const fontColor = booked === "yes" ? "#384051" : theme.palette.secondary[700];
   const fontc = booked === "yes" ? "#384051" : "#ffffff";
-  
   
 
   function Judge(){
@@ -125,12 +126,31 @@ const Slot = ({
             <CardContent>
               <Typography>Booked by : {name}</Typography>
               <Typography>Licence Number: {licence_no}</Typography>
+              <Typography><br/></Typography>
+              <Button onClick={()=>{setopenPop(true); }}
+                  sx={{
+                    backgroundColor: '#8fc3ff',
+                    color: theme.palette.background.alt,
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    padding: "5px 13px",
+            
+                    "&:hover": {
+                      backgroundColor: theme.palette.background.alt,
+                      color: '#8fc3ff',
+                    },
+                  }}
+                  >
+        
+                Release this Slot
+              </Button>
             </CardContent>
           </Collapse>
 
         
     </Card>
     {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
+    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} />}
     </Box>
   );
 };

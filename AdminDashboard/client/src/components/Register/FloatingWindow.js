@@ -48,8 +48,11 @@ const register = () =>{
 
     <div className="floating-window">
       <div className='content'>
-        <h1 className='header'>Register</h1>
 
+        <div className="head">
+          <h1 className='header'>Register</h1>
+        </div>
+        
         <div className='boxers'>
         <input className="boxes" type="text" name="name"  placeholder="Name" value={user.name} onChange={ handleChange } ></input>
         </div>

@@ -96,3 +96,9 @@
   box-shadow: 10px 10px 10px rgba(30, 30, 30, 0.05), -10px -10px 10px rgba(30, 30, 30, 0.05);
   font-size: 20px;
 }
+
+.head{
+  position: absolute;
+  top: 30px; /* Adjust the top position as desired */
+  left: 380px;
+}
