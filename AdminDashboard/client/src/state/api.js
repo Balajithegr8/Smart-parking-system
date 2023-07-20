@@ -47,11 +47,7 @@ export const api = createApi({
       providesTags: ["Locations"],
     }),
     getTransactions: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
-        url: "client/transactions",
-        method: "GET",
-        params: { page, pageSize, sort, search },
-      }),
+      query: () =>   "client/transactions",
       providesTags: ["Transactions"],
     }),
     getGeography: build.query({
