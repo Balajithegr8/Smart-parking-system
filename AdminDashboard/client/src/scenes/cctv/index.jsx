@@ -13,25 +13,31 @@ import {
 import { Header, CustomColumnMenu } from "components";
 import VideoJS from "./videoJS";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetCCTVQuery } from "state/api";
+import { useGetFootageQuery } from "state/api";
 import { useGetCCTVCamerasQuery } from "state/api";
 
 const CCTV = () => {
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
   const theme = useTheme();
   const { data: cameras, isLoading: camerasLoading } = useGetCCTVCamerasQuery();
-  const { data: footage, isLoading: footageLoading } = useGetCCTVQuery();
+  const { data: footage, isLoading: footageLoading } = useGetFootageQuery();
 
   const columns = [
     {
       field: "date",
       headerName: "Date",
       flex: 1,
+      renderCell: (params) => (
+        <Typography style={{ fontSize: "16px" }}>{params.value}</Typography>
+      ),
     },
     {
       field: "duration",
       headerName: "Duration",
       flex: 0.5,
+      renderCell: (params) => (
+        <Typography style={{ fontSize: "16px" }}>{params.value}</Typography>
+      ),
     },
   ];
 

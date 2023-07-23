@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // Models import
 import cameras from "../models/CCTVCameras.js";
-import CCTV from "../models/CCTV.js";
+import footages from "../models/footage.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 
@@ -62,6 +62,17 @@ export const getCCTVCameras = async (_, res) => {
     const camera = await cameras.find();
     console.log(camera);
     res.status(200).json(camera);
+  } catch (error) {
+    res.status(200).json({ message: error.message });
+  }
+};
+
+// Get Footages
+export const getFootage = async (_, res) => {
+  try {
+    const footage = await footages.find();
+    console.log(footage);
+    res.status(200).json(footage);
   } catch (error) {
     res.status(200).json({ message: error.message });
   }
