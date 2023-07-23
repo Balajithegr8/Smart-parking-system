@@ -1,71 +1,66 @@
-import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box, useTheme } from "@mui/material";
 
 import { useGetTransactionsQuery } from "state/api";
-import { Header, DataGridCustomToolbar } from "components";
+import { Header} from "components";
 
 // Transactions
 const Transactions = () => {
   // theme
   const theme = useTheme();
-
-  // values for backend
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
-  const [sort, setSort] = useState({});
-  const [search, setSearch] = useState("");
-
-  // search
-  const [searchInput, setSearchInput] = useState("");
   // get data
-  const { data, isLoading } = useGetTransactionsQuery({
-    page,
-    pageSize,
-    sort: JSON.stringify(sort),
-    search,
+  const { data, isLoading } = useGetTransactionsQuery();
+
+  const modifiedData = data?.map((item) => {
+    const createdAt = new Date(item.createdAt);
+    return {
+      ...item,
+      bookingDate: createdAt.toISOString().split("T")[0],
+      time: createdAt.toISOString().split("T")[1].split(".")[0],
+    };
   });
 
   // data columns
   const columns = [
     {
-      field: "_id",
-      headerName: "ID",
-      flex: 1,
-    },
-    {
       field: "userId",
       headerName: "User ID",
-      flex: 0.5,
-    },
-    {
-      field: "createdAt",
-      headerName: "Created At",
       flex: 1,
     },
+    
     {
       field: "products",
-      headerName: "# of Products",
+      headerName: "# of Bookings",
       flex: 0.5,
       sortable: false,
       renderCell: (params) => params.value.length,
     },
     {
-      field: "cost",
-      headerName: "Cost",
+      field: "bookingDate",
+      headerName: "Booking Date",
       flex: 1,
-      renderCell: (params) => `$${Number(params.value).toFixed(2)}`,
+    },
+    {
+      field: "time",
+      headerName: "Time",
+      flex: 1,
+    },
+    {
+      field: "cost",
+      headerName: "Fee Paid",
+      flex: 1,
     },
   ];
 
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
-      <Header title="TRANSACTIONS" subtitle="Entire list of transactions" />
+      <Header title="Transactions" subtitle="List of Transactions" />
 
       {/* Content */}
       <Box
-        height="80vh"
+        mt="40px"
+        height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -91,30 +86,16 @@ const Transactions = () => {
           },
         }}
       >
-        {/* Grid Table */}
+        {/* Grid table */}
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.transactions) || []}
+          rows={modifiedData || []}
           columns={columns}
-          rowCount={(data && data.total) || 0}
-          rowsPerPageOptions={[20, 50, 100]}
-          pagination
-          page={page}
-          pageSize={pageSize}
-          paginationMode="server"
-          sortingMode="server"
-          onPageChange={(newPage) => setPage(newPage)}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
-          components={{ Toolbar: DataGridCustomToolbar }}
-          componentsProps={{
-            toolbar: { searchInput, setSearchInput, setSearch },
-          }}
         />
       </Box>
     </Box>
   );
 };
-
+ 
 export default Transactions;

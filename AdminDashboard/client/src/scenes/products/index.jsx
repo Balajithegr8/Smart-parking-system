@@ -22,9 +22,6 @@ const Product = ({
   description,
   price,
   rating,
-  category,
-  supply,
-  stat,
 }) => {
   // theme
   const theme = useTheme();
@@ -41,15 +38,7 @@ const Product = ({
     >
       {/* Content */}
       <CardContent>
-        {/* Category */}
-        <Typography
-          sx={{ fontSize: 14 }}
-          color={theme.palette.secondary[700]}
-          gutterBottom
-        >
-          {category}
-        </Typography>
-
+        
         {/* Name */}
         <Typography variant="h5" component="div">
           {name}
@@ -57,7 +46,7 @@ const Product = ({
 
         {/* Price */}
         <Typography sx={{ mb: "1.5rem" }} color={theme.palette.secondary[400]}>
-          ${Number(price).toFixed(2)}
+          Fee Paid : ${Number(price).toFixed(2)}
         </Typography>
 
         {/* Rating */}
@@ -87,13 +76,7 @@ const Product = ({
       >
         <CardContent>
           <Typography>id: {_id}</Typography>
-          <Typography>Supply Left: {supply}</Typography>
-          <Typography>
-            Yearly Sales This Year: {stat[0].yearlySalesTotal}
-          </Typography>
-          <Typography>
-            Yearly Units Sold This Year: {stat[0].yearlyTotalSoldUnits}
-          </Typography>
+          
         </CardContent>
       </Collapse>
     </Card>
@@ -133,9 +116,7 @@ const Products = () => {
               description,
               price,
               rating,
-              category,
-              supply,
-              stat,
+       
             }) => (
               <Product
                 key={_id}
@@ -144,9 +125,7 @@ const Products = () => {
                 description={description}
                 price={price}
                 rating={rating}
-                category={category}
-                supply={supply}
-                stat={stat}
+          
               />
             )
           )}
