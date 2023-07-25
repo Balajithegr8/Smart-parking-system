@@ -7,7 +7,11 @@
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/SmartParkingFlutterApp/frontend/flutter.todo.flex/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/SmartParkingFlutterApp/frontend/flutter.todo.flex/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/SmartParkingFlutterApp/frontend/flutter.todo.flex/build" />
+    </content>
     <orderEntry type="jdk" jdkName="Android API 31 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
