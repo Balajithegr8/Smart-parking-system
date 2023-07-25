@@ -1,9 +1,0 @@
-{
-    "appId": "smartparking-tnruo",
-    "appUrl": "https://realm.mongodb.com/groups/64a246569b438b5e1a1043d8/apps/64a507ecf769091aae630b26",
-    "baseUrl": "https://realm.mongodb.com",
-    "clientApiBaseUrl": "https://asia-south1.gcp.realm.mongodb.com",
-    "dataApiBaseUrl": "https://asia-south1.gcp.data.mongodb-api.com",
-    "dataExplorerLink": "https://cloud.mongodb.com/links/64a246569b438b5e1a1043d8/explorer/Cluster0/database/collection/find",
-    "dataSourceName": "mongodb-atlas"
-}
