@@ -1,25 +1,15 @@
 import mongoose from "mongoose";
 
 // Models import
-import CCTV from "../models/CCTV.js";
+import cameras from "../models/CCTVCameras.js";
+import footages from "../models/footage.js";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
-
-// Get CCTV
-export const getCCTV = async (_, res) => {
-  try {
-    const cctv = await CCTV.find({ role: "cctv" }).select("-password");
-
-    res.status(200).json(cctvs);
-  } catch (error) {
-    res.status(200).json({ message: error.message });
-  }
-};
 
 // Get Admins
 export const getAdmins = async (_, res) => {
   try {
-    const admins = await User.find({ role: { $in: ["admin", "guard","superadmin"] } }).select("-password");
+    const admins = await User.find({ role: { $in: ["admin", "guard", "superadmin"] } }).select("-password");
 
     res.status(200).json(admins);
   } catch (error) {
@@ -61,6 +51,28 @@ export const getUserPerformance = async (req, res) => {
     res
       .status(200)
       .json({ user: userWithStats[0], sales: filteredSaleTransactions });
+  } catch (error) {
+    res.status(200).json({ message: error.message });
+  }
+};
+
+// Get CCTV Cameras
+export const getCCTVCameras = async (_, res) => {
+  try {
+    const camera = await cameras.find();
+    console.log(camera);
+    res.status(200).json(camera);
+  } catch (error) {
+    res.status(200).json({ message: error.message });
+  }
+};
+
+// Get Footages
+export const getFootage = async (_, res) => {
+  try {
+    const footage = await footages.find();
+    console.log(footage);
+    res.status(200).json(footage);
   } catch (error) {
     res.status(200).json({ message: error.message });
   }

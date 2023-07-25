@@ -19,6 +19,7 @@ export const api = createApi({
     "Geography",
     "Sales",
     "CCTV",
+    "cameras",
     "Admins",
     "Performance",
     "Dashboard",
@@ -46,11 +47,7 @@ export const api = createApi({
       providesTags: ["Locations"],
     }),
     getTransactions: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
-        url: "client/transactions",
-        method: "GET",
-        params: { page, pageSize, sort, search },
-      }),
+      query: () =>   "client/transactions",
       providesTags: ["Transactions"],
     }),
     getGeography: build.query({
@@ -61,9 +58,13 @@ export const api = createApi({
       query: () => "sales/sales",
       providesTags: ["Sales"],
     }),
-    getCCTV: build.query({
-      query: () => "management/cctvs",
-      providesTags: ["CCTV"],
+    getFootage: build.query({
+      query: () => "management/footages",
+      providesTags: ["Footage"],
+    }),
+    getCCTVCameras: build.query({
+      query: () => "management/cameras",
+      providesTags: ["cameras"],
     }),
     getAdmins: build.query({
       query: () => "management/admins",
@@ -90,7 +91,7 @@ export const {
   useGetTransactionsQuery,
   useGetGeographyQuery,
   useGetSalesQuery,
-  useGetCCTVQuery,
+  useGetFootageQuery,
   useGetCCTVCamerasQuery,
   useGetAdminsQuery,
   useGetUserPerformanceQuery,

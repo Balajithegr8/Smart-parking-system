@@ -34,7 +34,6 @@ const login = () =>{
       alert(res.data.message)
       setLoginUser(res.data.user)
       const abc = res.data.user
-      console.log(abc.name)
       localStorage.setItem('name', abc.name);
       localStorage.setItem('role', abc.role);
       navigate("/dashboard")

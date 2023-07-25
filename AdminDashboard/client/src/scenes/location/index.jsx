@@ -16,15 +16,61 @@ import { Header } from "components";
 const Location = ({
   loc,
   slot_no,
-  totalSlots,
+  booked,
 }) => {
+
   // theme
   const theme = useTheme();
   const history = useNavigate();
-
+  const name=localStorage.getItem('name');
+  const role=localStorage.getItem('role');
   const handleClick = () => {
     history(`/slots?loc=${loc}`); // Redirect to the details page for the specific location
   };
+
+  function Judge(){
+    if(role==="guard"){
+      return(<Button onClick={handleClick}
+        sx={{
+          backgroundColor: theme.palette.secondary.light,
+          color: theme.palette.background.alt,
+          fontSize: "14px",
+          fontWeight: "bold",
+          padding: "5px 13px",
+  
+          "&:hover": {
+            backgroundColor: theme.palette.background.alt,
+            color: theme.palette.secondary.light,
+          },
+        }}
+      >
+        
+        Book a Slot
+      </Button>)
+    }
+    else{
+      return(
+        <Button onClick={handleClick}
+        sx={{
+          backgroundColor: theme.palette.secondary.light,
+          color: theme.palette.background.alt,
+          fontSize: "14px",
+          fontWeight: "bold",
+          padding: "5px 13px",
+
+          "&:hover": {
+            backgroundColor: theme.palette.background.alt,
+            color: theme.palette.secondary.light,
+          },
+        }}
+      >
+        
+        See All Slots
+      </Button>
+      )
+    }
+  }
+
 
   return (
     
@@ -51,39 +97,22 @@ const Location = ({
 
         {/* Name */}
         <Typography variant="h5" component="div">
-          Slots taken : {slot_no}
+          Slots taken : {booked}
         </Typography>     
 
         {/* Available Slots */}
         
           <Typography variant="h5" component="div">
-            Available slots: {totalSlots-slot_no}
+            Available slots: {slot_no-booked}
           </Typography>
 
           {/* Total Slots */}
         
           <Typography variant="h5" component="div">
-            Total slots: {totalSlots}
+            Total slots: {slot_no}
           </Typography>
         <br/>
-          <Button onClick={handleClick}
-            sx={{
-              backgroundColor: theme.palette.secondary.light,
-              color: theme.palette.background.alt,
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "5px 13px",
-
-              "&:hover": {
-                backgroundColor: theme.palette.background.alt,
-                color: theme.palette.secondary.light,
-              },
-            }}
-          >
-            
-            Book a Slot
-          </Button>
-
+        <Judge/>
       </CardContent>
       </Box>
     </Card>
@@ -92,15 +121,12 @@ const Location = ({
 
 // Locations
 const Locations = () => {
+  
   // get data
   const { data, isLoading } = useGetLocationsQuery();
   // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
-
-  // Calculate total and available slots for TP location
-  const totalSlotsTP = 50;
-  const availableSlotsTP = totalSlotsTP - data?.filter((location) => location.loc === "TP" && location.slot_no).length;
-
+  
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
@@ -124,16 +150,16 @@ const Locations = () => {
             ({
               _id,
               loc,
-              slot_no,      
+              slot_no,
+              booked,      
              
             }) => (
               <Location
-                key={_id}
+                key={loc}
                 _id={_id}
                 loc={loc}
                 slot_no={slot_no}
-                totalSlots={totalSlotsTP}
-                availableSlots={availableSlotsTP}
+                booked={booked}
                 
               />
             )
