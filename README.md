@@ -16,7 +16,8 @@ To reserve a parking slot:
 
 1. Navigate to the Reservations page.
 2. Choose your preferred parking slot and reservation timings.
-3. Click on "Book Now" to finalize your reservation.
+3. Enter Your Licence Number and click on "Book Now" to finalize your reservation.
+4. While Exiting the parking Release the slot from the dashboard
 
 ## Technology Stack
 
