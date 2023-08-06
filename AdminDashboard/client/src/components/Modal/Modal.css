@@ -155,3 +155,11 @@
     margin: 1rem;
   }
 }
+
+
+.price{
+  color: #0278ff;
+  font-size: 18px;
+  font-style: italic;
+  
+}

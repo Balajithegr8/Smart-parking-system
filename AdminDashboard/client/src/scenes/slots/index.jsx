@@ -9,7 +9,6 @@ import {
   useMediaQuery,
   Collapse,
   CardActions,
-
 } from "@mui/material";
 import { useLocation } from "react-router-dom";
 import { useGetSlotsQuery } from "state/api";
@@ -24,7 +23,8 @@ const Slot = ({
   v_type,
   booked,
   name,
-  licence_no
+  licence_no,
+  price,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
@@ -34,6 +34,7 @@ const Slot = ({
   
   //getting role info
   const role=localStorage.getItem('role');
+  var price=localStorage.getItem('price');
   
   // Defining the font color based on the booked status
   const fontColor = booked === "yes" ? "#384051" : theme.palette.secondary[700];
@@ -82,8 +83,9 @@ const Slot = ({
           sx={{ fontSize: 14 }}
           color={fontColor}
           gutterBottom
+       
         >
-          {loc}
+          {loc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price : ${price}
         </Typography>
 
         {/* Name */}

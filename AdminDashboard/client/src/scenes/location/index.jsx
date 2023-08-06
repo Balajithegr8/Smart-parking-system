@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useGetLocationsQuery } from "state/api";
+
 import { Header } from "components";
 
 // Product
@@ -17,7 +18,10 @@ const Location = ({
   loc,
   slot_no,
   booked,
+  currentPrice,
 }) => {
+
+ 
 
   // theme
   const theme = useTheme();
@@ -25,6 +29,7 @@ const Location = ({
   const name=localStorage.getItem('name');
   const role=localStorage.getItem('role');
   const handleClick = () => {
+    localStorage.setItem('price', currentPrice);
     history(`/slots?loc=${loc}`); // Redirect to the details page for the specific location
   };
 
@@ -71,7 +76,7 @@ const Location = ({
     }
   }
 
-
+  
   return (
     
     <Card 
@@ -111,6 +116,10 @@ const Location = ({
           <Typography variant="h5" component="div">
             Total slots: {slot_no}
           </Typography>
+          <Typography variant="h5" component="div">
+            Cost :{currentPrice}
+          </Typography>
+          
         <br/>
         <Judge/>
       </CardContent>
@@ -152,6 +161,7 @@ const Locations = () => {
               loc,
               slot_no,
               booked,      
+              currentPrice,
              
             }) => (
               <Location
@@ -160,6 +170,7 @@ const Locations = () => {
                 loc={loc}
                 slot_no={slot_no}
                 booked={booked}
+                currentPrice={currentPrice}
                 
               />
             )

@@ -4,7 +4,6 @@ import _ from "lodash";
 // Models import
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
-import Slot from "../models/Slots.js";
 import Location from "../models/Locations.js";
 import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
@@ -54,6 +53,7 @@ export const getSlots = async (req, res) => {
   }
 };
 
+
 // Get Locations
 export const getLocations = async (req, res) => {
   try {
@@ -79,10 +79,21 @@ export const getLocations = async (req, res) => {
               else: { $size: "$slots" }
             }
           },
-          booked: 1
+          booked: 1,
+          
         }
-      }
+      },
+      {
+        $addFields: { 
+          currentPrice: {
+            $add: [1, { $multiply: ["$booked", 0.025] }], // Example: $10 + $0.5 per booking
+          },
+        },
+      },
     ]);
+    locations.forEach((location) => {
+      console.log("Location:", location.loc, "Current Price:", location.currentPrice);
+    });
     res.status(200).json(locations);
   } catch (error) {
     res.status(404).json({ message: error.message });

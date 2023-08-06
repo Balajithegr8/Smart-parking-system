@@ -88,6 +88,7 @@ export const {
   useGetCustomersQuery,
   useGetSlotsQuery,
   useGetLocationsQuery,
+
   useGetTransactionsQuery,
   useGetGeographyQuery,
   useGetSalesQuery,
