@@ -184,9 +184,9 @@ const Sidebar = ({
                     sx={{
                       cursor: "pointer",
                     }}
-                    title="PARK+"
+                    title="SPARK"
                   >
-                    PARK+
+                    SPARK
                   </Typography>
                 </Box>
                 {/* Mobile Sidebar Toggle Icon */}
