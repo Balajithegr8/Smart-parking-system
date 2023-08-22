@@ -43,6 +43,26 @@ The project is only possible due to the effort of these people, thanks for your 
 | [<img src="https://github.com/Dhruvch1244.png?size=50" width="50"/>](https://github.com/Dhruvch1244)| [<img src="https://github.com/SHAY2407.png?size=50" width="50"/>](https://github.com/SHAY2407) | [<img src="https://github.com/Balajithegr8.png?size=50" width="50"/>](https://github.com/Balajithegr8) |
 | -------- | -------- | -------- |
 
+## Some Sample Screenshots
+
+![Screenshot (45)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/4ab59c8f-b800-42a6-a49c-17fc5403d246)
+![Screenshot (47)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/f0215aee-ca32-484b-8da3-f612b037c1ab)
+![Screenshot (48)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/d92e8df7-45e5-4cc4-9fed-a01124dcbf36)
+![Screenshot (62)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/00eb6604-b4a7-4587-9ce6-ee72be1b2f3e)
+![Screenshot (49)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/b7e62588-10f9-41a4-a654-38779916ec0d)
+![Screenshot (50)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/47bb7618-9dd7-4af5-8e21-75a83ee77f23)
+![Screenshot (51)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/d369eee5-f52b-45a7-9ac4-d5dc3894033e)
+![Screenshot (52)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/555cd01b-a78a-4a58-8047-e1c634503612)
+![Screenshot (53)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/62bb1aeb-76f8-4ff6-96b5-19262058870d)
+![Screenshot (54)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/ec8e2c2b-a58d-4b43-b903-5764363f1d72)
+![Screenshot (55)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/006e75bf-d56f-48d1-97e9-cc28bc4c6501)
+![Screenshot (56)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/c7f52526-1bfb-4f3a-91ac-079d238cb035)
+![Screenshot (57)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/dc67928e-4dc6-4bb8-965d-9272cdfbb184)
+![Screenshot (58)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/5f1bffba-f57f-4a3c-931c-ba3c6fb9c36e)
+![Screenshot (59)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/f85e3664-49c3-46f9-82f3-e63fc490217c)
+![Screenshot (60)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/fc4be733-e1be-4efc-8d31-f267b16da0cf)
+![Screenshot (61)](https://github.com/Balajithegr8/Smart-parking-system/assets/92166294/111f12ee-ad0e-4aa8-a55d-e54087708ef2)
+
 Thanks.
 
 ```
