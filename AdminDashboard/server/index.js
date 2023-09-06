@@ -149,7 +149,7 @@ mongoose
   
   
   app.post("/slots", (req, res) => {
-    const { name, licence_no, slot_no,loc, v_type, booked  } = req.body;
+    const { name, licence_no, slot_no,loc, v_type, booked ,exit_time } = req.body;
     if(booked==="yes"){
       Location.findOne({ loc, slot_no })
         .then((existingLocation) => {
@@ -158,7 +158,10 @@ mongoose
             existingLocation.name = name;
             existingLocation.licence_no = licence_no;
             existingLocation.booked = "yes";
-    
+            existingLocation.entry_time=new Date();
+            console.log(new Date())
+            existingLocation.exit_time=new Date()+exit_time;
+            
             existingLocation.save()
               .then(() => {
                 res.send({ message: "Successfully updated, Arigato" });

@@ -16,6 +16,22 @@ import { Header } from "components";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Pop from "../../components/Pop/Pop";
+
+// Function to format time from a date string
+function formatTime(dateString) {
+  const date = new Date(dateString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+  return `${hours}:${minutes}:${seconds}`;
+}
+
+function fineformatTime(dateString) {
+  const date = new Date(dateString);
+  const minutes = date.getMinutes();
+  return minutes;
+}
+
 // Slot
 const Slot = ({
   loc,
@@ -25,6 +41,11 @@ const Slot = ({
   name,
   licence_no,
   price,
+  entry_time,
+  actual_entry_time,
+  exit_time,
+  actual_exit_time,
+  rule_breaker,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
@@ -39,7 +60,15 @@ const Slot = ({
   // Defining the font color based on the booked status
   const fontColor = booked === "yes" ? "#384051" : theme.palette.secondary[700];
   const fontc = booked === "yes" ? "#384051" : "#ffffff";
+
   
+  // Format entry and exit times
+  const formattedEntryTime = formatTime(entry_time);
+  const formattedExitTime = formatTime(exit_time);
+  const formattedActualEntryTime = formatTime(actual_entry_time);
+  const formattedActualExitTime = formatTime(actual_exit_time);
+  const fineentry=fineformatTime(exit_time)
+  const fineexit=fineformatTime(actual_exit_time)
 
   function Judge(){
     if(role==="guard" && booked ==="no"){
@@ -119,6 +148,7 @@ const Slot = ({
           </CardActions>
         )}
           {/* More Info */}
+          
           <Collapse
             in={isExpanded}
             timeout="auto"
@@ -128,6 +158,11 @@ const Slot = ({
             <CardContent>
               <Typography>Booked by : {name}</Typography>
               <Typography>Licence Number: {licence_no}</Typography>
+              <Typography>Entry Time: {formattedEntryTime}</Typography>
+              <Typography>Actual Entry Time: {formattedActualEntryTime}</Typography>
+              <Typography>Exit Time: {formattedExitTime}</Typography>
+              <Typography>Actual Exit Time: {formattedActualExitTime}</Typography>
+              <Typography>Rule Breaker: {rule_breaker}</Typography>
               <Typography><br/></Typography>
               <Button onClick={()=>{setopenPop(true); }}
                   sx={{
@@ -152,7 +187,7 @@ const Slot = ({
         
     </Card>
     {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
-    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} />}
+    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} difference={fineentry-fineexit} entry_time={entry_time} actual_entry_time={actual_entry_time} exit_time={exit_time} actual_exit_time={actual_exit_time} rule_breaker={rule_breaker}/>}
     </Box>
   );
 };
@@ -197,7 +232,13 @@ const Slots = () => {
               v_type,
               booked,
               name,
-              licence_no
+              licence_no,
+              entry_time,
+              actual_entry_time,
+              exit_time,
+              actual_exit_time,
+              rule_breaker,
+              
             }) => (
               <Slot
                 key={slot_no}
@@ -208,6 +249,11 @@ const Slots = () => {
                 booked={booked}
                 name={name}
                 licence_no={licence_no}
+                entry_time={entry_time}
+                actual_entry_time={actual_entry_time}
+                exit_time={exit_time}
+                actual_exit_time={actual_exit_time}
+                rule_breaker={rule_breaker}
                
               />
             )
