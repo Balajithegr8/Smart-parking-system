@@ -9,12 +9,7 @@ const LocationSchema = new mongoose.Schema(
     slot_no:String,
     v_type: String,
     booked: String,
-    entry_time:Date,
-    actual_entry_time:Date,
-    exit_time:Date,
-    actual_exit_time:Date,
-    rule_breaker:String,
-    Fine:Number,
+    
   },
  );
 
