@@ -4,7 +4,7 @@ import { Close } from "@mui/icons-material";
 import axios from 'axios';
 import { useState } from "react";
 
-const Pop = ({ closePop ,slot_no,v_type,loc,difference,entry_time,actual_entry_time,exit_time,actual_exit_time,rule_breaker,}) => {
+const Pop = ({ closePop ,slot_no,v_type,loc}) => {
 
   const [ isrelease, setIsrelease] = useState({
     name: "",
@@ -13,11 +13,6 @@ const Pop = ({ closePop ,slot_no,v_type,loc,difference,entry_time,actual_entry_t
     v_type :v_type,
     loc: loc,
     booked:"no",
-    entry_time:null,
-    actual_entry_time :null,
-    exit_time : null,
-    actual_exit_time:null,
-    rule_breaker:"No"
 })
 
   const onrelease= () =>{
@@ -37,8 +32,7 @@ const Pop = ({ closePop ,slot_no,v_type,loc,difference,entry_time,actual_entry_t
     window.location.reload(true)
     window.location.reload(true)
   }
-  difference=-difference*1/12
-  console.log(difference)
+
   return (
     <div className="superoverlay"  onClick={()=>closePop(false)}>
     <div className='overlay'>
@@ -61,7 +55,6 @@ const Pop = ({ closePop ,slot_no,v_type,loc,difference,entry_time,actual_entry_t
                 <br/>
                 <h1>Slot {slot_no}</h1>
                 <h1>For {v_type}</h1>
-                {difference > 0 && <h1>Fine Amount: ${difference}</h1>}
             
           </div>
           <div className='btnContainer'>

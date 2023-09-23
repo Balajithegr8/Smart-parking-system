@@ -1,6 +1,5 @@
 import "./Modal.css"
 import React from 'react';
-import timer from '../Time/index';
 import { Close } from "@mui/icons-material";
 import axios from 'axios';
 import { useState } from "react";
@@ -14,12 +13,6 @@ const Modal = ({ closeModal ,slot_no,v_type,loc}) => {
     v_type :v_type,
     loc: loc,
     booked:"yes",
-    entry_time:null,
-    actual_entry_time:null,
-    exit_time:null,
-    actual_exit_time:null,
-    rule_breaker:"No",
-
 })
 var Price=localStorage.getItem('price');
 const handleChange = e => {
@@ -31,9 +24,9 @@ const handleChange = e => {
 }  
 
   const onbook= () =>{
-    const{name ,licence_no ,slot_no,loc,booked="yes",exit_time } = isbook
+    const{name ,licence_no ,slot_no,loc,booked="yes" } = isbook
   
-    if(name && licence_no && exit_time){
+    if(name && licence_no){
       
       axios.post('http://localhost:9000/slots', isbook)
       .then((res)=> {
@@ -75,9 +68,6 @@ const handleChange = e => {
               <br/>
               <div className='licence'>
                 <input className="licencer" type="text" name="licence_no"  placeholder=" Enter Licence Number"  onChange={handleChange}/>
-              </div>
-              <div className='exittime'>
-                <input className="exittimer" type="text" name="exit_time"  placeholder=" Enter Exit Time"  onChange={handleChange}/>
               </div>
             <br/>
             <h1>Book Slot {slot_no}</h1>
