@@ -5,7 +5,10 @@ import axios from 'axios';
 import { useState } from "react";
 
 const Modal = ({ closeModal ,slot_no,v_type,loc}) => {
- 
+  var nowhour=new Date().getHours();
+  var nowmin=new Date().getMinutes();
+  var hour=localStorage.getItem('hour');
+  var min=localStorage.getItem('min');
   const [ isbook, setIsbook] = useState({
     name: "",
     licence_no:"",
@@ -72,7 +75,11 @@ const handleChange = e => {
             <br/>
             <h1>Book Slot {slot_no}</h1>
             <h1>For {v_type}</h1>
+            <h1>From {nowhour}:{nowmin} To {hour}:{min}</h1>
             <p className="price">Price : ${Price}</p>
+            <div>
+              
+            </div>
             
           </div>
           <div className='btnContainer'>

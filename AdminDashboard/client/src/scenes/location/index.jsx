@@ -9,6 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import Datepickers from "components/Datepickers";
 import { useGetLocationsQuery } from "state/api";
 
 import { Header } from "components";
@@ -141,6 +142,7 @@ const Locations = () => {
       {/* Header */}
       <Header title="LOCATIONS" subtitle="List Of Available Location For Parking" />
       <br/>
+      <Datepickers/>
       {/* Content */}
       {data || !isLoading ? (
         <Box
