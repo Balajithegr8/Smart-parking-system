@@ -16,6 +16,8 @@ const Modal = ({ closeModal ,slot_no,v_type,loc}) => {
     v_type :v_type,
     loc: loc,
     booked:"yes",
+    entry_time:nowhour+":"+nowmin,
+    exit_time:hour+":"+min,
 })
 var Price=localStorage.getItem('price');
 const handleChange = e => {
@@ -27,7 +29,7 @@ const handleChange = e => {
 }  
 
   const onbook= () =>{
-    const{name ,licence_no ,slot_no,loc,booked="yes" } = isbook
+    const{name ,licence_no ,slot_no,loc,booked="yes",entry_time,exit_time } = isbook
   
     if(name && licence_no){
       

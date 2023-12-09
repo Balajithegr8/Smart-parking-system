@@ -25,6 +25,8 @@ const Slot = ({
   name,
   licence_no,
   price,
+  entry_time,
+  exit_time,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
@@ -128,6 +130,7 @@ const Slot = ({
             <CardContent>
               <Typography>Booked by : {name}</Typography>
               <Typography>Licence Number: {licence_no}</Typography>
+              <Typography>Exit Time: {exit_time}</Typography>
               <Typography><br/></Typography>
               <Button onClick={()=>{setopenPop(true); }}
                   sx={{
@@ -197,7 +200,8 @@ const Slots = () => {
               v_type,
               booked,
               name,
-              licence_no
+              licence_no,
+              exit_time,
             }) => (
               <Slot
                 key={slot_no}
@@ -208,6 +212,7 @@ const Slots = () => {
                 booked={booked}
                 name={name}
                 licence_no={licence_no}
+                exit_time={exit_time}
                
               />
             )
