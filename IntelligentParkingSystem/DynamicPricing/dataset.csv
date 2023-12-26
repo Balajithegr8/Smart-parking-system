@@ -1,0 +1,18 @@
+timestamp,occupancy_level,duration_minutes,weather,day_of_week,price_paid
+2023-01-02 08:15:00,high,60,clear,monday,5.0
+2023-01-06 14:45:00,medium,150,rainy,friday,3.5
+2023-02-15 09:30:00,low,45,cloudy,wednesday,2.0
+2023-03-05 12:00:00,high,90,clear,sunday,4.5
+2023-04-10 18:45:00,medium,120,rainy,monday,3.8
+2023-05-20 14:15:00,high,60,clear,saturday,5.0
+2023-06-30 19:00:00,low,30,cloudy,friday,2.5
+2023-07-12 10:20:00,medium,75,rainy,wednesday,3.2
+2023-08-25 16:30:00,high,45,clear,thursday,4.0
+2023-09-05 13:15:00,low,90,cloudy,tuesday,2.5
+2023-10-18 08:45:00,high,60,rainy,friday,4.3
+2023-11-21 17:50:00,medium,120,clear,monday,3.7
+2023-12-09 11:10:00,low,30,cloudy,friday,2.1
+2024-01-14 14:40:00,high,60,rainy,wednesday,4.8
+2024-02-29 09:15:00,medium,90,clear,tuesday,3.9
+2024-03-10 12:30:00,low,45,cloudy,thursday,2.3
+2024-04-22 18:20:00,high,150,rainy,saturday,5.5
