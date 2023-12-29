@@ -5,17 +5,18 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
+import path from 'path';
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
-
+import { spawn } from 'child_process';
 // Routes imports
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-
+import Ooccupancy from "./models/Ooccupancy.js";
 // Data imports
 /*
 import User from "./models/User.js";
@@ -149,7 +150,7 @@ mongoose
   
   
   app.post("/slots", (req, res) => {
-    const { name, licence_no, slot_no,loc, v_type, booked  } = req.body;
+    const { name, licence_no, slot_no,loc, v_type, booked, entry_time,exit_time  } = req.body;
     if(booked==="yes"){
       Location.findOne({ loc, slot_no })
         .then((existingLocation) => {
@@ -158,6 +159,8 @@ mongoose
             existingLocation.name = name;
             existingLocation.licence_no = licence_no;
             existingLocation.booked = "yes";
+            existingLocation.entry_time = entry_time;
+            existingLocation.exit_time = exit_time;
     
             existingLocation.save()
               .then(() => {
@@ -200,4 +203,16 @@ mongoose
     }
   });
 
+
+
+  // Function to run the Python script
+  function runPythonScript() {
+    const sensor = spawn('python', ['main.py']);
+      // create data from script in the occupancy_data.json file
+  }
   
+  // Run the Python script initially
+  runPythonScript();
+  
+  // Set up a periodic execution every minute (6,000 milliseconds)
+  const intervalId = setInterval(runPythonScript, 6000);

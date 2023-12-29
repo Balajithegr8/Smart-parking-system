@@ -9,6 +9,8 @@ const LocationSchema = new mongoose.Schema(
     slot_no:String,
     v_type: String,
     booked: String,
+    entry_time: String,
+    exit_time: String,
     
   },
  );

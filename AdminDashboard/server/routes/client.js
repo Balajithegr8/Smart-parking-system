@@ -7,12 +7,14 @@ import {
   getSlots,
   getLocations,
   getProducts,
+  getOccupancy,
 
 } from "../controllers/client.js";
 
 const router = express.Router();
 
 // Routes
+
 router.get("/products", getProducts);
 router.get("/customers", getCustomers);
 router.get("/slots", getSlots);
