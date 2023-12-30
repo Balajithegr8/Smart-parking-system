@@ -8,6 +8,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
+import Realtime from "./models/Realtime.js";
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
 import { spawn } from 'child_process';
@@ -16,7 +17,7 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-import Realtime from "./models/Realtime.js";
+
 
 // Data imports
 /*

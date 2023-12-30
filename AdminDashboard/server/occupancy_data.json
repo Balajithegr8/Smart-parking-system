@@ -3,627 +3,783 @@
     "occupancy_status": [
       {
         "id": 176,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 175,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 174,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 173,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 172,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 171,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 170,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 169,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 168,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 163,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 162,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 161,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 160,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 159,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 158,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 157,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 156,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 155,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 154,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 153,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 152,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 151,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 150,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 149,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 148,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 147,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 146,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 144,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 143,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 142,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 141,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 140,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 139,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 138,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 137,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 136,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 135,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 132,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 131,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 130,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 127,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 126,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 125,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 124,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 123,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 122,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 121,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 120,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 118,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 117,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 116,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 115,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 114,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 113,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 112,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 111,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 110,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 109,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 108,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 107,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 106,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 105,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 104,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 103,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 102,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 101,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 100,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 99,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 98,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 97,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 90,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 89,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 88,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 87,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 86,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 85,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 84,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 83,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 82,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 81,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 80,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 79,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 78,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 77,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 76,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 75,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 74,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 73,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 72,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 71,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 70,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 69,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 68,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 67,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 66,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 65,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 62,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 61,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 60,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 59,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 58,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 57,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 56,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 54,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 52,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 51,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 50,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 48,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 47,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 46,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 45,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 44,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 43,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 42,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 41,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 40,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 39,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 38,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 37,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 36,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 35,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 34,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 33,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 32,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 31,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 30,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 29,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 28,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 27,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 26,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 25,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 24,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 23,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 22,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 21,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 20,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 19,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 18,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 17,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 16,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 15,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 14,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 13,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 12,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 11,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 10,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 9,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 8,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 7,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 6,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 5,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 4,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 3,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 2,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 1,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       },
       {
         "id": 0,
-        "empty": false
+        "empty": false,
+        "loc": "MS"
       }
     ]
   }

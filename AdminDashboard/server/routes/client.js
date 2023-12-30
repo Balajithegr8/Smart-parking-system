@@ -7,6 +7,7 @@ import {
   getSlots,
   getLocations,
   getProducts,
+  getRealtime,
 
 } from "../controllers/client.js";
 
@@ -20,5 +21,6 @@ router.get("/slots", getSlots);
 router.get("/locations", getLocations);
 router.get("/transactions", getTransactions);
 router.get("/occupancy", getGeography);
+router.get("/realtime", getRealtime);
 
 export default router;

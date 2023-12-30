@@ -6,6 +6,7 @@ import Dashboard from "./dashboard";
 import Products from "./products";
 import User from "./users";
 import Slots from "./slots";
+import Realtime from "./realtime";
 import Transactions from "./transactions";
 import Overview from "./overview";
 import Daily from "./daily";
@@ -32,4 +33,5 @@ export {
   CCTV,
   Admin,
   Performance,
+  Realtime,
 };

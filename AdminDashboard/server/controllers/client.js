@@ -5,6 +5,7 @@ import _ from "lodash";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Location from "../models/Locations.js";
+import Realtime from "../models/Realtime.js";
 import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
 
@@ -53,6 +54,14 @@ export const getSlots = async (req, res) => {
   }
 };
 
+export const getRealtime = async (req, res) => {
+  try {
+    const realtime = await Realtime.find();
+    res.status(200).json(realtime);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 // Get Locations
 export const getLocations = async (req, res) => {

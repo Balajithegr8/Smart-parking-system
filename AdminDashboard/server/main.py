@@ -146,7 +146,7 @@ if dict['parking_detection']:
             parking_buffer[ind] = None
 
     # Collect occupancy data for this frame
-    occupancy_status = [{"id": park['id'], "empty": bool(status)} for park, status in zip(parking_data, parking_status)]
+    occupancy_status = [{"id": park['id'], "empty": bool(status),"loc":"MS"} for park, status in zip(parking_data, parking_status)]
     frame_data = {
             "occupancy_status": occupancy_status
         }

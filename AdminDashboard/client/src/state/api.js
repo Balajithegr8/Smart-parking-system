@@ -14,6 +14,7 @@ export const api = createApi({
     "Producs",
     "Customers",
     "Slots",
+    "Realtime",
     "Locations",
     "Transactions",
     "Geography",
@@ -41,6 +42,10 @@ export const api = createApi({
     getSlots: build.query({
       query: () => "client/slots",
       providesTags: ["Slots"],
+    }),
+    getRealtime: build.query({
+      query: () => "client/realtime",
+      providesTags: ["Realtime"],
     }),
     getLocations: build.query({
       query: () => "client/locations",
@@ -88,7 +93,7 @@ export const {
   useGetCustomersQuery,
   useGetSlotsQuery,
   useGetLocationsQuery,
-
+  useGetRealtimeQuery,
   useGetTransactionsQuery,
   useGetGeographyQuery,
   useGetSalesQuery,

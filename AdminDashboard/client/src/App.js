@@ -15,6 +15,7 @@ import {
   Dashboard,
   Products,
   Slots,
+  Realtime,
   Locations,
   User,
   Transactions,
@@ -52,6 +53,7 @@ const App = () => {
               <Route path="/feedback" element={<Products />} /> 
               <Route path="/user" element={<User />} />
               <Route path="/slots" element={<Slots />} />
+              <Route path="/realtime" element={<Realtime />} />
               <Route path="/locations" element={<Locations />} />
               <Route path="/transactions" element={<Transactions />} />
               <Route path="/overview" element={<Overview />} />

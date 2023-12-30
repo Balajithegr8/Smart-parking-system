@@ -55,6 +55,11 @@ const navItems = [
     icon: <LocalParkingOutlined />,
   },
   {
+    text: "Realtime",
+    icon: <LocalParkingOutlined />,
+    condition: (role) => role === "admin" || role === "superadmin" || role === "guard",
+  },
+  {
     text: "Transactions",
     icon: <ReceiptLongOutlined />,
   },
@@ -63,6 +68,7 @@ const navItems = [
     icon: null,
     condition: (role) => role === "admin" || role === "superadmin",
   },
+  
   {
     text: "Overview",
     icon: <PointOfSaleOutlined />,
