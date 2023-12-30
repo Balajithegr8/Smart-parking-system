@@ -2,10 +2,10 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
+import fs from 'fs';
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
-import path from 'path';
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
 // Rate Limiter
@@ -16,7 +16,8 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
-import Ooccupancy from "./models/Ooccupancy.js";
+import Realtime from "./models/Realtime.js";
+
 // Data imports
 /*
 import User from "./models/User.js";
@@ -203,16 +204,47 @@ mongoose
     }
   });
 
+  async function saveDataToMongoDB(parsedData) {
+    const occupancyData = parsedData[0].occupancy_status;
 
+  
+    try {
+      // Clear existing data in the MongoDB collection
+      await Realtime.deleteMany({});
+      
+      // Insert new data into the MongoDB collection
+      await Realtime.insertMany(occupancyData);
+  
+      console.log('Data successfully saved to MongoDB');
+    } catch (err) {
+      console.error('Error manipulating data in MongoDB:', err);
+    }
+  }
+  
+  
 
   // Function to run the Python script
   function runPythonScript() {
     const sensor = spawn('python', ['main.py']);
-      // create data from script in the occupancy_data.json file
+      sensor.on('close', (code) => {
+        if (code === 0) {
+          const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
+    
+          // Parse JSON data
+          const parsedData = JSON.parse(jsonData);
+    
+          // Call a function to save the data to MongoDB
+          saveDataToMongoDB(parsedData);
+        } 
+        else {
+          console.error('Python script failed with code', code);
+        }
+      }
+    );
   }
   
   // Run the Python script initially
   runPythonScript();
   
-  // Set up a periodic execution every minute (6,000 milliseconds)
-  const intervalId = setInterval(runPythonScript, 6000);
+  // Set up a periodic execution every 10 minutes(6,000 milliseconds)
+  const intervalId = setInterval(runPythonScript, 60000);

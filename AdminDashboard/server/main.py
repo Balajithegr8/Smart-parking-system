@@ -2,7 +2,6 @@ import yaml
 import numpy as np
 import cv2
 import json
-import datetime
 
 fn = "parking_footage1.mp4"
 fn_yaml = "parking_layout1.yml"
@@ -148,9 +147,7 @@ if dict['parking_detection']:
 
     # Collect occupancy data for this frame
     occupancy_status = [{"id": park['id'], "empty": bool(status)} for park, status in zip(parking_data, parking_status)]
-    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     frame_data = {
-            "timestamp": timestamp,  # Replace with the actual timestamp
             "occupancy_status": occupancy_status
         }
     occupancy_data.append(frame_data)

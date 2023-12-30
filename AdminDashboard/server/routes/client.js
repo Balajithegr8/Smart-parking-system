@@ -7,7 +7,6 @@ import {
   getSlots,
   getLocations,
   getProducts,
-  getOccupancy,
 
 } from "../controllers/client.js";
 
