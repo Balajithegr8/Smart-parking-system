@@ -4,6 +4,7 @@ import {
   Card,
   CardContent,
   Typography,
+  Button,
   useTheme,
   useMediaQuery,
 } from "@mui/material";
@@ -43,12 +44,44 @@ const Realtime = ({ loc, id, empty }) => {
 
           {/* Name */}
           <Typography variant="h5" component="div" color={fontc}>
-            Slot id : {id}
+            SLOT ID : {id}
           </Typography>
 
-          <Typography variant="h5" component="div" color={fontc}>
-            Booked: {empty.toString()} {/* Convert boolean to string for display */}
-          </Typography>
+          <br></br>
+          {/* Buttons based on booked status */}
+          {empty ? (
+            <Button variant="contained" color="primary"
+            sx={{
+              backgroundColor: theme.palette.primary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "5px 13px",
+      
+              "&:hover": {
+                backgroundColor: theme.palette.background.alt,
+                color: theme.palette.primary.light,
+              },
+            }}>
+              Not Available
+            </Button>
+          ) : (
+            <Button variant="contained" color="secondary" 
+            sx={{
+              backgroundColor: theme.palette.secondary.light,
+              color: theme.palette.background.alt,
+              fontSize: "14px",
+              fontWeight: "bold",
+              padding: "5px 13px",
+      
+              "&:hover": {
+                backgroundColor: theme.palette.background.alt,
+                color: theme.palette.secondary.light,
+              },
+            }}>
+              Available
+            </Button>
+          )}
           <br />
         </CardContent>
       </Card>

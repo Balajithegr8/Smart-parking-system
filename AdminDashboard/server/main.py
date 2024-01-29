@@ -37,7 +37,7 @@ cap.set(cv2.CAP_PROP_POS_FRAMES, dict['start_frame'])
 
 def run_classifier(img, id):
     cars = car_cascade.detectMultiScale(img, 1.1, 1)
-    if cars == ():
+    if len(cars) == 0:
         return False
     else:
         return True
@@ -95,6 +95,7 @@ occupancy_save_interval = 3  # Save occupancy data every 60 seconds
 last_occupancy_save_time = 0
 unique_timestamps = set()
 occupancy_status = [False] * len(parking_data)
+target_frame = 35
 
 while(cap.isOpened()):
     video_cur_pos = cap.get(cv2.CAP_PROP_POS_MSEC) / 1000.0 
@@ -102,8 +103,11 @@ while(cap.isOpened()):
     ret, frame_initial = cap.read()
     if ret == True:
         frame = cv2.resize(frame_initial, None, fx=0.6, fy=0.6)
-    if ret == False:
+    if ret == False or video_cur_frame >= target_frame:
         print("Video ended")
+        with open("occupancy_data.json", "w") as json_file:
+            json.dump(occupancy_data, json_file, indent=2)
+        cv2.destroyAllWindows()
         break
 
     frame_blur = cv2.GaussianBlur(frame.copy(), (5,5), 3)
