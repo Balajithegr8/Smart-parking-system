@@ -238,18 +238,7 @@ while(cap.isOpened()):
     if dict['save_video']:
             out.write(frame_out)
 
-    cv2.imshow('frame', frame_out)
-    k = cv2.waitKey(1)
-    if k == ord('q'):
-        break
-    elif k == ord('c'):
-        cv2.imwrite('frame%d.jpg' % video_cur_frame, frame_out)
-    elif k == ord('j'):
-        cap.set(cv2.CAP_PROP_POS_FRAMES, video_cur_frame+1000) 
-    elif k == ord('u'):
-        cap.set(cv2.CAP_PROP_POS_FRAMES, video_cur_frame + 500)  
-    if cv2.waitKey(33) == 27:
-        break
+
 
 # Write the occupancy data to a JSON file
 with open("occupancy_data.json", "w") as json_file:
