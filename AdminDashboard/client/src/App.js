@@ -7,7 +7,7 @@ import Login from './components/Login/Login';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from 'react';
 // Theme
-import { themeSettings } from "theme";
+import { themeSettings } from "./theme.js";
 
 // Scenes
 import {
