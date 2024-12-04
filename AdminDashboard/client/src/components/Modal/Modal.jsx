@@ -33,7 +33,7 @@ const handleChange = e => {
   
     if(name && licence_no){
       
-      axios.post('http://localhost:9000/slots', isbook)
+      axios.post('https://spark-backend-j18q.onrender.com/slots', isbook)
       .then((res)=> {
         alert(res.data.message)
         closeModal(false)
