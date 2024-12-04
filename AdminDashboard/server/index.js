@@ -78,6 +78,11 @@ mongoose
   .catch((error) => console.log(`${error} did not connect.`));
   
   //routes
+
+  app.get("/", (req, res) => {
+    res.send("Server is up and running!");
+  });
+
   
   app.post("/login", (req,res) =>{
   
@@ -226,7 +231,7 @@ mongoose
 
   // Function to run the Python script
   function runPythonScript() {
-    const sensor = spawn('python', ['main.py']);
+    const sensor = spawn('python3', ['main.py']);``
       sensor.on('close', (code) => {
         if (code === 0) {
           const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
@@ -247,5 +252,5 @@ mongoose
   // Run the Python script initially
   runPythonScript();
   
-  // Set up a periodic execution every 10 minutes(6,000 milliseconds)
+  // Set up a periodic execution every 60 secs(6,000 milliseconds)
   const intervalId = setInterval(runPythonScript, 60000);

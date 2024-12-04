@@ -1,0 +1,22 @@
+Imagine a scorching hot day as you head to SRM or another destination, only to find the parking lots full. Frustrating, isn't it? Especially during festivals or events, this can be a nightmare. To address this issue, we've developed an app that significantly eases parking woes and simplifies your life.
+
+Now basic outline of our idea...
+
+For users, we've created a mobile application allowing them to book or pre-book parking slots. For those who arrive without pre-booking, unaware of our app, we've developed a web application using the MERN stack. This tool will be provided to security guards stationed at each parking lot's entry/exit. They can manually book slots for customers and allocate them a spot. When customers return to retrieve their vehicles, they simply pay a small fee determined by our dynamic pricing algorithm fixed before the slot is booked, which utilizes machine learning and computer vision.
+
+Of course, there are always rule-breakers. For those who park overtime, fines will be imposed to their accounts.
+
+Advantages:
+
+~ Security
+~ Feasibility
+~ Economic benefits (reducing carbon footprint and pollution)
+~ Improved safety
+~ Flexibility
+~ Future-proofing
+~ Enhanced customer experience
+~ Scalability
+
+I guess that enough talking now let us move to the web application.
+
+explain each page accordingly.
