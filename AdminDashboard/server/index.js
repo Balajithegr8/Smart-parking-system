@@ -79,7 +79,7 @@ mongoose
   
   //routes
 
-  app.get("/", (req, res) => {
+  app.get("/health", (req, res) => {
     res.send("Server is up and running!");
   });
 
@@ -136,7 +136,7 @@ mongoose
             role
           });
           newUser
-            .save() // Removed the callback function here
+            .save() 
             .then(() => {
               res.send({ message: "Successfully Registered, Please login now. " });
             })
@@ -155,7 +155,50 @@ mongoose
   
   }); 
   
+  app.post('/registeruser', async (req, res) => {
+
+    const { name, email, password ,occupation="Faculty" ,phoneNumber ,transaction=[],role="user"}  = req.body
+    User.findOne({ email:email }).then(user => {
+      if(user){
+        return res.json({ message: 'User already exists' ,toastType:'error'})
+      }
+      const newUser = new User({
+        name,
+        email,
+        password,
+        occupation,
+        phoneNumber,
+        transaction,
+        role
+      })
+      newUser.save()
+      return res.json({ message: '🎉 User Created Successfully! Redirecting to login...' ,toastType:'success'})
+    
+  })
+  })
   
+  app.post('/loginuser',async (req, res) => {
+    
+    const { email, password }  = req.body
+    User.findOne({ email:email})
+      .then(user => {
+        if(user){
+              if(user.password === password && user.role==='user'){
+                return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...',toastType:'success'})
+              }
+              else{
+                return res.json({ message: '❌ Login Failed. Incorrect password.',toastType:'error' })
+                
+              }
+        }
+        else{
+                return res.json({ message: '❌ Login Failed. User does not exist.',toastType:'error' })
+           }
+      })
+    
+  })
+
+
   app.post("/slots", (req, res) => {
     const { name, licence_no, slot_no,loc, v_type, booked, entry_time,exit_time  } = req.body;
     if(booked==="yes"){
@@ -231,7 +274,7 @@ mongoose
 
   // Function to run the Python script
   function runPythonScript() {
-    const sensor = spawn('python3', ['main.py']);``
+    const sensor = spawn('python', ['main.py']);``
       sensor.on('close', (code) => {
         if (code === 0) {
           const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
