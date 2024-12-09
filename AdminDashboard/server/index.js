@@ -9,9 +9,12 @@ import morgan from "morgan";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
 import Realtime from "./models/Realtime.js";
+import sendmail from "./helpers/sendmail.js";
+
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
 import { spawn } from 'child_process';
+
 // Routes imports
 import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
@@ -55,6 +58,7 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
+const image = 'https://media-hosting.imagekit.io//ebce42a146264a93/DALL_E_2024-12-05_22.56.00_-_A_sleek_and_modern_logo_design_for_SPARK__a_smart_parking_system._The_logo_features_a_glowing_light_bulb_with_a_spark_in_the_center__symbolizing_innov-removebg-preview.png?Expires=1733907356&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=2IJia00Dm0O5tLnTs35lnpdPS7RYeo-lJYg2HjKiepYdSIc8IsbAU8A1jlAlIDxBulZ~DYJN9ZeAt2hqqNvyEXvJtKCmC0StX-l-pkFZz0KPQjoiMYThYqnvzTyhgyszPaskk5i9X5nl1gVrGiUfrt4hJ2XyuW8e486Uxmq0uwJr-hILmjOKUC6K7Ks8eAF8s4Uq-ElnWg5ZSe1f0Eu3LE~JT9ko-OUQm8PQjRLZ3zYruJ~kQaI9SrZk8bDVxvDcP70a73xZxyOADZdcJdxd8JeX6RgzITnTVAN0IBlaxAuM~Wv46mrZr-wdWfBRzstpCefUsiWe1zQABQfQQ7o6og__'
 
 // Mongoose Setup
 const PORT = process.env.PORT || 9000;
@@ -76,6 +80,7 @@ mongoose
     */
   })
   .catch((error) => console.log(`${error} did not connect.`));
+
   
   //routes
 
@@ -83,7 +88,7 @@ mongoose
     res.send("Server is up and running!");
   });
 
-  
+    
   app.post("/login", (req,res) =>{
   
     const {email, password }  = req.body
@@ -139,6 +144,7 @@ mongoose
             .save() 
             .then(() => {
               res.send({ message: "Successfully Registered, Please login now. " });
+
             })
             .catch((err) => {
               console.error(err);
@@ -171,11 +177,28 @@ mongoose
         transaction,
         role
       })
-      newUser.save()
-      return res.json({ message: '🎉 User Created Successfully! Redirecting to login...' ,toastType:'success'})
-    
-  })
-  })
+      newUser.save();
+      sendmail(
+        email, 
+        `Hi, ${name} Welcome to SPARK!`, 
+        'You have successfully registered as a user. Please login to continue.',
+        `<h1 style="color: #2d89ef; text-align: center;">Welcome to SPARK, ${name}!</h1>
+        <p style="font-size: 16px; line-height: 1.5; color: #444;">
+        Congratulations on taking the first step toward revolutionizing your parking experience! Your account has been successfully registered with SPARK, the ultimate smart parking solution.</p>
+        <p style="font-size: 16px; line-height: 1.5; color: #444;">
+        With SPARK, you can easily find and book parking slots, track your parking history, and manage your parking preferences. We're excited to have you on board!</p>
+        <img src="${image}" alt="SPARK Logo" style="display: block; margin: 20px auto; width: 200px; height: auto;">
+        <p style="text-align: center; font-size: 14px; color: #888; margin-top: 20px;">
+        Together, we're sparking innovation, reducing carbon footprints, and making parking smarter and easier!</p>
+        <br>
+        <br>
+        If this wasn't you, <a href="https://boulderbugle.com/07Ezyp7M" style="color: #ff4500; text-decoration: none; font-weight: bold;">click here to report</a>. We're here to keep your account safe and secure.</p>
+        `
+        );
+      return res.json({ message: '🎉 User Created Successfully! Redirecting to login...' ,toastType:'success'});
+    }).catch(err => res.status(500).json({ message: 'Error saving user', toastType: 'error' }));
+  });
+
   
   app.post('/loginuser',async (req, res) => {
     
@@ -296,4 +319,4 @@ mongoose
   runPythonScript();
   
   // Set up a periodic execution every 60 secs(6,000 milliseconds)
-  const intervalId = setInterval(runPythonScript, 60000);
+  const intervalId = setInterval(runPythonScript, 300000);
