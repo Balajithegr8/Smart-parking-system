@@ -26,7 +26,7 @@ import salesRoutes from "./routes/sales.js";
 /*
 import User from "./models/User.js";
 import Product from "./models/Product.js";
-import ProductStat from "./models/ProductStat.js";
+import Prodhttps://github.com/Balajithegr8/Smart-parking-system.gituctStat from "./models/ProductStat.js";
 import Transaction from "./models/Transaction.js";
 import OverallStat from "./models/OverallStat.js";
 import AffiliateStat from "./models/AffiliateStat.js";
@@ -81,108 +81,108 @@ mongoose
   })
   .catch((error) => console.log(`${error} did not connect.`));
 
-  
-  //routes
 
-  app.get("/health", (req, res) => {
-    res.send("Server is up and running!");
-  });
+//routes
 
-    
-  app.post("/login", (req,res) =>{
-  
-    const {email, password }  = req.body
-  
-    User.findOne({ email: email })
-      .then((user) => {
-  
-        if (user) {
-  
-          if(password === user.password && user.role==="user"){
-            res.send({message:"you are not allowed, Yowai mo"})
-          }
-          else if(password === user.password){
-            
-            res.send({message:"Login success",user:user})
-          }
-          else{
-            res.send({message:"password dint match"})
-          }
-        
-        } else {
-  
-          res.send({message: "User not registered"})
-  
+app.get("/health", (req, res) => {
+  res.send("Server is up and running!");
+});
+
+
+app.post("/login", (req, res) => {
+
+  const { email, password } = req.body
+
+  User.findOne({ email: email })
+    .then((user) => {
+
+      if (user) {
+
+        if (password === user.password && user.role === "user") {
+          res.send({ message: "you are not allowed, Yowai mo" })
         }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
-  
-  })
-  
-  app.post("/Register", (req,res) =>{
-  
-    const { name, email, password ,occupation="Faculty" ,phoneNumber ,transaction=[],role="guard"}  = req.body
-  
-    User.findOne({email: email })
-      .then((user) => {
-        if (user) {
-          res.send({ message: "User Already registered" });
-        } else {
-          const newUser = new User({
-            name,
-            email,
-            password,
-            occupation,
-            phoneNumber,
-            transaction,
-            role
-          });
-          newUser
-            .save() 
-            .then(() => {
-              res.send({ message: "Successfully Registered, Please login now. " });
+        else if (password === user.password) {
 
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
+          res.send({ message: "Login success", user: user })
         }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
-  
-  
-  
-  }); 
-  
-  app.post('/registeruser', async (req, res) => {
+        else {
+          res.send({ message: "password dint match" })
+        }
 
-    const { name, email, password ,occupation="Faculty" ,phoneNumber ,transaction=[],role="user"}  = req.body
-    User.findOne({ email:email }).then(user => {
-      if(user){
-        return res.json({ message: 'User already exists' ,toastType:'error'})
+      } else {
+
+        res.send({ message: "User not registered" })
+
       }
-      const newUser = new User({
-        name,
-        email,
-        password,
-        occupation,
-        phoneNumber,
-        transaction,
-        role
-      })
-      newUser.save();
-      sendmail(
-        email, 
-        `Hi, ${name} Welcome to SPARK!`, 
-        'You have successfully registered as a user. Please login to continue.',
-        `<h1 style="color: #2d89ef; text-align: center;">Welcome to SPARK, ${name}!</h1>
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ message: "Server error" });
+    });
+
+})
+
+app.post("/Register", (req, res) => {
+
+  const { name, email, password, occupation = "Faculty", phoneNumber, transaction = [], role = "guard" } = req.body
+
+  User.findOne({ email: email })
+    .then((user) => {
+      if (user) {
+        res.send({ message: "User Already registered" });
+      } else {
+        const newUser = new User({
+          name,
+          email,
+          password,
+          occupation,
+          phoneNumber,
+          transaction,
+          role
+        });
+        newUser
+          .save()
+          .then(() => {
+            res.send({ message: "Successfully Registered, Please login now. " });
+
+          })
+          .catch((err) => {
+            console.error(err);
+            res.status(500).send({ message: "Server error" });
+          });
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send({ message: "Server error" });
+    });
+
+
+
+});
+
+app.post('/registeruser', async (req, res) => {
+
+  const { name, email, password, occupation = "Faculty", phoneNumber, transaction = [], role = "user" } = req.body
+  User.findOne({ email: email }).then(user => {
+    if (user) {
+      return res.json({ message: 'User already exists', toastType: 'error' })
+    }
+    const newUser = new User({
+      name,
+      email,
+      password,
+      occupation,
+      phoneNumber,
+      transaction,
+      role
+    })
+    newUser.save();
+    sendmail(
+      email,
+      `Hi, ${name} Welcome to SPARK!`,
+      'You have successfully registered as a user. Please login to continue.',
+      `<h1 style="color: #2d89ef; text-align: center;">Welcome to SPARK, ${name}!</h1>
         <p style="font-size: 16px; line-height: 1.5; color: #444;">
         Congratulations on taking the first step toward revolutionizing your parking experience! Your account has been successfully registered with SPARK, the ultimate smart parking solution.</p>
         <p style="font-size: 16px; line-height: 1.5; color: #444;">
@@ -194,129 +194,129 @@ mongoose
         <br>
         If this wasn't you, <a href="https://boulderbugle.com/07Ezyp7M" style="color: #ff4500; text-decoration: none; font-weight: bold;">click here to report</a>. We're here to keep your account safe and secure.</p>
         `
-        );
-      return res.json({ message: '🎉 User Created Successfully! Redirecting to login...' ,toastType:'success'});
-    }).catch(err => res.status(500).json({ message: 'Error saving user', toastType: 'error' }));
-  });
+    );
+    return res.json({ message: '🎉 User Created Successfully! Redirecting to login...', toastType: 'success' });
+  }).catch(err => res.status(500).json({ message: 'Error saving user', toastType: 'error' }));
+});
 
-  
-  app.post('/loginuser',async (req, res) => {
-    
-    const { email, password }  = req.body
-    User.findOne({ email:email})
-      .then(user => {
-        if(user){
-              if(user.password === password && user.role==='user'){
-                return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...',toastType:'success'})
-              }
-              else{
-                return res.json({ message: '❌ Login Failed. Incorrect password.',toastType:'error' })
-                
-              }
+
+app.post('/loginuser', async (req, res) => {
+
+  const { email, password } = req.body
+  User.findOne({ email: email })
+    .then(user => {
+      if (user) {
+        if (user.password === password && user.role === 'user') {
+          return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' })
         }
-        else{
-                return res.json({ message: '❌ Login Failed. User does not exist.',toastType:'error' })
-           }
-      })
-    
-  })
-
-
-  app.post("/slots", (req, res) => {
-    const { name, licence_no, slot_no,loc, v_type, booked, entry_time,exit_time  } = req.body;
-    if(booked==="yes"){
-      Location.findOne({ loc, slot_no })
-        .then((existingLocation) => {
-          if (existingLocation) {
-            // Update the existing data
-            existingLocation.name = name;
-            existingLocation.licence_no = licence_no;
-            existingLocation.booked = "yes";
-            existingLocation.entry_time = entry_time;
-            existingLocation.exit_time = exit_time;
-    
-            existingLocation.save()
-              .then(() => {
-                res.send({ message: "Successfully updated, Arigato" });
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send({ message: "Server error" });
-              });
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send({ message: "Server error" });
-        });
-    }
-    else{
-      Location.findOne({ loc, slot_no })
-        .then((existingLocation) => {
-          if (existingLocation) {
-            // Update the existing data
-            existingLocation.name = "";
-            existingLocation.licence_no = "";
-            existingLocation.booked = "no";
-    
-            existingLocation.save()
-              .then(() => {
-                res.send({ message: "Successfully updated, Arigato" });
-              })
-              .catch((err) => {
-                console.error(err);
-                res.status(500).send({ message: "Server error" });
-              });
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send({ message: "Server error" });
-        });
-    }
-  });
-
-  async function saveDataToMongoDB(parsedData) {
-    const occupancyData = parsedData[0].occupancy_status;
-
-  
-    try {
-      // Clear existing data in the MongoDB collection
-      await Realtime.deleteMany({});
-      
-      // Insert new data into the MongoDB collection
-      await Realtime.insertMany(occupancyData);
-  
-      console.log('Data successfully saved to MongoDB');
-    } catch (err) {
-      console.error('Error manipulating data in MongoDB:', err);
-    }
-  }
-  
-  
-
-  // Function to run the Python script
-  function runPythonScript() {
-    const sensor = spawn('python', ['main.py']);``
-      sensor.on('close', (code) => {
-        if (code === 0) {
-          const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
-    
-          // Parse JSON data
-          const parsedData = JSON.parse(jsonData);
-    
-          // Call a function to save the data to MongoDB
-          saveDataToMongoDB(parsedData);
-        } 
         else {
-          console.error('Python script failed with code', code);
+          return res.json({ message: '❌ Login Failed. Incorrect password.', toastType: 'error' })
+
         }
       }
-    );
+      else {
+        return res.json({ message: '❌ Login Failed. User does not exist.', toastType: 'error' })
+      }
+    })
+
+})
+
+
+app.post("/slots", (req, res) => {
+  const { name, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
+  if (booked === "yes") {
+    Location.findOne({ loc, slot_no })
+      .then((existingLocation) => {
+        if (existingLocation) {
+          // Update the existing data
+          existingLocation.name = name;
+          existingLocation.licence_no = licence_no;
+          existingLocation.booked = "yes";
+          existingLocation.entry_time = entry_time;
+          existingLocation.exit_time = exit_time;
+
+          existingLocation.save()
+            .then(() => {
+              res.send({ message: "Successfully updated, Arigato" });
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send({ message: "Server error" });
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
   }
-  
-  // Run the Python script initially
-  runPythonScript();
-  
-  // Set up a periodic execution every 60 secs(6,000 milliseconds)
-  const intervalId = setInterval(runPythonScript, 300000);
+  else {
+    Location.findOne({ loc, slot_no })
+      .then((existingLocation) => {
+        if (existingLocation) {
+          // Update the existing data
+          existingLocation.name = "";
+          existingLocation.licence_no = "";
+          existingLocation.booked = "no";
+
+          existingLocation.save()
+            .then(() => {
+              res.send({ message: "Successfully updated, Arigato" });
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send({ message: "Server error" });
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
+  }
+});
+
+async function saveDataToMongoDB(parsedData) {
+  const occupancyData = parsedData[0].occupancy_status;
+
+
+  try {
+    // Clear existing data in the MongoDB collection
+    await Realtime.deleteMany({});
+
+    // Insert new data into the MongoDB collection
+    await Realtime.insertMany(occupancyData);
+
+    console.log('Data successfully saved to MongoDB');
+  } catch (err) {
+    console.error('Error manipulating data in MongoDB:', err);
+  }
+}
+
+
+
+// Function to run the Python script
+function runPythonScript() {
+  const sensor = spawn('python', ['main.py']); ``
+  sensor.on('close', (code) => {
+    if (code === 0) {
+      const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
+
+      // Parse JSON data
+      const parsedData = JSON.parse(jsonData);
+
+      // Call a function to save the data to MongoDB
+      saveDataToMongoDB(parsedData);
+    }
+    else {
+      console.error('Python script failed with code', code);
+    }
+  }
+  );
+}
+
+// Run the Python script initially
+runPythonScript();
+
+// Set up a periodic execution every 60 secs(6,000 milliseconds)
+const intervalId = setInterval(runPythonScript, 300000);

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import Navbar from "../../components/Navbar";
-import Sidebar from "../../components/Sidebar";
 import { Outlet } from "react-router-dom";
 
 const Layout = () => {
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
+  const isNonMobile = useMediaQuery("(min-width: 922px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
@@ -14,23 +13,28 @@ const Layout = () => {
       width="100%"
       height="100%"
       sx={{
-        background:  "#282c34", // Gradient background
         minHeight: "100vh", // Ensure it covers the full viewport height
       }}
     >
-      <Sidebar
-        isNonMobile={isNonMobile}
-        drawerWidth="250px"
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
+      {isNonMobile && (
+        <Box width="200px" bgcolor="grey.800">
+          <Navbar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        </Box>
+      )}
       <Box flexGrow={1}>
-        <Navbar
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
         <Outlet />
       </Box>
+      {!isNonMobile && (
+        <Box position="fixed" bottom={0} width="100%" bgcolor="grey.800">
+          <Navbar
+            isSidebarOpen={isSidebarOpen}
+            setIsSidebarOpen={setIsSidebarOpen}
+          />
+        </Box>
+      )}
     </Box>
   );
 };

@@ -1,118 +1,66 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import {
-  LightModeOutlined,
-  DarkModeOutlined,
-  Menu as MenuIcon,
-  Search,
-  SettingsOutlined,
-  ArrowDropDownOutlined,
-} from "@mui/icons-material";
-import FlexBetween from "./FlexBetween";
+import { Box, Typography } from "@mui/material";
+import { useMediaQuery } from "@mui/material";
+import HomeIcon from '@mui/icons-material/Home';
+import EnforcementIcon from '@mui/icons-material/Gavel';
+import AddIcon from '@mui/icons-material/AddCircle';
+import OutOfOfficeIcon from '@mui/icons-material/WorkOff';
+import ProfileIcon from '@mui/icons-material/Person';
 
-import profileImage from "../assets/profile.jpeg";
-import {
-  AppBar,
-  Button,
-  Box,
-  IconButton,
-  InputBase,
-  Toolbar,
-  Menu,
-  MenuItem,
-  useTheme,
-} from "@mui/material";
+const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
+  const isNonMobile = useMediaQuery("(min-width: 922px)");
 
-const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
-  const theme = useTheme();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const isOpen = Boolean(anchorEl);
-  const navigate = useNavigate();
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
-  const handleLogout = () => {
-    setAnchorEl(null);
-    navigate("/");
-  };
+  const navItems = [
+    { icon: <HomeIcon sx={{ fontSize: '2rem' }} />, label: "Today" },
+    { icon: <EnforcementIcon sx={{ fontSize: '2rem' }} />, label: "Report" },
+    { icon: <AddIcon sx={{ fontSize: '3rem', height: '42px', width: '42px' }} />, label: "Add" },
+    { icon: <OutOfOfficeIcon sx={{ fontSize: '2rem' }} />, label: "Out" },
+    { icon: <ProfileIcon sx={{ fontSize: '2rem' }} />, label: "Profile" },
+  ];
 
   return (
-    <AppBar
+    <Box
+      display="flex"
+      flexDirection={isNonMobile ? "column" : "row"}
+      alignItems="center"
+      justifyContent="space-around"
+      height={isNonMobile ? "60vh" : "auto"}
+      bgcolor="rgba(21, 40, 75, 0.8)" 
+      p={isNonMobile ? 2 : 1}
       sx={{
-        position: "static",
-        background: "none",
-        boxShadow: "none",
+        backdropFilter: "blur(100px)",
+        color: "white",
+        backdropFilter: "blur(20px)",
+        height: isNonMobile ? "100vh" : "auto",
+        zIndex: 1,
+        width: "100%",
       }}
     >
-      <Toolbar sx={{ justifyContent: "space-between" }}>
-        {/* LEFT SIDE */}
-        <FlexBetween>
-          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-            <MenuIcon />
-          </IconButton>
-          <FlexBetween
-            backgroundColor={theme.palette.background.alt}
-            borderRadius="9px"
-            gap="3rem"
-            p="0.1rem 1.5rem"
-          >
-            <InputBase placeholder="Search..." />
-            <IconButton>
-              <Search />
-            </IconButton>
-          </FlexBetween>
-        </FlexBetween>
-
-        {/* RIGHT SIDE */}
-        <FlexBetween gap="1.5rem">
-          <IconButton>
-            {theme.palette.mode === "dark" ? (
-              <DarkModeOutlined sx={{ fontSize: "25px" }} />
-            ) : (
-              <LightModeOutlined sx={{ fontSize: "25px" }} />
-            )}
-          </IconButton>
-          <IconButton>
-            <SettingsOutlined sx={{ fontSize: "25px" }} />
-          </IconButton>
-
-          <FlexBetween>
-            <Button
-              onClick={handleClick}
+      {navItems.map((item, index) => (
+        <Box
+          key={index}
+          display="flex"
+          flexDirection={isNonMobile ? "row" : "column"}
+          alignItems="center"
+          justifyContent="center"
+          sx={{ padding: "0.5rem" }}
+        >
+          {item.icon}
+          {(isNonMobile || item.label !== "Add") && (
+            <Typography
+              variant="h6"
               sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                textTransform: "none",
-                gap: "1rem",
+                fontSize: "1.2rem",
+                padding: isNonMobile ? "0 0.5rem" : "0.5rem 0",
+                textAlign: "center",
               }}
             >
-              <Box
-                component="img"
-                alt="profile"
-                src={profileImage}
-                height="32px"
-                width="32px"
-                borderRadius="50%"
-                sx={{ objectFit: "cover" }}
-              />
-              <ArrowDropDownOutlined
-                sx={{ color: theme.palette.secondary[300], fontSize: "25px" }}
-              />
-            </Button>
-            <Menu
-              anchorEl={anchorEl}
-              open={isOpen}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-            </Menu>
-          </FlexBetween>
-        </FlexBetween>
-      </Toolbar>
-    </AppBar>
+              {item.label}
+            </Typography>
+          )}
+        </Box>
+      ))}
+    </Box>
   );
-};
+}
 
 export default Navbar;
