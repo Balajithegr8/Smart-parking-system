@@ -38,7 +38,7 @@ function LoginRegister() {
           password,
         }),
       });
-      
+
       const data = await res.json();
       setToastMessage(data.message);
       setToastType(data.toastType);
@@ -85,7 +85,7 @@ function LoginRegister() {
         setEmail('');
         setPassword('');
         setTimeout(() => {
-          window.location.href = '/userdashboard';
+          window.location.href = '/today';
         }, 3000);
       }
 

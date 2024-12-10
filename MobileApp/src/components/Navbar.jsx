@@ -5,17 +5,19 @@ import EnforcementIcon from '@mui/icons-material/Gavel';
 import AddIcon from '@mui/icons-material/AddCircle';
 import OutOfOfficeIcon from '@mui/icons-material/WorkOff';
 import ProfileIcon from '@mui/icons-material/Person';
+import { Link } from "react-router-dom"; // For routing
 
 const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
   const isNonMobile = useMediaQuery("(min-width: 922px)");
 
   const navItems = [
-    { icon: <HomeIcon sx={{ fontSize: '2rem' }} />, label: "Today" },
-    { icon: <EnforcementIcon sx={{ fontSize: '2rem' }} />, label: "Report" },
-    { icon: <AddIcon sx={{ fontSize: '3rem', height: '42px', width: '42px' }} />, label: "Add" },
-    { icon: <OutOfOfficeIcon sx={{ fontSize: '2rem' }} />, label: "Out" },
-    { icon: <ProfileIcon sx={{ fontSize: '2rem' }} />, label: "Profile" },
+    { icon: <HomeIcon sx={{ fontSize: '1.7rem' }} />, label: "Today", path: "/today" },
+    { icon: <EnforcementIcon sx={{ fontSize: '1.7rem' }} />, label: "Report", path: "/report" },
+    { icon: <AddIcon sx={{ fontSize: '2.3rem' }} />, label: "PreBook", path: "/prebook" },
+    { icon: <OutOfOfficeIcon sx={{ fontSize: '1.7rem' }} />, label: "Bookings", path: "/bookings" },
+    { icon: <ProfileIcon sx={{ fontSize: '1.7rem' }} />, label: "Profile", path: "/profile" },
   ];
+
 
   return (
     <Box
@@ -29,13 +31,17 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
       sx={{
         backdropFilter: "blur(100px)",
         color: "white",
-        backdropFilter: "blur(20px)",
         height: isNonMobile ? "100vh" : "auto",
         zIndex: 1,
         width: "100%",
       }}
     >
       {navItems.map((item, index) => (
+        <Link
+        key={index}
+        to={item.path}
+        style={{ textDecoration: "none", color: "white" }} // Added routing with Link
+        >
         <Box
           key={index}
           display="flex"
@@ -45,11 +51,11 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
           sx={{ padding: "0.5rem" }}
         >
           {item.icon}
-          {(isNonMobile || item.label !== "Add") && (
+          {(isNonMobile || item.label !== "PreBook") && (
             <Typography
               variant="h6"
               sx={{
-                fontSize: "1.2rem",
+                fontSize: "0.9rem",
                 padding: isNonMobile ? "0 0.5rem" : "0.5rem 0",
                 textAlign: "center",
               }}
@@ -58,6 +64,7 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
             </Typography>
           )}
         </Box>
+        </Link>
       ))}
     </Box>
   );

@@ -4,9 +4,13 @@ import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { themeSettings } from "./theme";
 import Layout from "./scenes/layout/Layout";
-import { BrowserRouter as Router, Route, Switch,Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import LoginRegister from './LoginRegister';
-import Dashboard from './Dashboard';
+import Today from './scenes/Today';
+import Profile from './scenes/Profile';
+import Bookings from './scenes/Bookings';
+import PreBook from './scenes/PreBook';
+import Report from './scenes/Report';
 import './App.css';
 
 function App() {
@@ -15,15 +19,18 @@ function App() {
   return (
     <div>
       <Router>
-      <ThemeProvider theme={theme}>
-      <CssBaseline />
-        <Routes>
-          <Route path="/" element={<LoginRegister/>} />
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <Routes>
+            <Route path="/" element={<LoginRegister />} />
             <Route element={<Layout />}>
-              <Route path="/userdashboard" element={<Dashboard/>} />
+              <Route path="/today" element={<Today />} />
+              <Route path="/report" element={<Report />} />
+              <Route path="/prebook" element={<PreBook />} />
+              <Route path="/bookings" element={<Bookings />} />
+              <Route path="/profile" element={<Profile />} />
             </Route>
-          
-        </Routes>
+          </Routes>
         </ThemeProvider>
       </Router>
     </div>
