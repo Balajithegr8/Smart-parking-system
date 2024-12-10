@@ -2,18 +2,16 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-import fs from 'fs';
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
-import Realtime from "./models/Realtime.js";
 import sendmail from "./helpers/sendmail.js";
+import { runPythonScript } from "./helpers/pythonRunner.js";
 
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
-import { spawn } from 'child_process';
 
 // Routes imports
 import clientRoutes from "./routes/client.js";
@@ -26,7 +24,7 @@ import salesRoutes from "./routes/sales.js";
 /*
 import User from "./models/User.js";
 import Product from "./models/Product.js";
-import Prodhttps://github.com/Balajithegr8/Smart-parking-system.gituctStat from "./models/ProductStat.js";
+import ProductStat from "./models/ProductStat.js";
 import Transaction from "./models/Transaction.js";
 import OverallStat from "./models/OverallStat.js";
 import AffiliateStat from "./models/AffiliateStat.js";
@@ -58,7 +56,7 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
-const image = 'https://media-hosting.imagekit.io//ebce42a146264a93/DALL_E_2024-12-05_22.56.00_-_A_sleek_and_modern_logo_design_for_SPARK__a_smart_parking_system._The_logo_features_a_glowing_light_bulb_with_a_spark_in_the_center__symbolizing_innov-removebg-preview.png?Expires=1733907356&Key-Pair-Id=K2ZIVPTIP2VGHC&Signature=2IJia00Dm0O5tLnTs35lnpdPS7RYeo-lJYg2HjKiepYdSIc8IsbAU8A1jlAlIDxBulZ~DYJN9ZeAt2hqqNvyEXvJtKCmC0StX-l-pkFZz0KPQjoiMYThYqnvzTyhgyszPaskk5i9X5nl1gVrGiUfrt4hJ2XyuW8e486Uxmq0uwJr-hILmjOKUC6K7Ks8eAF8s4Uq-ElnWg5ZSe1f0Eu3LE~JT9ko-OUQm8PQjRLZ3zYruJ~kQaI9SrZk8bDVxvDcP70a73xZxyOADZdcJdxd8JeX6RgzITnTVAN0IBlaxAuM~Wv46mrZr-wdWfBRzstpCefUsiWe1zQABQfQQ7o6og__'
+const image = 'https://i.ibb.co/k5BVRkQ/DALL-E-2024-12-05-22-56-00-A-sleek-and-modern-logo-design-for-SPARK-a-smart-parking-system-The-logo.png'
 
 // Mongoose Setup
 const PORT = process.env.PORT || 9000;
@@ -81,242 +79,202 @@ mongoose
   })
   .catch((error) => console.log(`${error} did not connect.`));
 
+  
+  //routes
 
-//routes
+  app.get("/health", (req, res) => {
+    res.send("Server is up and running!");
+  });
 
-app.get("/health", (req, res) => {
-  res.send("Server is up and running!");
-});
-
-
-app.post("/login", (req, res) => {
-
-  const { email, password } = req.body
-
-  User.findOne({ email: email })
-    .then((user) => {
-
-      if (user) {
-
-        if (password === user.password && user.role === "user") {
-          res.send({ message: "you are not allowed, Yowai mo" })
+    
+  app.post("/login", (req,res) =>{
+  
+    const {email, password }  = req.body
+  
+    User.findOne({ email: email })
+      .then((user) => {
+  
+        if (user) {
+  
+          if(password === user.password && user.role==="user"){
+            res.send({message:"you are not allowed, Yowai mo"})
+          }
+          else if(password === user.password){
+            
+            res.send({message:"Login success",user:user})
+          }
+          else{
+            res.send({message:"password dint match"})
+          }
+        
+        } else {
+  
+          res.send({message: "User not registered"})
+  
         }
-        else if (password === user.password) {
-
-          res.send({ message: "Login success", user: user })
-        }
-        else {
-          res.send({ message: "password dint match" })
-        }
-
-      } else {
-
-        res.send({ message: "User not registered" })
-
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send({ message: "Server error" });
-    });
-
-})
-
-app.post("/Register", (req, res) => {
-
-  const { name, email, password, occupation = "Faculty", phoneNumber, transaction = [], role = "guard" } = req.body
-
-  User.findOne({ email: email })
-    .then((user) => {
-      if (user) {
-        res.send({ message: "User Already registered" });
-      } else {
-        const newUser = new User({
-          name,
-          email,
-          password,
-          occupation,
-          phoneNumber,
-          transaction,
-          role
-        });
-        newUser
-          .save()
-          .then(() => {
-            res.send({ message: "Successfully Registered, Please login now. " });
-
-          })
-          .catch((err) => {
-            console.error(err);
-            res.status(500).send({ message: "Server error" });
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
+  
+  })
+  
+  app.post("/Register", (req,res) =>{
+  
+    const { name, email, password ,occupation="Faculty" ,phoneNumber ,transaction=[],role="guard"}  = req.body
+  
+    User.findOne({email: email })
+      .then((user) => {
+        if (user) {
+          res.send({ message: "User Already registered" });
+        } else {
+          const newUser = new User({
+            name,
+            email,
+            password,
+            occupation,
+            phoneNumber,
+            transaction,
+            role
           });
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send({ message: "Server error" });
-    });
+          newUser
+            .save() 
+            .then(() => {
+              res.send({ message: "Successfully Registered, Please login now. " });
 
-
-
-});
-
-app.post('/registeruser', async (req, res) => {
-
-  const { name, email, password, occupation = "Faculty", phoneNumber, transaction = [], role = "user" } = req.body
-  User.findOne({ email: email }).then(user => {
-    if (user) {
-      return res.json({ message: 'User already exists', toastType: 'error' })
-    }
-    const newUser = new User({
-      name,
-      email,
-      password,
-      occupation,
-      phoneNumber,
-      transaction,
-      role
-    })
-    newUser.save();
-    sendmail(
-      email,
-      `Hi, ${name} Welcome to SPARK!`,
-      'You have successfully registered as a user. Please login to continue.',
-      `<h1 style="color: #2d89ef; text-align: center;">Welcome to SPARK, ${name}!</h1>
-        <p style="font-size: 16px; line-height: 1.5; color: #444;">
-        Congratulations on taking the first step toward revolutionizing your parking experience! Your account has been successfully registered with SPARK, the ultimate smart parking solution.</p>
-        <p style="font-size: 16px; line-height: 1.5; color: #444;">
-        With SPARK, you can easily find and book parking slots, track your parking history, and manage your parking preferences. We're excited to have you on board!</p>
-        <img src="${image}" alt="SPARK Logo" style="display: block; margin: 20px auto; width: 200px; height: auto;">
-        <p style="text-align: center; font-size: 14px; color: #888; margin-top: 20px;">
-        Together, we're sparking innovation, reducing carbon footprints, and making parking smarter and easier!</p>
-        <br>
-        <br>
-        If this wasn't you, <a href="https://boulderbugle.com/07Ezyp7M" style="color: #ff4500; text-decoration: none; font-weight: bold;">click here to report</a>. We're here to keep your account safe and secure.</p>
-        `
-    );
-    return res.json({ message: '🎉 User Created Successfully! Redirecting to login...', toastType: 'success' });
-  }).catch(err => res.status(500).json({ message: 'Error saving user', toastType: 'error' }));
-});
-
-
-app.post('/loginuser', async (req, res) => {
-
-  const { email, password } = req.body
-  User.findOne({ email: email })
-    .then(user => {
+            })
+            .catch((err) => {
+              console.error(err);
+              res.status(500).send({ message: "Server error" });
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send({ message: "Server error" });
+      });
+  
+  
+  
+  }); 
+  
+  app.post('/registeruser', async (req, res) => {
+    const { name, email, password, occupation = "Guest", phoneNumber, transaction = [], role = "user" } = req.body;
+  
+    try {
+      // Check if the user already exists
+      const user = await User.findOne({ email: email });
       if (user) {
-        if (user.password === password && user.role === 'user') {
-          return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' })
-        }
-        else {
-          return res.json({ message: '❌ Login Failed. Incorrect password.', toastType: 'error' })
-
-        }
+        return res.json({ message: 'User already exists', toastType: 'error' });
       }
-      else {
-        return res.json({ message: '❌ Login Failed. User does not exist.', toastType: 'error' })
+  
+      // Create and save the new user
+      const newUser = new User({
+        name,
+        email,
+        password,
+        occupation,
+        phoneNumber,
+        transaction,
+        role,
+      });
+  
+      try {
+        // Attempt to send the email
+        await sendmail(email, name, image);
+      } catch (err) {
+        return res.json({ message: 'Please Enter Valid Email', toastType: 'error' });
       }
-    })
-
-})
-
-
-app.post("/slots", (req, res) => {
-  const { name, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
-  if (booked === "yes") {
-    Location.findOne({ loc, slot_no })
-      .then((existingLocation) => {
-        if (existingLocation) {
-          // Update the existing data
-          existingLocation.name = name;
-          existingLocation.licence_no = licence_no;
-          existingLocation.booked = "yes";
-          existingLocation.entry_time = entry_time;
-          existingLocation.exit_time = exit_time;
-
-          existingLocation.save()
-            .then(() => {
-              res.send({ message: "Successfully updated, Arigato" });
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
-  }
-  else {
-    Location.findOne({ loc, slot_no })
-      .then((existingLocation) => {
-        if (existingLocation) {
-          // Update the existing data
-          existingLocation.name = "";
-          existingLocation.licence_no = "";
-          existingLocation.booked = "no";
-
-          existingLocation.save()
-            .then(() => {
-              res.send({ message: "Successfully updated, Arigato" });
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
-  }
-});
-
-async function saveDataToMongoDB(parsedData) {
-  const occupancyData = parsedData[0].occupancy_status;
-
-
-  try {
-    // Clear existing data in the MongoDB collection
-    await Realtime.deleteMany({});
-
-    // Insert new data into the MongoDB collection
-    await Realtime.insertMany(occupancyData);
-
-    console.log('Data successfully saved to MongoDB');
-  } catch (err) {
-    console.error('Error manipulating data in MongoDB:', err);
-  }
-}
-
-
-
-// Function to run the Python script
-function runPythonScript() {
-  const sensor = spawn('python', ['main.py']); ``
-  sensor.on('close', (code) => {
-    if (code === 0) {
-      const jsonData = fs.readFileSync('occupancy_data.json', 'utf8');
-
-      // Parse JSON data
-      const parsedData = JSON.parse(jsonData);
-
-      // Call a function to save the data to MongoDB
-      saveDataToMongoDB(parsedData);
+  
+      // Respond with success message
+      newUser.save();
+      return res.json({ message: '🎉 User Created Successfully! Redirecting to login...', toastType: 'success' });
+  
+    } catch (err) {
+      // Handle database or other unexpected errors
+      console.error("Error registering user:", err.message);
+      return res.status(500).json({ message: 'Error saving user', toastType: 'error' });
     }
-    else {
-      console.error('Python script failed with code', code);
+  });
+  
+
+  
+  app.post('/loginuser',async (req, res) => {
+    
+    const { email, password }  = req.body
+    User.findOne({ email:email})
+      .then(user => {
+        if(user){
+              if(user.password === password && user.role==='user'){
+                return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...',toastType:'success'})
+              }
+              else{
+                return res.json({ message: '❌ Login Failed. Incorrect password.',toastType:'error' })
+                
+              }
+        }
+        else{
+                return res.json({ message: '❌ Login Failed. User does not exist.',toastType:'error' })
+           }
+      })
+    
+  })
+
+
+  app.post("/slots", (req, res) => {
+    const { name, licence_no, slot_no,loc, v_type, booked, entry_time,exit_time  } = req.body;
+    if(booked==="yes"){
+      Location.findOne({ loc, slot_no })
+        .then((existingLocation) => {
+          if (existingLocation) {
+            // Update the existing data
+            existingLocation.name = name;
+            existingLocation.licence_no = licence_no;
+            existingLocation.booked = "yes";
+            existingLocation.entry_time = entry_time;
+            existingLocation.exit_time = exit_time;
+    
+            existingLocation.save()
+              .then(() => {
+                res.send({ message: "Successfully updated, Arigato" });
+              })
+              .catch((err) => {
+                console.error(err);
+                res.status(500).send({ message: "Server error" });
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error" });
+        });
     }
-  }
-  );
-}
+    else{
+      Location.findOne({ loc, slot_no })
+        .then((existingLocation) => {
+          if (existingLocation) {
+            // Update the existing data
+            existingLocation.name = "";
+            existingLocation.licence_no = "";
+            existingLocation.booked = "no";
+    
+            existingLocation.save()
+              .then(() => {
+                res.send({ message: "Successfully updated, Arigato" });
+              })
+              .catch((err) => {
+                console.error(err);
+                res.status(500).send({ message: "Server error" });
+              });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send({ message: "Server error" });
+        });
+    }
+  });
 
-// Run the Python script initially
-runPythonScript();
-
-// Set up a periodic execution every 60 secs(6,000 milliseconds)
-const intervalId = setInterval(runPythonScript, 300000);
+  runPythonScript();
+  setInterval(runPythonScript, 300000);

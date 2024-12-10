@@ -10,7 +10,7 @@ function LoginRegister() {
   const [password, setPassword] = useState('');
   const [name, setname] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [occupation, setOccupation] = useState('Guest');
+  const [occupation, setOccupation] = useState('guest');
   const [role, setRole] = useState('user');
   const [transaction, setTransaction] = useState([]);
   const [isLogin, setIsLogin] = useState(true);
