@@ -6,11 +6,11 @@ import { themeSettings } from "./theme";
 import Layout from "./scenes/layout/Layout";
 import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
 import LoginRegister from './LoginRegister';
-import Today from './scenes/Today';
-import Profile from './scenes/Profile';
-import Bookings from './scenes/Bookings';
-import PreBook from './scenes/PreBook';
-import Report from './scenes/Report';
+import Today from './scenes/Today/Today';
+import Profile from './scenes/Profile/Profile';
+import Bookings from './scenes/Bookings/Bookings';
+import PreBook from './scenes/PreBook/PreBook';
+import Report from './scenes/Report/Report';
 import './App.css';
 
 function App() {
