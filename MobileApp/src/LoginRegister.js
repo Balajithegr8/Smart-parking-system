@@ -84,6 +84,7 @@ function LoginRegister() {
         // Clear form and redirect
         setEmail('');
         setPassword('');
+        localStorage.setItem("email", email);
         setTimeout(() => {
           window.location.href = '/today';
         }, 3000);
@@ -143,6 +144,7 @@ function LoginRegister() {
               <input value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 type="text" className="input-field" placeholder="Email" />
+                
               <i className="bx bx-user"></i>
             </div>
             <div className="input-box">

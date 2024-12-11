@@ -1,8 +1,22 @@
-import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import React from "react";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { useGetmobuserQuery } from "../../state/api";
 
 const Profile = () => {
+  const email = localStorage.getItem("email");
+  const { data, isLoading, error } = useGetmobuserQuery(email);
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error fetching data!</div>;
+  }
+  
+  const {name,occupation,parked,vehicle}=data;
+  const useremail = email.split('@')[0];
+
   return (
     <div
       style={{
@@ -28,27 +42,40 @@ const Profile = () => {
       ></div>
 
       {/* Header Section */}
-      <div style={{ position: "relative", textAlign: "left", zIndex: 1 ,marginTop:"20px" }}>
-        <h1 style={{ margin: 0, fontSize: "2rem" }}>
-          Profile
-        </h1>
-        <p style={{ margin: "0.5rem 0", fontSize: "0.7rem" ,color:"white"}}>
+      <div
+        style={{
+          position: "relative",
+          textAlign: "left",
+          zIndex: 1,
+          marginTop: "20px",
+        }}
+      >
+        <h1 style={{ margin: 0, fontSize: "2rem" }}>Profile</h1>
+        <p style={{ margin: "0.5rem 0", fontSize: "0.7rem", color: "white" }}>
           View and Edit your Profile
         </p>
       </div>
 
       <div>
-        <NotificationsNoneOutlinedIcon style={{color:"white",position:"absolute",right:"25px",top:"40px", fontSize:"3rem"}}/>
+        <NotificationsNoneOutlinedIcon
+          style={{
+            color: "white",
+            position: "absolute",
+            right: "25px",
+            top: "40px",
+            fontSize: "3rem",
+          }}
+        />
       </div>
 
       {/* Profile Card */}
       <div
         style={{
-          marginTop: "6rem",
+          marginTop: "3rem",
+          height: "67%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          
           zIndex: 1,
         }}
       >
@@ -60,48 +87,59 @@ const Profile = () => {
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             width: "94%",
             textAlign: "center",
+            alignContent: "center",
           }}
         >
           {/* Avatar Section */}
-          <h2 style={{ fontSize: "1.5rem" }}>Balaji P</h2>
+          <h2 style={{ fontSize: "1.7rem", fontWeight: "lighter" }}>
+            {name}
+          </h2>
           <div>
             <AccountCircleIcon style={{ fontSize: "6rem" }} />
           </div>
 
           {/* Profile Info */}
-          <div style={{ textAlign: "left", marginTop: "1rem" }}>
-            <p style={{ margin: "0.5rem 0", fontSize: "0.9rem" }}>
-              <span style={{ fontWeight: "bold" }}>Name:</span> Balaji P
-            </p>
-            <p style={{ margin: "0.5rem 0", fontSize: "0.9rem" }}>
-              <span style={{ fontWeight: "bold" }}>Email:</span>{" "}
-              br8330@srmist.edu.in
-            </p>
-            <p style={{ margin: "0.5rem 0", fontSize: "0.9rem" }}>
-              <span style={{ fontWeight: "bold" }}>Office:</span> Paid Office
-            </p>
-            <p style={{ margin: "0.5rem 0", fontSize: "0.9rem" }}>
-              <span style={{ fontWeight: "bold" }}>Vehicles:</span> YHTHG
-              (small)
-            </p>
-            <p style={{ margin: "0.5rem 0", fontSize: "0.9rem" }}>
-              <span style={{ fontWeight: "bold" }}>Wallet Balance:</span> 300
-            </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto 1fr", // Two columns: first column auto-sized, second column fills the space
+              gap: "1rem", // Spacing between rows and columns
+              textAlign: "left",
+              marginTop: "1rem",
+              marginLeft: "1rem",
+              columnGap: "30vw",
+              justifyItems: "flex-start",
+              textAlign: "left",
+            }}
+          >
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>Name</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{name}</span>
+
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>Email</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{useremail}</span>
+
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>Occupation</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{occupation}</span>
+
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>Vehicles</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{vehicle}</span>
+
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>Parked</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{String(parked)}</span>
           </div>
 
           {/* Action Buttons */}
           <div style={{ marginTop: "1rem" }}>
-            
             <button
               style={{
                 background: "#b8b9bd",
                 border: "none",
-                padding: "0.7rem 1rem",
+                padding: "0.7rem 3rem",
                 margin: "0.5rem",
-                borderRadius: "5px",
+                borderRadius: "10px",
                 color: "#000000",
                 fontWeight: "bold",
-                fontSize: "0.9rem",
+                fontSize: "1rem",
                 cursor: "pointer",
                 transition: "all 0.3s ease-in-out",
               }}

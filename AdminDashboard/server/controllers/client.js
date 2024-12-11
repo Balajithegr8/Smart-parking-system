@@ -44,6 +44,16 @@ export const getCustomers = async (req, res) => {
   }
 };
 
+export const getmobuser = async (req, res) => {
+  try{
+    const mobuser=await User.findOne({email:req.params.email});
+    res.status(200).json(mobuser);
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 // Get Slots
 export const getSlots = async (req, res) => {
   try {

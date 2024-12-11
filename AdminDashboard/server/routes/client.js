@@ -5,6 +5,7 @@ import {
   getTransactions,
   getGeography,
   getSlots,
+  getmobuser,
   getLocations,
   getProducts,
   getRealtime,
@@ -22,5 +23,6 @@ router.get("/locations", getLocations);
 router.get("/transactions", getTransactions);
 router.get("/occupancy", getGeography);
 router.get("/realtime", getRealtime);
+router.get("/mobuser/:email", getmobuser);
 
 export default router;
