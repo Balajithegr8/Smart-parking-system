@@ -16,6 +16,7 @@ import { Header } from "components";
 import { useState } from "react";
 import Modal from "../../components/Modal/Modal";
 import Pop from "../../components/Pop/Pop";
+import Report from "components/Report/Report";
 // Slot
 const Slot = ({
   loc,
@@ -31,6 +32,7 @@ const Slot = ({
   const [isExpanded, setIsExpanded] = useState(false);  
   const [openModal,setopenModal] = useState(false,);
   const [openPop,setopenPop] = useState(false,);
+  const [openReport,setopenReport] = useState(false,);
   // theme
   const theme = useTheme();
   
@@ -149,6 +151,21 @@ const Slot = ({
         
                 Release this Slot
               </Button>
+              <Button onClick={()=>{setopenReport(true); }}
+                  sx={{
+                    backgroundColor: '#d10000',
+                    color: theme.palette.background.alt,
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    padding: "5px 54px",
+                    marginTop: "10px",
+            
+                    "&:hover": {
+                      backgroundColor: theme.palette.background.alt,
+                      color: '#d10000',
+                    },
+                  }}
+                  >Report</Button>
             </CardContent>
           </Collapse>
 
@@ -156,6 +173,7 @@ const Slot = ({
     </Card>
     {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
     {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} />}
+    {openReport && <Report closeReport={setopenReport } slot_no={slot_no} v_type={v_type} loc={loc} licence_no={licence_no} entry_time={entry_time} exit_time={exit_time}/>}
     </Box>
   );
 };
@@ -202,6 +220,7 @@ const Slots = () => {
               name,
               licence_no,
               exit_time,
+              entry_time,
             }) => (
               <Slot
                 key={slot_no}
@@ -213,6 +232,7 @@ const Slots = () => {
                 name={name}
                 licence_no={licence_no}
                 exit_time={exit_time}
+                entry_time={entry_time}
                
               />
             )
