@@ -4,7 +4,7 @@ import { Close } from "@mui/icons-material";
 import axios from 'axios';
 import { useState } from "react";
 
-const Report = ({ closeReport ,slot_no,v_type,loc,licence_no, entry_time, exit_time}) => {
+const Report = ({ closeReport ,slot_no,v_type,loc,licence_no, entry_time, exit_time,email}) => {
 
   const [ isreport, setIsreport] = useState({
     slot_no:slot_no,
@@ -13,14 +13,11 @@ const Report = ({ closeReport ,slot_no,v_type,loc,licence_no, entry_time, exit_t
     licence_no:licence_no,
     entry_time:entry_time,
     exit_time:exit_time,
+    email:email,
   });
 
   const handleReason = (e) => {
     setIsreport({ ...isreport, reason: e.target.value });
-  };
-
-  const handleEmail = (e) => {
-    setIsreport({ ...isreport, email: e.target.value });
   };
 
   const onreport= () =>{
@@ -30,7 +27,6 @@ const Report = ({ closeReport ,slot_no,v_type,loc,licence_no, entry_time, exit_t
       alert("Reason cannot be empty.");
       return;
     }
-      
       axios.post('http://localhost:9000/reports', isreport)
       .then((res)=> {
         alert(res.data.message)
@@ -83,47 +79,6 @@ const Report = ({ closeReport ,slot_no,v_type,loc,licence_no, entry_time, exit_t
                 value={isreport.reason}
                 onChange={handleReason}
               />
-              <br/>
-              <div 
-                  className="report-email" 
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center', 
-                    gap: '10px', // Space between the label and textarea
-                  }}
-                >
-                  <label 
-                    htmlFor="reportEmail" 
-                    style={{
-                      fontWeight: 'bold',
-                      color: '#fff',
-                      whiteSpace: 'nowrap', // Prevents wrapping
-                    }}
-                  >
-                    Owner Email
-                  </label>
-                  <textarea
-                    id="reportEmail"
-                    name="reportEmail"
-                    placeholder="Enter Email here..."
-                    style={{
-                      flex: 1, // Makes the textarea fill the remaining space
-                      marginTop: '0', // Remove extra margin to align vertically
-                      backgroundColor: '#282c34',
-                      borderRadius: '4px',
-                      border: '1px solid #ccc',
-                      fontSize: '1rem',
-                      color: '#fff',
-                      resize: 'vertical',
-                      height: '25px',
-                      padding: '0px 10px'
-                       // Set the height to 40px
-                    }}
-                    value={isreport.email}
-                    onChange={handleEmail}
-                  />
-                </div>
-                <br/>
             
           </div>
           <div className='btnContainer'>

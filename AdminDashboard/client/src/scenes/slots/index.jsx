@@ -24,6 +24,7 @@ const Slot = ({
   v_type,
   booked,
   name,
+  email,
   licence_no,
   price,
   entry_time,
@@ -131,6 +132,7 @@ const Slot = ({
           >
             <CardContent>
               <Typography>Booked by : {name}</Typography>
+              <Typography>Email : {email}</Typography>
               <Typography>Licence Number: {licence_no}</Typography>
               <Typography>Exit Time: {exit_time}</Typography>
               <Typography><br/></Typography>
@@ -173,7 +175,7 @@ const Slot = ({
     </Card>
     {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
     {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} />}
-    {openReport && <Report closeReport={setopenReport } slot_no={slot_no} v_type={v_type} loc={loc} licence_no={licence_no} entry_time={entry_time} exit_time={exit_time}/>}
+    {openReport && <Report closeReport={setopenReport } slot_no={slot_no} v_type={v_type} loc={loc} licence_no={licence_no} entry_time={entry_time} exit_time={exit_time} email={email}/>}
     </Box>
   );
 };
@@ -218,6 +220,7 @@ const Slots = () => {
               v_type,
               booked,
               name,
+              email,
               licence_no,
               exit_time,
               entry_time,
@@ -230,6 +233,7 @@ const Slots = () => {
                 v_type={v_type}
                 booked={booked}
                 name={name}
+                email={email}
                 licence_no={licence_no}
                 exit_time={exit_time}
                 entry_time={entry_time}

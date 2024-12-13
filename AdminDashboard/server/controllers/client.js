@@ -5,6 +5,7 @@ import _ from "lodash";
 import User from "../models/User.js";
 import Transaction from "../models/Transaction.js";
 import Location from "../models/Locations.js";
+import Report from "../models/Reports.js";
 import Realtime from "../models/Realtime.js";
 import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
@@ -45,9 +46,29 @@ export const getCustomers = async (req, res) => {
 };
 
 export const getmobuser = async (req, res) => {
-  try{
-    const mobuser=await User.findOne({email:req.params.email});
+  try {
+    const mobuser = await User.findOne({ email: req.params.email });
     res.status(200).json(mobuser);
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getmobloc = async (req, res) => {
+  try {
+    const mobloc = await Location.findOne({ email: req.params.email });
+    res.status(200).json(mobloc);
+  }
+  catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const getmobreports = async (req, res) => {
+  try {
+    const mobreports = await Report.find({ email: req.params.email });
+    res.status(200).json(mobreports);
   }
   catch (error) {
     res.status(404).json({ message: error.message });
@@ -77,14 +98,14 @@ export const getRealtime = async (req, res) => {
 export const getLocations = async (req, res) => {
   try {
     const locations = await Location.aggregate([
-      
+
       {
         $group: {
           _id: "$loc",
           count: { $sum: 1 },
           slots: { $push: "$slot_no" },
           booked: { $sum: { $cond: [{ $eq: ["$booked", "yes"] }, 1, 0] } },
-          
+
         }
       },
       {
@@ -99,11 +120,11 @@ export const getLocations = async (req, res) => {
             }
           },
           booked: 1,
-          
+
         }
       },
       {
-        $addFields: { 
+        $addFields: {
           currentPrice: {
             $add: [1, { $multiply: ["$booked", 0.025] }], // Example: $10 + $0.5 per booking
           },

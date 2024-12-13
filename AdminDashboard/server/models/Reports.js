@@ -6,14 +6,15 @@ const ReportSchema = new Schema(
     email: String,
     licence_no: String,
     loc: String,
-    slot_no:String,
+    slot_no: String,
     v_type: String,
     entry_time: String,
     exit_time: String,
     reason: String,
-    
+
   },
- );
+  { timestamps: true }
+);
 
 const Report = mongoose.model("Reports", ReportSchema);
 

@@ -2,19 +2,27 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useGetmobuserQuery } from "../../state/api";
+import { useGetmoblocQuery } from "../../state/api";
+
 
 const Profile = () => {
   const email = localStorage.getItem("email");
   const { data, isLoading, error } = useGetmobuserQuery(email);
-  if (isLoading) {
+  const {data : data1,isLoading:isalsoloading,error:error1}=useGetmoblocQuery(email);
+  if (isLoading || isalsoloading) {
     return <div>Loading...</div>;
   }
 
-  if (error) {
+  if (error || error1) {
     return <div>Error fetching data!</div>;
   }
   
-  const {name,occupation,parked,vehicle}=data;
+  const {name,occupation}=data;
+  const {licence_no}=data1;
+  var parked="True";
+  if(licence_no==null || licence_no==""){
+    parked="False";
+  }
   const useremail = email.split('@')[0];
 
   return (
@@ -109,7 +117,6 @@ const Profile = () => {
               marginLeft: "1rem",
               columnGap: "30vw",
               justifyItems: "flex-start",
-              textAlign: "left",
             }}
           >
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>Name</span>
@@ -122,10 +129,10 @@ const Profile = () => {
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>{occupation}</span>
 
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>Vehicles</span>
-            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{vehicle}</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{licence_no}</span>
 
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>Parked</span>
-            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{String(parked)}</span>
+            <span style={{ fontSize: "1rem", fontWeight: "light" }}>{parked}</span>
           </div>
 
           {/* Action Buttons */}

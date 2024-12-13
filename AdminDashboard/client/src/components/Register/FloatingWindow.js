@@ -30,8 +30,8 @@ const register = () =>{
   const{name ,email ,password  ,phoneNumber } = user
 
   if(name && phoneNumber && email && password){
-    
-    axios.post('https://spark-backend-j18q.onrender.com/Register', user)
+    console.log(user);
+    axios.post('http://localhost:9000/Register', user)
     .then((res)=> {
       alert(res.data.message)
       history("/login")

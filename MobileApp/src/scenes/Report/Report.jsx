@@ -1,4 +1,5 @@
 import React from 'react';
+import { useGetmobreportsQuery } from '../../state/api';
 import { 
   AppBar, 
   Toolbar, 
@@ -59,6 +60,16 @@ const EventCard = styled(Card)(({ theme }) => ({
 
 export default function Report() {
 
+  const email=localStorage.getItem("email");
+  const {data, isloading, error} = useGetmobreportsQuery(email);
+
+  if(isloading){
+    return <div>Loading...</div>
+  }
+  if(error){
+    return <div>Error Loading reports...</div>
+  }
+
   return (
     <BackgroundBox>
       <AppBar position="static" color="transparent" elevation={0}>
@@ -83,52 +94,42 @@ export default function Report() {
         <h2 style={{ fontSize: "1.7rem", fontWeight: "lighter" }}> Reports </h2>
         </div>
           <CardContent>
-                <EventCard>
-                  <CardContent>
-                    <Typography variant="body2">Wrong Parking Slot</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">4:15 PM - 04:30 PM</Typography>
-                      <Typography variant="body2">23 OCT 2023</Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-                <EventCard>
-                  <CardContent>
-                    <Typography variant="body2">Extra Time Parked</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">4:15 PM - 04:30 PM</Typography>
-                      <Typography variant="body2">23 OCT 2023</Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-                <EventCard>
-                  <CardContent>
-                    <Typography variant="body2">Wrong Parking Slot</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">4:15 PM - 04:30 PM</Typography>
-                      <Typography variant="body2">23 OCT 2023</Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-                <EventCard>
-                  <CardContent>
-                    <Typography variant="body2">Extra Time Parked</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">4:15 PM - 04:30 PM</Typography>
-                      <Typography variant="body2">23 OCT 2023</Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-                <EventCard>
-                  <CardContent>
-                    <Typography variant="body2">Extra Time Parked</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">4:15 PM - 04:30 PM</Typography>
-                      <Typography variant="body2">23 OCT 2023</Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-              </CardContent>
+                  {data && Array.isArray(data) && data.length > 0 ? (
+                    data.map((report, index) => (
+                    <EventCard key={index}>
+                      <CardContent>
+                        <Typography variant="body2">{report.reason}</Typography>
+                        <Box display="flex" justifyContent="space-between" mt={1}>
+                          <Typography variant="body2">
+                          {(() => {
+                              const [hour, minutes] = report.entry_time.split(':').map(Number); // Convert to numbers
+                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
+                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
+                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
+                              return `${formattedHour}:${formattedMinutes} ${period}`;
+                              })()} - 
+                            {(() => {
+                              const [hour, minutes] = report.exit_time.split(':').map(Number); // Convert to numbers
+                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
+                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
+                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
+                              return ` ${formattedHour}:${formattedMinutes} ${period}`;
+                              })()} 
+                          </Typography>
+                          <Typography variant="body2"> {new Date(report.createdAt).toLocaleDateString(undefined, {
+                              day: '2-digit',
+                              month: 'short',
+                              year: 'numeric',
+                            })}
+                          </Typography>
+                       </Box>
+                      </CardContent>
+                    </EventCard>
+                ))
+              ) : (
+                          <Typography variant="body2">No reports available</Typography>
+                  )}
+          </CardContent>
         </StyledCard>
       </ContentBox>
     </BackgroundBox>

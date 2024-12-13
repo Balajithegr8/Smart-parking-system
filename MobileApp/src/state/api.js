@@ -8,18 +8,35 @@ export const api = createApi({
     // tags
     tagTypes: [
         "mobuser",
+        "mobloc",
+        "mobreports"
     ],
+
     // endpoints
     endpoints: (build) => ({
         getmobuser: build.query({
             query: (email) => `client/mobuser/${email}`,
             providesTags: ["User"],
         }),
-
+        getmobloc: build.query({
+            query: (email) => `client/mobloc/${email}`,
+            providesTags: ["Loc"],
+        }),
+        
+        getmobreports: build.query({
+            query: (email) => `client/mobreports/${email}`,
+            providesTags: ["Rep"],
+        }),
     }),
+    
+        
+
+    
 });
 
 // export api endpoints
 export const {
     useGetmobuserQuery,
+    useGetmoblocQuery,
+    useGetmobreportsQuery,
 } = api;

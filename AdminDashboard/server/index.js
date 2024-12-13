@@ -224,7 +224,7 @@ app.post('/loginuser', async (req, res) => {
 
 
 app.post("/slots", (req, res) => {
-  const { name, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
+  const { name, email, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
   if (booked === "yes") {
     Location.findOne({ loc, slot_no })
       .then((existingLocation) => {
@@ -233,6 +233,7 @@ app.post("/slots", (req, res) => {
           existingLocation.name = name;
           existingLocation.licence_no = licence_no;
           existingLocation.booked = "yes";
+          existingLocation.email =email;
           existingLocation.entry_time = entry_time;
           existingLocation.exit_time = exit_time;
 
@@ -278,8 +279,8 @@ app.post("/slots", (req, res) => {
 });
 
 app.post("/reports", (req, res) => {
-  const { email = "", slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;
-  const newreport = new Report({ email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason });
+  const { email,slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;
+  const newreport = new Report({ email,slot_no, v_type, loc, licence_no, entry_time, exit_time, reason });
   newreport.save()
     .then(() => {
       res.send({ message: "Successfully Reported, Arigato" });
@@ -292,4 +293,4 @@ app.post("/reports", (req, res) => {
 
 
 runPythonScript();
-setInterval(runPythonScript, 300000);
+setInterval(runPythonScript, 3000000);

@@ -9,6 +9,8 @@ import {
   getLocations,
   getProducts,
   getRealtime,
+  getmobloc,
+  getmobreports,
 
 } from "../controllers/client.js";
 
@@ -24,5 +26,7 @@ router.get("/transactions", getTransactions);
 router.get("/occupancy", getGeography);
 router.get("/realtime", getRealtime);
 router.get("/mobuser/:email", getmobuser);
+router.get("/mobloc/:email", getmobloc);
+router.get("/mobreports/:email", getmobreports);
 
 export default router;

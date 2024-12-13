@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const LocationSchema = new mongoose.Schema(
   {
     name: String,
+    email:String,
     licence_no: String,
     loc: String,
     slot_no:String,

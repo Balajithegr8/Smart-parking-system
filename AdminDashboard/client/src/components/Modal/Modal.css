@@ -58,30 +58,17 @@
   opacity: 1; /* Firefox */
 }
 
-.namer{
+.namer,.licencer,.emailer{
   background-color: #1e222b;
   color: #ffffff;
   width: 380px;
-  height: 45px;
+  height: 35px;
   border-radius: 10px;
   border: #1e222b;
   box-shadow: 0px 0px 5px 0px #8fc3ffbf;
   font-size: large;
 
   
-}
-.licencer{
-  background-color: #1e222b;
-  color: #ffffff;
-  width: 380px;
-  height: 45px;
-  border-radius: 10px;
-  border: #1e222b;
-  box-shadow: 0px 0px 5px 0px #8fc3ffbf;
-  font-size: large;
-
-
-
 }
 
 .modalRight {

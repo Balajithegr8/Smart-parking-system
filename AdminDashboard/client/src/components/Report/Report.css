@@ -53,11 +53,11 @@
   
   /* Rest of the CSS... */
   
-  ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  .content textarea::placeholder { 
     color: rgb(255, 255, 255);
-    opacity: 1; /* Firefox */
+    opacity: 0.85;
   }
-  
+
   .namer{
     background-color: #1e222b;
     color: #ffffff;

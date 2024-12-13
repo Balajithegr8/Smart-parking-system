@@ -13,12 +13,15 @@ const Pop = ({ closePop ,slot_no,v_type,loc}) => {
     v_type :v_type,
     loc: loc,
     booked:"no",
+    email:"",
+    entry_time:"",
+    exit_time:"",
 })
 
   const onrelease= () =>{
     const{slot_no,loc,booked="no",name,licence_no} = isrelease
       
-      axios.post('https://spark-backend-j18q.onrender.com/slots', isrelease)
+      axios.post('http://localhost:9000/slots', isrelease)
       .then((res)=> {
         alert(res.data.message)
         closePop(false)
