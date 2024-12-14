@@ -3,7 +3,8 @@ import React from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useGetmobuserQuery } from "../../state/api";
 import { useGetmoblocQuery } from "../../state/api";
-
+import { styled } from '@mui/material/styles';
+import {Box,Grid,Paper}from '@mui/material';
 
 const Profile = () => {
   const email = localStorage.getItem("email");
@@ -17,13 +18,30 @@ const Profile = () => {
     return <div>Error fetching data!</div>;
   }
   
+  var licence_no="No vehicles registered";
   const {name,occupation}=data;
-  const {licence_no}=data1;
+  if(data1){licence_no=data1.licence_no;}
+  
   var parked="True";
-  if(licence_no==null || licence_no==""){
+  if(licence_no==null || licence_no=="No vehicles registered"){
     parked="False";
   }
   const useremail = email.split('@')[0];
+
+  const Item = styled(Paper)(({ theme }) => ({
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    color: '#FFFFFF', // Set text color to white
+    backgroundColor: 'transparent', // Make background transparent
+    boxShadow: 'none', // Remove shadow
+    border: 'none', // Remove border
+    backgroundImage: 'none', // Remove any default overlay
+    marginLeft: '1rem',
+    textAlign: 'center',
+    fontSize: '0.9rem',
+  }));
+  
+  
 
   return (
     <div
@@ -32,7 +50,7 @@ const Profile = () => {
         color: "white",
         display: "flex",
         flexDirection: "column",
-        padding: "1rem",
+        paddingTop: "10px",
         position: "relative",
       }}
     >
@@ -44,7 +62,6 @@ const Profile = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          background: "rgba(0, 0, 0, 0.45)", // Light black overlay
           zIndex: 0,
         }}
       ></div>
@@ -54,6 +71,7 @@ const Profile = () => {
         style={{
           position: "relative",
           textAlign: "left",
+          paddingLeft: "25px",
           zIndex: 1,
           marginTop: "20px",
         }}
@@ -89,13 +107,14 @@ const Profile = () => {
       >
         <div
           style={{
-            background: "rgba(0, 0, 0, 0.4)", // Matching card background
+            background: "rgba(0, 0, 0, 0.65)", // Matching card background
             padding: "1.5rem",
             borderRadius: "15px",
             boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
             width: "94%",
             textAlign: "center",
             alignContent: "center",
+            
           }}
         >
           {/* Avatar Section */}
@@ -107,16 +126,16 @@ const Profile = () => {
           </div>
 
           {/* Profile Info */}
-          <div
+          {/* <div
             style={{
               display: "grid",
               gridTemplateColumns: "auto 1fr", // Two columns: first column auto-sized, second column fills the space
               gap: "1rem", // Spacing between rows and columns
-              textAlign: "left",
+              
               marginTop: "1rem",
               marginLeft: "1rem",
               columnGap: "30vw",
-              justifyItems: "flex-start",
+              
             }}
           >
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>Name</span>
@@ -133,7 +152,42 @@ const Profile = () => {
 
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>Parked</span>
             <span style={{ fontSize: "1rem", fontWeight: "light" }}>{parked}</span>
-          </div>
+          </div> */}
+
+      <Box sx={{ width: '100%' }}>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}  >
+          <Grid item xs={6}>
+            <Item>Name</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>{name}</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>Email</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>{useremail}</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>Occupation</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>{occupation}</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>Vehicles</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>{licence_no}</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>Parked</Item>
+          </Grid>
+          <Grid item xs={6}>
+            <Item>{parked}</Item>
+          </Grid>
+        </Grid>
+    </Box>
 
           {/* Action Buttons */}
           <div style={{ marginTop: "1rem" }}>

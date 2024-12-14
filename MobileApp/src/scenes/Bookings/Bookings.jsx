@@ -39,7 +39,7 @@ const ContentBox = styled(Box)(({ theme }) => ({
 
 const StyledCard = styled(Card)(({ theme }) => ({
   backgroundColor: 'rgba(0, 0, 0, 0.7)',
-  backdropFilter: 'blur(10px)',
+  // backdropFilter: 'blur(10px)',
   color: 'white',
   flex: 1,
   borderRadius: 15,

@@ -19,7 +19,7 @@ const Pop = ({ closePop ,slot_no,v_type,loc}) => {
 })
 
   const onrelease= () =>{
-    const{slot_no,loc,booked="no",name,licence_no} = isrelease
+    const{slot_no,loc,booked="no",name="",licence_no="",email=""} = isrelease
       
       axios.post('http://localhost:9000/slots', isrelease)
       .then((res)=> {

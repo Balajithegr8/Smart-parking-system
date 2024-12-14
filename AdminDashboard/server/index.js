@@ -233,7 +233,7 @@ app.post("/slots", (req, res) => {
           existingLocation.name = name;
           existingLocation.licence_no = licence_no;
           existingLocation.booked = "yes";
-          existingLocation.email =email;
+          existingLocation.email = email;
           existingLocation.entry_time = entry_time;
           existingLocation.exit_time = exit_time;
 
@@ -260,6 +260,9 @@ app.post("/slots", (req, res) => {
           existingLocation.name = "";
           existingLocation.licence_no = "";
           existingLocation.booked = "no";
+          existingLocation.email = email;
+          existingLocation.entry_time = entry_time;
+          existingLocation.exit_time = exit_time;
 
           existingLocation.save()
             .then(() => {
@@ -279,8 +282,8 @@ app.post("/slots", (req, res) => {
 });
 
 app.post("/reports", (req, res) => {
-  const { email,slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;
-  const newreport = new Report({ email,slot_no, v_type, loc, licence_no, entry_time, exit_time, reason });
+  const { email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;
+  const newreport = new Report({ email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason });
   newreport.save()
     .then(() => {
       res.send({ message: "Successfully Reported, Arigato" });
