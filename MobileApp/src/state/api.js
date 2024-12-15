@@ -9,7 +9,9 @@ export const api = createApi({
     tagTypes: [
         "mobuser",
         "mobloc",
-        "mobreports"
+        "mobreports",
+        "reservation",
+        "pastbookings",
     ],
 
     // endpoints
@@ -27,6 +29,14 @@ export const api = createApi({
             query: (email) => `client/mobreports/${email}`,
             providesTags: ["Rep"],
         }),
+        getreservation: build.query({
+            query: (email) => `client/reservation/${email}`,
+            providesTags: ["Res"],
+        }),
+        getpastbookings: build.query({
+            query: (email) => `client/pastbookings/${email}`,
+            providesTags: ["pastbookings"],
+        }),
     }),
     
         
@@ -39,4 +49,6 @@ export const {
     useGetmobuserQuery,
     useGetmoblocQuery,
     useGetmobreportsQuery,
+    useGetreservationQuery,
+    useGetpastbookingsQuery,
 } = api;

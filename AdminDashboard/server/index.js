@@ -7,6 +7,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
+import Reservation from "./models/Reservation.js";
 import sendmail from "./helpers/sendmail.js";
 import Report from "./models/Reports.js";
 import { runPythonScript } from "./helpers/pythonRunner.js";
@@ -293,6 +294,39 @@ app.post("/reports", (req, res) => {
       res.status(500).send({ message: "Server error" });
     });
 });
+
+app.post("/reservations", async (req, res) => {
+  const { loc, slot_no, email, v_type, licence_no, date, entry_time = "08:00", exit_time = "23:59" } = req.body;
+
+  try {
+    // Find the user by email
+    const user = await User.findOne({ email: email });
+
+    const name = user.name; // Retrieve the name from the User document
+    console.log(`Reserving for: ${name}`);
+
+    // Create a new reservation
+    const newReservation = new Reservation({
+      email,
+      slot_no,
+      v_type,
+      loc,
+      licence_no,
+      entry_time,
+      exit_time,
+      date,
+      name,
+    });
+
+    await newReservation.save();
+
+    res.send({ message: `Successfully Reserved for ${name}, Arigato` });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send({ message: "Server error" });
+  }
+});
+
 
 
 runPythonScript();

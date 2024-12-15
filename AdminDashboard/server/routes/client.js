@@ -11,6 +11,8 @@ import {
   getRealtime,
   getmobloc,
   getmobreports,
+  getreservations,
+  getpastbookings,
 
 } from "../controllers/client.js";
 
@@ -28,5 +30,7 @@ router.get("/realtime", getRealtime);
 router.get("/mobuser/:email", getmobuser);
 router.get("/mobloc/:email", getmobloc);
 router.get("/mobreports/:email", getmobreports);
+router.get("/reservation/:email", getreservations);
+router.get("/pastbookings/:email", getpastbookings);
 
 export default router;
