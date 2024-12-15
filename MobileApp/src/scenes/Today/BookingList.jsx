@@ -15,20 +15,6 @@ const bookingsData = [
     status: "APPROVED",
     vehicle: "YHTHG",
   },
-
-  // Add more bookings as needed
-  {
-    name: "Neassa Parking, Sample Office",
-    time: "4:15 PM - 04:30 PM",
-    status: "RELEASED",
-    vehicle: "YHTHG",
-  },
-  {
-    name: "Neassa Parking, Sample Office",
-    time: "4:15 PM - 04:30 PM",
-    status: "APPROVED",
-    vehicle: "YHTHG",
-  },
 ];
 
 const BookingsList = () => {

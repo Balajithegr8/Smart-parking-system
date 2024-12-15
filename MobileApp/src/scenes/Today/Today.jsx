@@ -97,7 +97,7 @@ const Today = () => {
           gridArea: "body",
           display: "grid",
           gridTemplateColumns: isNonMobile ? "1fr 1fr" : "1fr",
-          gridTemplateRows: isNonMobile ? "1fr 1fr" : "1fr 1fr 4fr",
+          gridTemplateRows: isNonMobile ? "1fr 1fr" : "3fr 1.5fr 10fr",
           gridTemplateAreas: isNonMobile
             ? `
               "calendarBox bookingsBox"
