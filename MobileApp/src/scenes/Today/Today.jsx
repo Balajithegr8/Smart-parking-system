@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Button } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useMediaQuery } from "@mui/material";
+import Calendar from "./Calendar"; // Import the Calendar component
+import BookingsList from "./BookingList";
 
 const getUserName = async () => {
   // try {
@@ -37,7 +39,6 @@ const Today = () => {
     };
     fetchName();
   }, []);
-
   return (
     <Box
       display="grid"
@@ -47,6 +48,11 @@ const Today = () => {
         "body"
       `}
       height="100vh"
+      sx={{
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        marginTop: isNonMobile ? "2em" : "1em",
+      }}
     >
       <Box
         display="grid"
@@ -58,7 +64,7 @@ const Today = () => {
         justifyContent="center"
         sx={{
           width: "100%",
-          marginBottom: isNonMobile ? "2em" : "1em",
+          marginBottom: isNonMobile ? "2em" : "0",
           gridArea: "header",
           marginTop: isNonMobile ? "3vh" : "2vh",
         }}
@@ -91,7 +97,7 @@ const Today = () => {
           gridArea: "body",
           display: "grid",
           gridTemplateColumns: isNonMobile ? "1fr 1fr" : "1fr",
-          gridTemplateRows: isNonMobile ? "1fr 1fr" : "3fr 1fr 5fr",
+          gridTemplateRows: isNonMobile ? "1fr 1fr" : "1fr 1fr 4fr",
           gridTemplateAreas: isNonMobile
             ? `
               "calendarBox bookingsBox"
@@ -103,53 +109,72 @@ const Today = () => {
               "bookingsBox"
             `,
           gap: "1em",
-          padding: "1em",
+          background: "rgba(0, 0, 0, 0.3)",
+          margin: "1.3em",
         }}
       >
         <Box
           sx={{
             gridArea: "calendarBox",
-            backgroundColor: "rgba(255, 0, 0, 0.5)",
             display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "1em",
-            borderRadius: "8px",
+            marginLeft: isNonMobile ? "1em" : "0",
+            alignItems: isNonMobile ? "center" : "start",
+            justifyContent: isNonMobile ? "center" : "start",
           }}
         >
-          <Typography variant="h4" sx={{ color: "white" }}>
-            Calendar Box
-          </Typography>
+          <Calendar />
         </Box>
         <Box
           sx={{
             gridArea: "availabilityButton",
-            backgroundColor: "rgba(0, 255, 0, 0.5)",
             display: "flex",
-            alignItems: "center",
+            alignItems: "start",
             justifyContent: "center",
-            padding: "1em",
-            borderRadius: "8px",
+            gridRow: isNonMobile ? "2" : "2",
+            padding: isNonMobile ? "0" : "1em",
+
+            marginLeft: isNonMobile ? "1em" : "0",
           }}
         >
-          <Typography variant="h4" sx={{ color: "white" }}>
-            Availability Button
-          </Typography>
+          <Button
+            sx={{
+              backgroundColor: "rgba(255, 255, 255, 0.7)",
+              width: "100%",
+              color: "black",
+              fontWeight: "bold",
+              borderRadius: "8px",
+              height: "3em",
+              fontSize: "1.4em",
+              textTransform: "none",
+            }}
+          >
+            Check Today's Availability
+          </Button>
         </Box>
         <Box
           sx={{
             gridArea: "bookingsBox",
-            backgroundColor: "rgba(0, 0, 255, 0.5)",
             display: "flex",
-            alignItems: "center",
+            alignItems: "start",
+            marginTop: isNonMobile ? "4.5vh" : "0",
             justifyContent: "center",
-            padding: "1em",
             borderRadius: "8px",
           }}
         >
-          <Typography variant="h4" sx={{ color: "white" }}>
-            Bookings Box
-          </Typography>
+          <Box
+            sx={{
+              gridArea: "bookingsBox",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              justifyContent: "flex-start",
+              borderRadius: "8px",
+              padding: "1em",
+              overflowY: "auto",
+            }}
+          >
+            <BookingsList />
+          </Box>
         </Box>
       </Box>
     </Box>
