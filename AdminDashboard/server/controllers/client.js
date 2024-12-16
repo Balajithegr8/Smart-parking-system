@@ -95,6 +95,15 @@ export const getreservations = async (req, res) => {
   }
 };
 
+export const getallreservations = async (req, res) => {
+  try {
+    const allreserve = await Reservations.find();
+    res.status(200).json(allreserve);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
 // Get PastBookings
 export const getpastbookings = async (req, res) => {
   try {

@@ -13,21 +13,58 @@ import {
   IconButton,
 } from "@mui/material";
 import { addDays, format, startOfWeek } from "date-fns";
+import { useGetallreservationQuery } from "../../state/api";
 
 export default function PreBook() {
   const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
   const [selectedDate, setSelectedDate] = useState(null);
-  const email=localStorage.getItem("email");
+  const email = localStorage.getItem("email");
+  const { data, isLoading, error } = useGetallreservationQuery();
   const [formData, setFormData] = useState({
     loc: "",
     v_type: "",
     licence_no: "",
-    date: addDays(new Date(), 1),
+    date: null,
     slot_no: "",
     email: email,
   });
 
   const weekDays = Array.from({ length: 7 }, (_, i) => addDays(currentWeek, i));
+
+  const availableSlotscar = [
+    "A6",
+    "A7",
+    "A8",
+    "A9",
+    "A10",
+    "B6",
+    "B7",
+    "B8",
+    "B9",
+    "B10",
+    "C6",
+    "C7",
+    "C8",
+    "C9",
+    "C10",
+  ];
+  const availableSlotsbike = [
+    "A1",
+    "A2",
+    "A3",
+    "A4",
+    "A5",
+    "B1",
+    "B2",
+    "B3",
+    "B4",
+    "B5",
+    "C1",
+    "C2",
+    "C3",
+    "C4",
+    "C5",
+  ];
 
   const nextWeek = () => setCurrentWeek(addDays(currentWeek, 7));
   const prevWeek = () => setCurrentWeek(addDays(currentWeek, -7));
@@ -40,26 +77,56 @@ export default function PreBook() {
       !formData.date
     ) {
       alert("Please fill in all fields");
-    }
-    formData.slot_no = randomslot();
-    if (formData.slot_no == "no") {
-      alert("No slot available for the selected date");
     } else {
-      console.log(formData);
-      axios
-        .post("http://localhost:9000/reservations", formData)
-        .then((response) => {
-          alert(response.data.message);
-        });
+      formData.slot_no = Randomslot();
+      if (formData.slot_no === "no") {
+        alert(`No slot in ${formData.loc} available for the selected date`);
+      } else {
+        axios
+          .post("http://localhost:9000/reservations", formData)
+          .then((response) => {
+            alert(response.data.message);
+          });
+      }
     }
   };
 
-  const randomslot = () => {
-    return "D8";
-  }; //return an empty slot that is ok to be booked for that particular date
+  const Randomslot = () => {
+    const availableSlots =
+      formData.v_type === "car" ? availableSlotscar : availableSlotsbike;
+    console.log(data);
+
+    if (!data || data.length === 0) {
+      return availableSlots[0];
+    }
+
+    for (const slot of availableSlots) {
+      const isReserved = data.some((reservation) => {
+        const reservationDate = new Date(reservation.date);
+        const SameDate =
+          reservationDate.getDate() === formData.date.getDate() &&
+          reservationDate.getMonth() === formData.date.getMonth() &&
+          reservationDate.getFullYear() === formData.date.getFullYear();
+
+        if (SameDate && reservation.slot_no === slot) {
+          return true;
+        }
+      });
+      if (!isReserved) {
+        return slot;
+      }
+    }
+    return "no";
+  };
 
   const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    if (field === "date") {
+      const nextDate = new Date(value);
+    nextDate.setDate(nextDate.getDate() + 1);
+      setFormData((prev) => ({ ...prev, [field]: nextDate }));
+    } else {
+      setFormData((prev) => ({ ...prev, [field]: value }));
+    }
   };
 
   return (
@@ -140,7 +207,7 @@ export default function PreBook() {
                   }}
                 >
                   <MenuItem value="car">Car</MenuItem>
-                  <MenuItem value="motorcycle">Motorcycle</MenuItem>
+                  <MenuItem value="Bike">Motorcycle</MenuItem>
                 </Select>
               </Box>
 
@@ -201,8 +268,8 @@ export default function PreBook() {
                       variant="text"
                       fullWidth
                       onClick={() => {
-                        handleChange("date", day);
-                        setSelectedDate(day); // Ensure selectedDate is updated
+                        handleChange("date", day); // Set selected date to formData as Date object
+                        setSelectedDate(day); // Update selectedDate state for UI
                       }}
                       sx={{
                         color:

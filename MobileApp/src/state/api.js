@@ -13,6 +13,7 @@ export const api = createApi({
         "reservation",
         "pastbookings",
         "today",
+        "allreservations",
     ],
 
     // endpoints
@@ -42,6 +43,10 @@ export const api = createApi({
             query: (email) => `client/today/${email}`,
             providesTags: ["today"],
         }),
+        getallreservation: build.query({
+            query: (email) => `client/allreservation`,
+            providesTags: ["allRes"],
+        }),
     }),
 
 
@@ -57,4 +62,5 @@ export const {
     useGetreservationQuery,
     useGetpastbookingsQuery,
     useGettodayQuery,
+    useGetallreservationQuery,
 } = api;
