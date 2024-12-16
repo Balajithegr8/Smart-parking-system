@@ -11,3 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.custom-toast {
+  margin-top: 20px; 
+  z-index: 9999;
+}
+
