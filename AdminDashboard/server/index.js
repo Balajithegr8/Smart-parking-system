@@ -324,7 +324,7 @@ app.post("/reservations", async (req, res) => {
 
     await newReservation.save();
 
-    res.send({ message: `Successfully Reserved for ${name}, slot - ${slot_no} Arigato` });
+    res.send({ message: '🎉 `Successfully Reserved for ${name}, slot - ${slot_no}', toastType: 'success' });
   } catch (err) {
     console.error(err);
     res.status(500).send({ message: "Server error" });

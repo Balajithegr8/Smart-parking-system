@@ -143,7 +143,7 @@ export default function Bookings() {
                   })()}
                 </Typography>
                 <Typography variant="body2">
-                  {new Date(reservation.updatedAt).toLocaleDateString(undefined, {
+                  {new Date(reservation.date).toLocaleDateString(undefined, {
                     day: '2-digit',
                     month: 'short',
                     year: 'numeric',

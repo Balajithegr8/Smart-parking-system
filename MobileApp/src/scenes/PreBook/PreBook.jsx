@@ -12,12 +12,16 @@ import {
   Grid,
   IconButton,
 } from "@mui/material";
+import { ToastContainer } from "react-toastify";
 import { addDays, format, startOfWeek } from "date-fns";
 import { useGetallreservationQuery } from "../../state/api";
+import CustomToast from "../../CustomToast";
 
 export default function PreBook() {
   const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
   const [selectedDate, setSelectedDate] = useState(null);
+  const [toastMessage, setToastMessage] = useState(""); // Message for toast
+  const [toastType, setToastType] = useState(""); // Type of toast
   const email = localStorage.getItem("email");
   const { data, isLoading, error } = useGetallreservationQuery();
   const [formData, setFormData] = useState({
@@ -76,16 +80,24 @@ export default function PreBook() {
       !formData.licence_no ||
       !formData.date
     ) {
-      alert("Please fill in all fields");
+      setToastMessage("❌ Please fill in all fields.");
+      setToastType("error");
     } else {
       formData.slot_no = Randomslot();
       if (formData.slot_no === "no") {
+        setToastMessage(
+          `❌ No slot in ${formData.loc} available for the selected date`
+        );
+        setToastType("error");
         alert(`No slot in ${formData.loc} available for the selected date`);
       } else {
         axios
           .post("http://localhost:9000/reservations", formData)
           .then((response) => {
-            alert(response.data.message);
+            setToastMessage(
+              `🎉 Successfully Reserved slot - ${formData.slot_no}`
+            );
+            setToastType("success");
           });
       }
     }
@@ -122,7 +134,7 @@ export default function PreBook() {
   const handleChange = (field, value) => {
     if (field === "date") {
       const nextDate = new Date(value);
-    nextDate.setDate(nextDate.getDate() + 1);
+      nextDate.setDate(nextDate.getDate() + 1);
       setFormData((prev) => ({ ...prev, [field]: nextDate }));
     } else {
       setFormData((prev) => ({ ...prev, [field]: value }));
@@ -309,6 +321,8 @@ export default function PreBook() {
           </Grid>
         </Box>
       </Box>
+      <CustomToast toastMessage={toastMessage} toastType={toastType} />
+      <ToastContainer />
     </div>
   );
 }
