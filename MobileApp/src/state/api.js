@@ -12,6 +12,7 @@ export const api = createApi({
         "mobreports",
         "reservation",
         "pastbookings",
+        "today",
     ],
 
     // endpoints
@@ -24,7 +25,7 @@ export const api = createApi({
             query: (email) => `client/mobloc/${email}`,
             providesTags: ["Loc"],
         }),
-        
+
         getmobreports: build.query({
             query: (email) => `client/mobreports/${email}`,
             providesTags: ["Rep"],
@@ -37,11 +38,15 @@ export const api = createApi({
             query: (email) => `client/pastbookings/${email}`,
             providesTags: ["pastbookings"],
         }),
+        gettoday: build.query({
+            query: (email) => `client/today/${email}`,
+            providesTags: ["today"],
+        }),
     }),
-    
-        
 
-    
+
+
+
 });
 
 // export api endpoints
@@ -51,4 +56,5 @@ export const {
     useGetmobreportsQuery,
     useGetreservationQuery,
     useGetpastbookingsQuery,
+    useGettodayQuery,
 } = api;

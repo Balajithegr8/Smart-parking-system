@@ -9,7 +9,7 @@ import Report from "../models/Reports.js";
 import Realtime from "../models/Realtime.js";
 import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
-import Reservation from "../models/Reservation.js";
+import Reservations from "../models/Reservation.js";
 import PastBookings from "../models/PastBookings.js";
 
 // Get Products
@@ -88,7 +88,7 @@ export const getSlots = async (req, res) => {
 // Get Reservations
 export const getreservations = async (req, res) => {
   try {
-    const reserve = await Reservation.find({ email: req.params.email });
+    const reserve = await Reservations.find({ email: req.params.email });
     res.status(200).json(reserve);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -100,6 +100,15 @@ export const getpastbookings = async (req, res) => {
   try {
     const pastbook = await PastBookings.find({ email: req.params.email });
     res.status(200).json(pastbook);
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+
+export const gettoday = async (req, res) => {
+  try {
+    const today = await Location.find({ email: req.params.email });
+    res.status(200).json(today);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

@@ -9,17 +9,8 @@ import {
   Tab, 
   Card, 
   CardContent, 
-  BottomNavigation, 
-  BottomNavigationAction,
   styled
 } from '@mui/material';
-import { 
-  Home as HomeIcon, 
-  AccessTime as ClockIcon, 
-  Add as PlusIcon, 
-  Work as BriefcaseIcon, 
-  Person as UserIcon 
-} from '@mui/icons-material';
 import { useGetreservationQuery } from '../../state/api';
 import { useGetpastbookingsQuery } from '../../state/api';
 
@@ -44,6 +35,7 @@ const StyledCard = styled(Card)(({ theme }) => ({
   // backdropFilter: 'blur(10px)',
   color: 'white',
   flex: 1,
+  overflow: 'auto',
   borderRadius: 15,
 }));
 
@@ -104,88 +96,117 @@ export default function Bookings() {
             <Tab label="Past" />
           </Tabs>
           <CardContent>
-            {activeTab === 0 ? (
-              <>
-              
-              {data && data.length > 0 ? (
-              data.map((reservation, index) => (
-                <EventCard key={index}>
-                  <CardContent>
-                    <Typography variant="body2">{reservation.loc} , {reservation.v_type} {reservation.licence_no}</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">
-                      {(() => {
-                              const [hour, minutes] = reservation.entry_time.split(':').map(Number); // Convert to numbers
-                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
-                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
-                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
-                              return `${formattedHour}:${formattedMinutes} ${period}`;
-                              })()} - 
-                            {(() => {
-                              const [hour, minutes] = reservation.exit_time.split(':').map(Number); // Convert to numbers
-                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
-                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
-                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
-                              return ` ${formattedHour}:${formattedMinutes} ${period}`;
-                              })()} 
-                      </Typography>
-                      <Typography variant="body2">
-                        {new Date(reservation.updatedAt).toLocaleDateString(undefined, {
-                              day: '2-digit',
-                              month: 'short',
-                              year: 'numeric',
-                            })}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-              ))
-              ) : (
-              <Typography color="textSecondary">No upcoming reservations</Typography>
-             )}
-                
-            </>
-            ) : (
-              <>
-              {data && data.length > 0 ? (
-              pastdata.map((past, index) => (
-                <EventCard key={index}>
-                  <CardContent>
-                    <Typography variant="body2">{past.loc} , {past.v_type} {past.licence_no}</Typography>
-                    <Box display="flex" justifyContent="space-between" mt={1}>
-                      <Typography variant="body2">
-                      {(() => {
-                              const [hour, minutes] = past.entry_time.split(':').map(Number); // Convert to numbers
-                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
-                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
-                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
-                              return `${formattedHour}:${formattedMinutes} ${period}`;
-                              })()} - 
-                            {(() => {
-                              const [hour, minutes] = past.exit_time.split(':').map(Number); // Convert to numbers
-                              const period = hour < 12 ? 'AM' : 'PM'; // Determine AM/PM
-                              const formattedHour = hour % 12 || 12; // Convert hour to 12-hour format
-                              const formattedMinutes = String(minutes).padStart(2, '0'); // Ensure 2-digit minutes
-                              return ` ${formattedHour}:${formattedMinutes} ${period}`;
-                              })()} 
-                      </Typography>
-                      <Typography variant="body2">
-                        {new Date(past.updatedAt).toLocaleDateString(undefined, {
-                              day: '2-digit',
-                              month: 'short',
-                              year: 'numeric',
-                            })}
-                      </Typography>
-                    </Box>
-                  </CardContent>
-                </EventCard>
-              ))
-              ) : (
-              <Typography color="textSecondary">No Past Bookings</Typography>
-             )}
-              </>
-            )}
-          </CardContent>
+  {activeTab === 0 ? (
+    <Box
+      sx={{
+        maxHeight: '400px', // Set the max height for the scrollable area
+    overflowY: 'auto', // Enable vertical scrolling
+    padding: 1, // Optional padding for better appearance
+    '&::-webkit-scrollbar': {
+      width: '8px',
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: 'rgba(255, 255, 255, 0.1)', // Track color
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: 'rgba(255, 255, 255, 0.3)', // Thumb color
+      borderRadius: '8px',
+    },
+    '&::-webkit-scrollbar-thumb:hover': {
+      backgroundColor: 'rgba(255, 255, 255, 0.5)', // Thumb hover color
+    },
+      }}
+    >
+      {data && data.length > 0 ? (
+        data.map((reservation, index) => (
+          <EventCard key={index}>
+            <CardContent>
+              <Typography variant="body2">
+                {reservation.loc}, {reservation.v_type} {reservation.licence_no}
+              </Typography>
+              <Box display="flex" justifyContent="space-between" mt={1}>
+                <Typography variant="body2">
+                  {(() => {
+                    const [hour, minutes] = reservation.entry_time.split(':').map(Number); 
+                    const period = hour < 12 ? 'AM' : 'PM';
+                    const formattedHour = hour % 12 || 12; 
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    return `${formattedHour}:${formattedMinutes} ${period}`;
+                  })()} - 
+                  {(() => {
+                    const [hour, minutes] = reservation.exit_time.split(':').map(Number);
+                    const period = hour < 12 ? 'AM' : 'PM';
+                    const formattedHour = hour % 12 || 12;
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    return ` ${formattedHour}:${formattedMinutes} ${period}`;
+                  })()}
+                </Typography>
+                <Typography variant="body2">
+                  {new Date(reservation.updatedAt).toLocaleDateString(undefined, {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </Typography>
+              </Box>
+            </CardContent>
+          </EventCard>
+        ))
+      ) : (
+        <Typography color="textSecondary">No upcoming reservations</Typography>
+      )}
+    </Box>
+  ) : (
+    <Box
+      sx={{
+        maxHeight: '400px', // Set the max height for the scrollable area
+        overflowY: 'auto', // Enable vertical scrolling
+        padding: 1, // Optional padding for better appearance
+      }}
+    >
+      {pastdata && pastdata.length > 0 ? (
+        pastdata.map((past, index) => (
+          <EventCard key={index}>
+            <CardContent>
+              <Typography variant="body2">
+                {past.loc}, {past.v_type} {past.licence_no}
+              </Typography>
+              <Box display="flex" justifyContent="space-between" mt={1}>
+                <Typography variant="body2">
+                  {(() => {
+                    const [hour, minutes] = past.entry_time.split(':').map(Number);
+                    const period = hour < 12 ? 'AM' : 'PM';
+                    const formattedHour = hour % 12 || 12;
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    return `${formattedHour}:${formattedMinutes} ${period}`;
+                  })()} - 
+                  {(() => {
+                    const [hour, minutes] = past.exit_time.split(':').map(Number);
+                    const period = hour < 12 ? 'AM' : 'PM';
+                    const formattedHour = hour % 12 || 12;
+                    const formattedMinutes = String(minutes).padStart(2, '0');
+                    return ` ${formattedHour}:${formattedMinutes} ${period}`;
+                  })()}
+                </Typography>
+                <Typography variant="body2">
+                  {new Date(past.updatedAt).toLocaleDateString(undefined, {
+                    day: '2-digit',
+                    month: 'short',
+                    year: 'numeric',
+                  })}
+                </Typography>
+              </Box>
+            </CardContent>
+          </EventCard>
+        ))
+      ) : (
+        <Typography color="textSecondary">No Past Bookings</Typography>
+      )}
+    </Box>
+  )}
+</CardContent>
+
         </StyledCard>
       </ContentBox>
     </BackgroundBox>

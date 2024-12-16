@@ -1,7 +1,42 @@
 import { Box, Typography, Button } from "@mui/material";
 import { useMediaQuery } from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
 const BookingItem = ({ booking }) => {
-  const { name, time, status, vehicle } = booking;
+  const email = localStorage.getItem("email");
+  const {
+    name: loc,
+    status,
+    vehicle: licence_no,
+    slot_no,
+    v_type,
+    entry_time,
+    exit_time,
+  } = booking;
+  const [isrelease, setIsrelease] = useState({
+    licence_no: licence_no,
+    slot_no: slot_no,
+    v_type: v_type,
+    loc: loc,
+    booked: "no",
+    email: email,
+    entry_time: entry_time,
+    exit_time: exit_time,
+  });
+
+  const refresh = () => {
+    window.location.reload(true);
+    window.location.reload(true);
+    window.location.reload(true);
+  };
+
+  const onrelease = () => {
+    const { slot_no, loc, booked = "no", name, licence_no, email } = isrelease;
+
+    axios.post("http://localhost:9000/slots", isrelease).then((res) => {
+      alert(res.data.message);
+    });
+  };
   const isNonMobile = useMediaQuery("(min-width: 922px)");
   return (
     <Box
@@ -23,13 +58,13 @@ const BookingItem = ({ booking }) => {
         variant="body1"
         sx={{ fontSize: "0.9rem", fontWeight: "bold" }}
       >
-        {name}
+        {loc} {slot_no} {v_type}
       </Typography>
       <Typography
         variant="body2"
-        sx={{ fontSize: "0.8rem", color: "#998F8FFF" }}
+        sx={{ fontSize: "0.8rem", color: "#FFFFFFF" }}
       >
-        {time}
+        {entry_time} - {exit_time}
       </Typography>
       <Box
         display="flex"
@@ -70,7 +105,7 @@ const BookingItem = ({ booking }) => {
             backgroundColor: "rgba(143, 82, 5, 0.9)",
           }}
         >
-          {vehicle}
+          {licence_no}
         </Typography>
         {status === "APPROVED" && (
           <Button
@@ -80,6 +115,10 @@ const BookingItem = ({ booking }) => {
               color: "white",
               width: "8em",
               backgroundColor: "#8F5205",
+            }}
+            onClick={() => {
+              onrelease();
+              refresh();
             }}
           >
             Release

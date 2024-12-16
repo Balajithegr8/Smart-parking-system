@@ -174,7 +174,7 @@ const Slot = ({
         
     </Card>
     {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
-    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} />}
+    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} email={email} entry_time={entry_time} exit_time={exit_time} licence_no={licence_no}/>}
     {openReport && <Report closeReport={setopenReport } slot_no={slot_no} v_type={v_type} loc={loc} licence_no={licence_no} entry_time={entry_time} exit_time={exit_time} email={email}/>}
     </Box>
   );

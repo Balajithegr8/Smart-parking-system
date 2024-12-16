@@ -20,6 +20,7 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+import PastBooking from "./models/PastBookings.js";
 
 
 // Data imports
@@ -224,63 +225,66 @@ app.post('/loginuser', async (req, res) => {
 })
 
 
-app.post("/slots", (req, res) => {
+app.post("/slots", async (req, res) => {
   const { name, email, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
-  if (booked === "yes") {
-    Location.findOne({ loc, slot_no })
-      .then((existingLocation) => {
-        if (existingLocation) {
-          // Update the existing data
-          existingLocation.name = name;
-          existingLocation.licence_no = licence_no;
-          existingLocation.booked = "yes";
-          existingLocation.email = email;
-          existingLocation.entry_time = entry_time;
-          existingLocation.exit_time = exit_time;
 
-          existingLocation.save()
-            .then(() => {
-              res.send({ message: "Successfully updated, Arigato" });
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
-      });
+  // Validate required fields
+  if (!loc || !slot_no || !booked) {
+    return res.status(400).send({ message: "Location, slot number, and booking status are required." });
   }
-  else {
-    Location.findOne({ loc, slot_no })
-      .then((existingLocation) => {
-        if (existingLocation) {
-          // Update the existing data
-          existingLocation.name = "";
-          existingLocation.licence_no = "";
-          existingLocation.booked = "no";
-          existingLocation.email = email;
-          existingLocation.entry_time = entry_time;
-          existingLocation.exit_time = exit_time;
 
-          existingLocation.save()
-            .then(() => {
-              res.send({ message: "Successfully updated, Arigato" });
-            })
-            .catch((err) => {
-              console.error(err);
-              res.status(500).send({ message: "Server error" });
-            });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send({ message: "Server error" });
+  try {
+    // Find the location entry
+    const existingLocation = await Location.findOne({ loc, slot_no });
+
+    if (!existingLocation) {
+      return res.status(404).send({ message: "Slot not found." });
+    }
+
+    // Update based on booking status
+    if (booked === "yes") {
+      // Update the existing location with booking details
+      existingLocation.name = name;
+      existingLocation.licence_no = licence_no;
+      existingLocation.booked = "yes";
+      existingLocation.email = email;
+      existingLocation.entry_time = entry_time;
+      existingLocation.exit_time = exit_time;
+
+      await existingLocation.save();
+      return res.send({ message: "Successfully updated, Arigato" });
+    } else {
+      // Save past booking details
+      const pastBooking = new PastBooking({
+        name,
+        email,
+        licence_no,
+        loc,
+        slot_no,
+        v_type,
+        booked,
+        entry_time,
+        exit_time,
       });
+      await pastBooking.save();
+
+      // Update the existing location to clear booking
+      existingLocation.name = "";
+      existingLocation.licence_no = "";
+      existingLocation.booked = "no";
+      existingLocation.email = ""; // Clear email as well
+      existingLocation.entry_time = "";
+      existingLocation.exit_time = "";
+
+      await existingLocation.save();
+      return res.send({ message: "Successfully updated, Arigato" });
+    }
+  } catch (err) {
+    console.error("Server error:", err);
+    return res.status(500).send({ message: "Server error. Please try again later." });
   }
 });
+
 
 app.post("/reports", (req, res) => {
   const { email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;

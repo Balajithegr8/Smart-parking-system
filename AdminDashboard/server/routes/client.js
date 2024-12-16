@@ -13,6 +13,7 @@ import {
   getmobreports,
   getreservations,
   getpastbookings,
+  gettoday,
 
 } from "../controllers/client.js";
 
@@ -32,5 +33,6 @@ router.get("/mobloc/:email", getmobloc);
 router.get("/mobreports/:email", getmobreports);
 router.get("/reservation/:email", getreservations);
 router.get("/pastbookings/:email", getpastbookings);
+router.get("/today/:email", gettoday);
 
 export default router;
