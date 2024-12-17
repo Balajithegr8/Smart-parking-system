@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // Backend Api
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:9000/"
+    baseUrl: "https://spark-backend-j18q.onrender.com/"
   }), // base url
   reducerPath: "adminApi",
   // tags
@@ -34,7 +34,7 @@ export const api = createApi({
       providesTags: ["Products"],
     }),
     getCustomers: build.query({
-      query: () => ({url: "client/customers", }),
+      query: () => ({ url: "client/customers", }),
       providesTags: ["Customers"],
     }),
     getSlots: build.query({
@@ -50,7 +50,7 @@ export const api = createApi({
       providesTags: ["Locations"],
     }),
     getTransactions: build.query({
-      query: () =>   "client/transactions",
+      query: () => "client/transactions",
       providesTags: ["Transactions"],
     }),
     getGeography: build.query({

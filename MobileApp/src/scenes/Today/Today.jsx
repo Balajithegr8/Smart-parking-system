@@ -6,20 +6,7 @@ import Calendar from "./Calendar"; // Import the Calendar component
 import BookingsList from "./BookingList";
 
 const getUserName = async () => {
-  // try {
-  //   const res = await fetch(`http://localhost:9000/getUserData`, {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/json" },
-  //   });
-  //   if (!res.ok) {
-  //     throw new Error("Failed to fetch user data");
-  //   }
-  //   const data = await res.json();
-  //   return data.name;
-  // } catch (error) {
-  //   console.error("Error fetching user data:", error);
-  //   return null;
-  // }
+
   return "Balaji P";
 };
 

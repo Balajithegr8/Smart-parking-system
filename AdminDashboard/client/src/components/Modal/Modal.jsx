@@ -43,10 +43,12 @@ const Modal = ({ closeModal, slot_no, v_type, loc }) => {
 
     if (name && licence_no && email) {
       console.log(isbook);
-      axios.post("http://localhost:9000/slots", isbook).then((res) => {
-        alert(res.data.message);
-        closeModal(false);
-      });
+      axios
+        .post("https://spark-backend-j18q.onrender.com/slots", isbook)
+        .then((res) => {
+          alert(res.data.message);
+          closeModal(false);
+        });
     } else {
       alert("Invalid inputs");
     }

@@ -30,89 +30,83 @@ const Slot = ({
   entry_time,
   exit_time,
 }) => {
-  const [isExpanded, setIsExpanded] = useState(false);  
-  const [openModal,setopenModal] = useState(false,);
-  const [openPop,setopenPop] = useState(false,);
-  const [openReport,setopenReport] = useState(false,);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [openModal, setopenModal] = useState(false);
+  const [openPop, setopenPop] = useState(false);
+  const [openReport, setopenReport] = useState(false);
   // theme
   const theme = useTheme();
-  
+
   //getting role info
-  const role=localStorage.getItem('role');
-  var price=localStorage.getItem('price');
-  
+  const role = localStorage.getItem("role");
+  var price = localStorage.getItem("price");
+
   // Defining the font color based on the booked status
   const fontColor = booked === "yes" ? "#384051" : theme.palette.secondary[700];
   const fontc = booked === "yes" ? "#384051" : "#ffffff";
-  
 
-  function Judge(){
-    if(role==="guard" && booked ==="no"){
-      return(
-        
-        <Button onClick={()=>{setopenModal(true); }}
+  function Judge() {
+    if (role === "guard" && booked === "no") {
+      return (
+        <Button
+          onClick={() => {
+            setopenModal(true);
+          }}
           sx={{
             backgroundColor: theme.palette.secondary.light,
             color: theme.palette.background.alt,
             fontSize: "14px",
             fontWeight: "bold",
             padding: "5px 13px",
-    
+
             "&:hover": {
               backgroundColor: theme.palette.background.alt,
               color: theme.palette.secondary.light,
             },
           }}
-          >
-        
+        >
           Book this Slot
-      </Button>
-      
-      )
-      
+        </Button>
+      );
     }
   }
   return (
     <Box>
-    <Card
-      sx={{
-        backgroundImage: "none",
-        backgroundColor: theme.palette.background.alt,
-        borderRadius: "0.55rem",
-      }}
+      <Card
+        sx={{
+          backgroundImage: "none",
+          backgroundColor: theme.palette.background.alt,
+          borderRadius: "0.55rem",
+        }}
       >
-      {/* Content */}
-      <CardContent>
-        {/* Category */}
-        <Typography
-          sx={{ fontSize: 14 }}
-          color={fontColor}
-          gutterBottom
-       
-        >
-          {loc}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price : ${price}
-        </Typography>
+        {/* Content */}
+        <CardContent>
+          {/* Category */}
+          <Typography sx={{ fontSize: 14 }} color={fontColor} gutterBottom>
+            {loc}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Price
+            : ${price}
+          </Typography>
 
-        {/* Name */}
-        <Typography variant="h5" component="div" color={fontc}>
-          Slot no : {slot_no}
-        </Typography>
+          {/* Name */}
+          <Typography variant="h5" component="div" color={fontc}>
+            Slot no : {slot_no}
+          </Typography>
 
-        {/* Description */}
-        <Typography variant="h5" color={fontc}>
-          vehicle type : {v_type}
-        </Typography>
+          {/* Description */}
+          <Typography variant="h5" color={fontc}>
+            vehicle type : {v_type}
+          </Typography>
 
-        <Typography variant="h5" component="div" color={fontc}>
-          Booked: {booked}
-        </Typography>
-        <br/>
-        <Judge/>
-      </CardContent>
+          <Typography variant="h5" component="div" color={fontc}>
+            Booked: {booked}
+          </Typography>
+          <br />
+          <Judge />
+        </CardContent>
 
-      
-          {/* See More/See Less */}
-          {booked === "yes" && (
+        {/* See More/See Less */}
+        {booked === "yes" && (
           <CardActions sx={{ mt: -1 }}>
             <Button
               variant="primary"
@@ -123,59 +117,95 @@ const Slot = ({
             </Button>
           </CardActions>
         )}
-          {/* More Info */}
-          <Collapse
-            in={isExpanded}
-            timeout="auto"
-            unmountOnExit
-            sx={{ color: theme.palette.neutral[300] }}
-          >
-            <CardContent>
-              <Typography>Booked by : {name}</Typography>
-              <Typography>Email : {email}</Typography>
-              <Typography>Licence Number: {licence_no}</Typography>
-              <Typography>Exit Time: {exit_time}</Typography>
-              <Typography><br/></Typography>
-              <Button onClick={()=>{setopenPop(true); }}
-                  sx={{
-                    backgroundColor: '#8fc3ff',
-                    color: theme.palette.background.alt,
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    padding: "5px 13px",
-            
-                    "&:hover": {
-                      backgroundColor: theme.palette.background.alt,
-                      color: '#8fc3ff',
-                    },
-                  }}
-                  >
-        
-                Release this Slot
-              </Button>
-              <Button onClick={()=>{setopenReport(true); }}
-                  sx={{
-                    backgroundColor: '#d10000',
-                    color: theme.palette.background.alt,
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    padding: "5px 54px",
-                    marginTop: "10px",
-            
-                    "&:hover": {
-                      backgroundColor: theme.palette.background.alt,
-                      color: '#d10000',
-                    },
-                  }}
-                  >Report</Button>
-            </CardContent>
-          </Collapse>
+        {/* More Info */}
+        <Collapse
+          in={isExpanded}
+          timeout="auto"
+          unmountOnExit
+          sx={{ color: theme.palette.neutral[300] }}
+        >
+          <CardContent>
+            <Typography>Booked by : {name}</Typography>
+            <Typography>Email : {email}</Typography>
+            <Typography>Licence Number: {licence_no}</Typography>
+            <Typography>Exit Time: {exit_time}</Typography>
+            <Typography>
+              <br />
+            </Typography>
+            <Button
+              onClick={() => {
+                setopenPop(true);
+              }}
+              sx={{
+                backgroundColor: "#8fc3ff",
+                color: theme.palette.background.alt,
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "5px 13px",
 
-        
-    </Card>
-    {openModal && <Modal closeModal={setopenModal } slot_no={slot_no} v_type={v_type} loc={loc} />}
-    {openPop && <Pop closePop={setopenPop } slot_no={slot_no} v_type={v_type} loc={loc} email={email} entry_time={entry_time} exit_time={exit_time} licence_no={licence_no}/>}
-    {openReport && <Report closeReport={setopenReport } slot_no={slot_no} v_type={v_type} loc={loc} licence_no={licence_no} entry_time={entry_time} exit_time={exit_time} email={email}/>}
+                "&:hover": {
+                  backgroundColor: theme.palette.background.alt,
+                  color: "#8fc3ff",
+                },
+              }}
+            >
+              Release this Slot
+            </Button>
+            <Button
+              onClick={() => {
+                setopenReport(true);
+              }}
+              sx={{
+                backgroundColor: "#d10000",
+                color: theme.palette.background.alt,
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "5px 54px",
+                marginTop: "10px",
+
+                "&:hover": {
+                  backgroundColor: theme.palette.background.alt,
+                  color: "#d10000",
+                },
+              }}
+            >
+              Report
+            </Button>
+          </CardContent>
+        </Collapse>
+      </Card>
+      {openModal && (
+        <Modal
+          closeModal={setopenModal}
+          slot_no={slot_no}
+          v_type={v_type}
+          loc={loc}
+        />
+      )}
+      {openPop && (
+        <Pop
+          closePop={setopenPop}
+          slot_no={slot_no}
+          v_type={v_type}
+          loc={loc}
+          email={email}
+          entry_time={entry_time}
+          exit_time={exit_time}
+          licence_no={licence_no}
+        />
+      )}
+      {openReport && (
+        <Report
+          closeReport={setopenReport}
+          slot_no={slot_no}
+          v_type={v_type}
+          loc={loc}
+          licence_no={licence_no}
+          entry_time={entry_time}
+          exit_time={exit_time}
+          email={email}
+        />
+      )}
     </Box>
   );
 };
@@ -184,22 +214,22 @@ const Slot = ({
 const Slots = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
-  const loc = searchParams.get("loc");  
+  const loc = searchParams.get("loc");
   // get data
   const { data, isLoading } = useGetSlotsQuery();
   // is medium/large desktop
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
 
-  const filteredData = data ? data.filter(slot => slot.loc === loc) : [];
- 
+  const filteredData = data ? data.filter((slot) => slot.loc === loc) : [];
+
   return (
     <Box m="1.5rem 2.5rem">
       {/* Header */}
-      <Header title="SLOTS" subtitle = "List Of All Slots For Parking" />
+      <Header title="SLOTS" subtitle="List Of All Slots For Parking" />
 
       {/* Content */}
-      
-      {filteredData.length > 0 || !isLoading ?  (
+
+      {filteredData.length > 0 || !isLoading ? (
         <Box
           mt="20px"
           display="grid"
@@ -216,7 +246,7 @@ const Slots = () => {
             ({
               _id,
               loc,
-              slot_no,      
+              slot_no,
               v_type,
               booked,
               name,
@@ -237,7 +267,6 @@ const Slots = () => {
                 licence_no={licence_no}
                 exit_time={exit_time}
                 entry_time={entry_time}
-               
               />
             )
           )}
@@ -249,8 +278,6 @@ const Slots = () => {
         </Typography>
       )}
     </Box>
-    
-
   );
 };
 
