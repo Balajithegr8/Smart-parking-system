@@ -4,8 +4,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import './LoginRegister.css';
 import 'boxicons/css/boxicons.min.css'; // Importing boxicons
 import CustomToast from './CustomToast';
+import { useNavigate } from "react-router-dom";
 
 function LoginRegister() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setname] = useState('');
@@ -85,9 +87,7 @@ function LoginRegister() {
         setEmail('');
         setPassword('');
         localStorage.setItem("email", email);
-        setTimeout(() => {
-          window.location.href = '/today';
-        }, 3000);
+        setTimeout(() => navigate('/today'), 3000);
       }
 
     } catch (error) {
