@@ -11,7 +11,7 @@ import Reservation from "./models/Reservation.js";
 import sendmail from "./helpers/sendmail.js";
 import Report from "./models/Reports.js";
 import { runPythonScript } from "./helpers/pythonRunner.js";
-
+import scheduleTask from "./helpers/scheduler.js";
 // Rate Limiter
 import { rateLimiter } from "./middlewares/rateLimiter.js";
 
@@ -21,25 +21,6 @@ import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 import PastBooking from "./models/PastBookings.js";
-
-
-// Data imports
-/*
-import User from "./models/User.js";
-import Product from "./models/Product.js";
-import ProductStat from "./models/ProductStat.js";
-import Transaction from "./models/Transaction.js";
-import OverallStat from "./models/OverallStat.js";
-import AffiliateStat from "./models/AffiliateStat.js";
-import {
-  dataUser,
-  dataProduct,
-  dataProductStat,
-  dataTransaction,
-  dataOverallStat,
-  dataAffiliateStat,
-} from "./data/index.js";
-*/
 
 // Configuration
 dotenv.config();
@@ -69,16 +50,11 @@ mongoose
     useUnifiedTopology: true,
   })
   .then(() => {
+
+    console.log("Scheduler is Online...");
+    scheduleTask();
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
 
-    /* 
-        User.insertMany(dataUser);
-        Product.insertMany(dataProduct);
-        ProductStat.insertMany(dataProductStat);
-        Transaction.insertMany(dataTransaction);
-        OverallStat.insertMany(dataOverallStat);
-        AffiliateStat.insertMany(dataAffiliateStat);
-    */
   })
   .catch((error) => console.log(`${error} did not connect.`));
 
