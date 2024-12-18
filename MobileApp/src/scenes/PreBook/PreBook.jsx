@@ -97,7 +97,11 @@ export default function PreBook() {
             formData
           )
           .then((response) => {
-            window.location.reload();
+            console.log(response);
+            formData.loc = "";
+            formData.v_type = "";
+            formData.licence_no = "";
+            formData.date = null;
             setToastMessage(
               `🎉 Successfully Reserved slot - ${formData.slot_no}`
             );

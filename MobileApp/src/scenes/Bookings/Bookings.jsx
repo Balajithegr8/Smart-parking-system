@@ -15,7 +15,7 @@ import { useGetreservationQuery } from '../../state/api';
 import { useGetpastbookingsQuery } from '../../state/api';
 
 const BackgroundBox = styled(Box)(({ theme }) => ({
-  height: '100vh',
+  height: '80vh',
   backgroundImage: `url('../../static/11.jpg')`,
   backgroundSize: 'cover',
   backgroundPosition: 'center',
