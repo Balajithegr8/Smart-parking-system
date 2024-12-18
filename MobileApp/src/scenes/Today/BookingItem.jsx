@@ -28,19 +28,15 @@ const BookingItem = ({ booking }) => {
     exit_time: exit_time,
   });
 
-  const refresh = () => {
-    window.location.reload(true);
-    window.location.reload(true);
-    window.location.reload(true);
-  };
-
   const onrelease = () => {
     const { slot_no, loc, booked = "no", name, licence_no, email } = isrelease;
 
-    axios.post("https://spark-backend-j18q.onrender.com/slots", isrelease).then((res) => {
-      setToastMessage(`🎉 Successfully Released slot`);
-      setToastType("success");
-    });
+    axios
+      .post("https://spark-backend-j18q.onrender.com/slots", isrelease)
+      .then((res) => {
+        setToastMessage(`🎉 Successfully Released slot`);
+        setToastType("success");
+      });
   };
   const isNonMobile = useMediaQuery("(min-width: 922px)");
   return (
@@ -124,7 +120,6 @@ const BookingItem = ({ booking }) => {
               }}
               onClick={() => {
                 onrelease();
-                refresh();
               }}
             >
               Release
