@@ -92,15 +92,21 @@ export default function PreBook() {
         alert(`No slot in ${formData.loc} available for the selected date`);
       } else {
         axios
-          .post("https://spark-backend-j18q.onrender.com/reservations", formData)
+          .post(
+            "https://spark-backend-j18q.onrender.com/reservations",
+            formData
+          )
           .then((response) => {
+            window.location.reload();
             setToastMessage(
               `🎉 Successfully Reserved slot - ${formData.slot_no}`
             );
             setToastType("success");
-            window.location.reload();
-            window.location.reload();
-            window.location.reload();
+          })
+          .catch((error) => {
+            console.error(error);
+            setToastMessage("❌ An error occurred. Please try again.");
+            setToastType("error");
           });
       }
     }

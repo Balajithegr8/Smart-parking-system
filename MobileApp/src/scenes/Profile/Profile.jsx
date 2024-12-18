@@ -222,8 +222,12 @@ const Profile = () => {
                 (e.target.style.transform = "translateY(-2px)")
               }
               onMouseOut={(e) => (e.target.style.transform = "translateY(0)")}
+              onClick={() => {
+                window.location.href = "/";
+                window.localStorage.removeItem("email");
+              }}
             >
-              Edit Profile
+              Logout
             </button>
           </div>
         </div>

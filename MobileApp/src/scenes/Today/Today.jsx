@@ -1,31 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useMediaQuery } from "@mui/material";
 import Calendar from "./Calendar"; // Import the Calendar component
 import BookingsList from "./BookingList";
+import { useGetmobuserQuery } from "state/api";
 
-const getUserName = async () => {
-
-  return "Balaji P";
-};
 
 const Today = () => {
   const isNonMobile = useMediaQuery("(min-width: 922px)");
-  const [name, setName] = useState("");
+  const email = localStorage.getItem("email");
+  const { data, isLoading } = useGetmobuserQuery(email);
+  const name = data?.name
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchName = async () => {
-      const userName = await getUserName();
-      if (userName) {
-        setName(userName);
-      } else {
-        setError("Failed to fetch user data");
-      }
-    };
-    fetchName();
-  }, []);
   return (
     <Box
       display="grid"
