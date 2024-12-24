@@ -12,6 +12,8 @@
 # production
 /build
 
+firebaseAdminSDK.json
+/firebaseAdminSDK.json
 
 .env
 # misc

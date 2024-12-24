@@ -34,6 +34,7 @@ const Slot = ({
   const [openModal, setopenModal] = useState(false);
   const [openPop, setopenPop] = useState(false);
   const [openReport, setopenReport] = useState(false);
+  
   // theme
   const theme = useTheme();
 

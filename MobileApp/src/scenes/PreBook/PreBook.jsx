@@ -73,6 +73,12 @@ export default function PreBook() {
   const nextWeek = () => setCurrentWeek(addDays(currentWeek, 7));
   const prevWeek = () => setCurrentWeek(addDays(currentWeek, -7));
 
+  const refresh = () => {
+    window.location.reload();
+    window.location.reload();
+    window.location.reload();
+  };
+
   const onprebook = () => {
     if (
       !formData.loc ||
@@ -323,7 +329,10 @@ export default function PreBook() {
                 <Button
                   variant="contained"
                   fullWidth
-                  onClick={() => onprebook()}
+                  onClick={() => {
+                    onprebook();
+                    refresh();
+                  }}
                   sx={{
                     backgroundColor: "#1976D2",
                     color: "white",

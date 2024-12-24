@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
     baseQuery: fetchBaseQuery({
-        baseUrl: "https://spark-backend-j18q.onrender.com/",
+        baseUrl: "http://localhost:9000/",
     }), // base url
     reducerPath: "adminApi",
     // tags

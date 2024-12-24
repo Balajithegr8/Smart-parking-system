@@ -1,18 +1,46 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useMediaQuery } from "@mui/material";
 import Calendar from "./Calendar"; // Import the Calendar component
 import BookingsList from "./BookingList";
+import { messaging } from "../../firebase";
+import { useEffect } from "react";
+import { getToken } from "firebase/messaging";
+import axios from "axios";
 import { useGetmobuserQuery } from "state/api";
 
-
 const Today = () => {
+  const [user, setUser] = useState({
+    email: "",
+    token: "",
+  });
   const isNonMobile = useMediaQuery("(min-width: 922px)");
   const email = localStorage.getItem("email");
+  user.email = email;
   const { data, isLoading } = useGetmobuserQuery(email);
-  const name = data?.name
+  const name = data?.name;
   const [error, setError] = useState(null);
+
+  async function requestNotificationPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      const token = await getToken(messaging, {
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
+      });
+      user.token = token;
+      axios.post("http://localhost:9000/notif", user);
+      console.log("gen user", user);
+      console.log("Notification permission granted");
+    } else if (permission === "denied") {
+      console.log("Notification permission denied");
+      alert("Please enable notifications to receive reminders");
+    }
+  }
+
+  useEffect(() => {
+    requestNotificationPermission();
+  });
 
   return (
     <Box

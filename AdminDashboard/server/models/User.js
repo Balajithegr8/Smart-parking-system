@@ -21,6 +21,7 @@ const UserSchema = new mongoose.Schema(
       min: 5,
     },
     city: String,
+    token: String,
     state: String,
     vehicle: String,
     country: String,

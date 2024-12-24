@@ -13,7 +13,7 @@ const saveDataToMongoDB = async (parsedData) => {
 };
 
 export const runPythonScript = () => {
-  const sensor = spawn("python", ["main.py"]);
+  const sensor = spawn("python3", ["main.py"]);
 
   sensor.on("close", (code) => {
     if (code === 0) {
