@@ -45,7 +45,7 @@ const Report = ({
       return;
     }
     axios
-      .post("http://localhost:9000/reports", isreport)
+      .post("https://spark-backend-j18q.onrender.com/reports", isreport)
       .then((res) => {
         alert(res.data.message);
         closeReport(false);

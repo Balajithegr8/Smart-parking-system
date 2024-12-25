@@ -13,5 +13,3 @@
 npm-debug.log*
 
 .env
-
-firebase-messaging-sw.js

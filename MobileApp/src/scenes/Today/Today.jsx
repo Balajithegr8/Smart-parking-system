@@ -29,7 +29,7 @@ const Today = () => {
         vapidKey: process.env.REACT_APP_VAPID_KEY,
       });
       user.token = token;
-      axios.post("http://localhost:9000/notif", user);
+      axios.post("https://spark-backend-j18q.onrender.com/notif", user);
       console.log("gen user", user);
       console.log("Notification permission granted");
     } else if (permission === "denied") {
