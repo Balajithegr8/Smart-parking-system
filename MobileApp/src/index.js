@@ -30,7 +30,7 @@ createRoot(document.getElementById("root")).render(
 if ('serviceWorker' in navigator) {
   console.log('Trying to register custom sw');
   navigator.serviceWorker
-    .register('./firebase-messaging-sw.js')
+    .register('./service-worker.js')
     .then(function (registration) {
       console.log('Registration successful, scope is:', registration.scope);
     })
