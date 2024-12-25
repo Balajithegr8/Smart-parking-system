@@ -27,7 +27,7 @@ createRoot(document.getElementById("root")).render(
   </Provider>
 );
 
-if ('serviceWorker' in navigator && process.env.NODE_ENV !== 'production') {
+if ('serviceWorker' in navigator) {
   console.log('Trying to register custom sw');
   navigator.serviceWorker
     .register('./firebase-messaging-sw.js')
