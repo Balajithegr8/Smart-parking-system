@@ -26,7 +26,7 @@ const Today = () => {
       user.token = token;
       console.log("Notification permission granted");
       console.log(user);
-      axios.post("http://localhost:9000/notif", user).then((res) => {
+      axios.post("https://spark-backend-j18q.onrender.com/notif", user).then((res) => {
         console.log(res.data.message);
       });
     } else if (permission === "denied") {

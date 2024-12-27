@@ -28,7 +28,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('http://localhost:9000/registeruser', {
+      const res = await fetch('https://spark-backend-j18q.onrender.com/registeruser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('http://localhost:9000/loginuser', {
+      const res = await fetch('https://spark-backend-j18q.onrender.com/loginuser', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
