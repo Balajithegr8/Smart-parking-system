@@ -25,6 +25,7 @@ const UserSchema = new mongoose.Schema(
     vehicle: String,
     country: String,
     occupation: String,
+    token: String,
     parked: Boolean,
     phoneNumber: String,
     transactions: Array,

@@ -14,6 +14,7 @@ import Report from './scenes/Report/Report';
 import './App.css';
 
 function App() {
+
   const mode = "dark";
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
   return (

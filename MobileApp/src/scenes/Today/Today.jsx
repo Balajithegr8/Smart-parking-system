@@ -1,17 +1,46 @@
-import React, { useState} from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, IconButton, Button } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { useMediaQuery } from "@mui/material";
 import Calendar from "./Calendar"; // Import the Calendar component
 import BookingsList from "./BookingList";
+import { messaging } from "../../firebase";
+import { getToken } from "firebase/messaging";
+import axios from "axios";
 import { useGetmobuserQuery } from "state/api";
 
-
 const Today = () => {
-  const isNonMobile = useMediaQuery("(min-width: 922px)");
+  const [user, setUser] = useState({
+    email: "",
+    token: "",
+  });
   const email = localStorage.getItem("email");
+  user.email = email;
+  async function requestPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      const token = await getToken(messaging, {
+        vapidKey:
+          process.env.REACT_APP_VAPID_KEY,
+      });
+      user.token = token;
+      console.log("Notification permission granted");
+      console.log(user);
+      axios.post("http://localhost:9000/notif", user).then((res) => {
+        console.log(res.data.message);
+      });
+    } else if (permission === "denied") {
+      console.log("Notification permission denied");
+    }
+  }
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
+
+  const isNonMobile = useMediaQuery("(min-width: 922px)");
   const { data, isLoading } = useGetmobuserQuery(email);
-  const name = data?.name
+  const name = data?.name;
   const [error, setError] = useState(null);
 
   return (

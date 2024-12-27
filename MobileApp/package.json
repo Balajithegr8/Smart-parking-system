@@ -29,8 +29,10 @@
     "boxicons": "^2.1.4",
     "buffer": "^6.0.3",
     "cors": "^2.8.5",
+    "cra-append-sw": "^2.7.0",
     "crypto-browserify": "^3.12.0",
     "express": "^4.21.1",
+    "firebase": "^11.1.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.468.0",
     "mongoose": "^8.7.1",
@@ -55,7 +57,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && touch ./build/service-worker.js && cra-append-sw ./src/firebase-messaging-sw.js && mv ./build/service-worker.js ./build/firebase-messaging-sw.js",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

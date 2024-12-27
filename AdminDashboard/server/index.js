@@ -5,6 +5,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
+import NotificationService from "./Notification/service/NotificationService.js";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
 import Reservation from "./models/Reservation.js";
@@ -262,18 +263,47 @@ app.post("/slots", async (req, res) => {
 });
 
 
-app.post("/reports", (req, res) => {
+app.post("/reports", async (req, res) => {
   const { email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason } = req.body;
   const newreport = new Report({ email, slot_no, v_type, loc, licence_no, entry_time, exit_time, reason });
-  newreport.save()
+  newreport.save();
+  const user = await User.findOne({ email: email });
+  const token = user.token;
+  const title = "Reported Incident";
+  const body = `Your vehicle with license plate ${licence_no} has been reported for ${reason} at ${loc} slot ${slot_no}`;
+  NotificationService(token, title, body)
     .then(() => {
-      res.send({ message: "Successfully Reported, Arigato" });
+      res.status(200).send({ message: "Successfully Reported, Arigato" });
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send({ message: "Server error" });
+      res.status(500).send({ message: "There was some error reporting the vehicle" });
     });
 });
+
+app.post("/notif", async (req, res) => {
+  try {
+    const { email, token } = req.body;
+    if (!email || !token) {
+      return res.status(400).json({ message: "Email and token are required" });
+    }
+
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: { token } },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json({ message: "Token updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating token:", error);
+    res.status(500).json({ message: "Server error", error });
+  }
+});
+
 
 app.post("/reservations", async (req, res) => {
   const { loc, slot_no, email, v_type, licence_no, date, entry_time = "08:00", exit_time = "23:59" } = req.body;
