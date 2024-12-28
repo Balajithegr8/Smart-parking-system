@@ -20,13 +20,11 @@ const Today = () => {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
       const token = await getToken(messaging, {
-        vapidKey:
-          process.env.REACT_APP_VAPID_KEY,
+        vapidKey: process.env.REACT_APP_VAPID_KEY,
       });
       user.token = token;
       console.log("Notification permission granted");
-      console.log(user);
-      axios.post("https://spark-backend-j18q.onrender.com/notif", user).then((res) => {
+      axios.post("http://localhost:9000/notif", user).then((res) => {
         console.log(res.data.message);
       });
     } else if (permission === "denied") {

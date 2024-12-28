@@ -47,6 +47,19 @@ const Profile = () => {
     fontSize: "0.9rem",
   }));
 
+  async function Logout() {
+
+    const response = await fetch("http://localhost:9000/logout", {
+      method: "GET",
+      credentials: "include",
+    });
+
+    if (response.status === 200) {
+      window.localStorage.removeItem("email");
+      window.location.href = "/";
+    }
+  }
+
   return (
     <div
       style={{
@@ -223,8 +236,9 @@ const Profile = () => {
               }
               onMouseOut={(e) => (e.target.style.transform = "translateY(0)")}
               onClick={() => {
-                window.location.href = "/";
-                window.localStorage.removeItem("email");
+                Logout();
+                
+                
               }}
             >
               Logout

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './LoginRegister.css';
@@ -19,6 +20,21 @@ function LoginRegister() {
   const [toastMessage, setToastMessage] = useState(''); // Message for toast
   const [toastType, setToastType] = useState(''); // Type of toast
 
+  useEffect(() => {
+    async function autoLogin() {
+      const response = await fetch("http://localhost:9000/autoLogin", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.status === 200) {
+        navigate("/today");
+      } else {
+        navigate("/");
+      }
+    }
+    autoLogin();
+  }, []);
+
   async function registerUser(e) {
     e.preventDefault();
     if (!name || !phoneNumber || !email || !password) {
@@ -28,7 +44,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('https://spark-backend-j18q.onrender.com/registeruser', {
+      const res = await fetch('http://localhost:9000/registeruser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -72,8 +88,9 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('https://spark-backend-j18q.onrender.com/loginuser', {
+      const res = await fetch('http://localhost:9000/loginuser', {
         method: 'POST',
+        credentials: "include",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
@@ -82,7 +99,7 @@ function LoginRegister() {
       setToastMessage(data.message);
       setToastType(data.toastType);
 
-      if (data.toastType === 'success') {
+      if (res.status === 200) {
         // Clear form and redirect
         setEmail('');
         setPassword('');

@@ -91,9 +91,10 @@ export default function PreBook() {
         setToastType("error");
         alert(`No slot in ${formData.loc} available for the selected date`);
       } else {
+        formData.date = formData.date.setUTCHours(0, 0, 0, 0);
         axios
           .post(
-            "https://spark-backend-j18q.onrender.com/reservations",
+            "http://localhost:9000/reservations",
             formData
           )
           .then((response) => {
@@ -119,7 +120,6 @@ export default function PreBook() {
   const Randomslot = () => {
     const availableSlots =
       formData.v_type === "car" ? availableSlotscar : availableSlotsbike;
-    console.log(data);
 
     if (!data || data.length === 0) {
       return availableSlots[0];

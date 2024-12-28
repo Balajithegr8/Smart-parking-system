@@ -11,7 +11,7 @@ const automateSlotTransition = async () => {
     tomorrow.setDate(tomorrow.getDate() + 1);
 
     try {
-        console.log(`date: ${today} - Automating slot transition...`);
+        console.log(`date: ${today} - Automating slot transition...\n`);
 
         const reservations = await Reservation.find({ date: { $gte: today, $lt: tomorrow }, });
 
@@ -54,8 +54,10 @@ const automateSlotTransition = async () => {
 };
 
 const scheduleTask = () => {
-    cron.schedule("0 8 * * *", automateSlotTransition);
+    cron.schedule("0 0 * * *", automateSlotTransition);  // 0 8 * * * - Run daily at 8 AM
     console.log("Scheduler is set to run daily at 8 AM.");
+    console.log("\nRunning the slot transition automation on server startup...");
+    automateSlotTransition();
 };
 
 export default scheduleTask;

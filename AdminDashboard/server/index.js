@@ -6,6 +6,8 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import NotificationService from "./Notification/service/NotificationService.js";
+import jsonwebtoken from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 import User from "./models/User.js";
 import Location from "./models/Locations.js";
 import Reservation from "./models/Reservation.js";
@@ -25,15 +27,27 @@ import PastBooking from "./models/PastBookings.js";
 
 // Configuration
 dotenv.config();
+
 const app = express();
 app.use(express.json());
+app.use(cookieParser());
 app.use(rateLimiter);
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+  allowedHeaders: [
+    "set-cookie",
+    "Content-Type",
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+  ],
+})
+);
 
 // Routes Setup
 app.use("/client", clientRoutes);
@@ -41,7 +55,7 @@ app.use("/general", generalRoutes);
 app.use("/management", managementRoutes);
 app.use("/sales", salesRoutes);
 
-const image = 'https://i.ibb.co/k5BVRkQ/DALL-E-2024-12-05-22-56-00-A-sleek-and-modern-logo-design-for-SPARK-a-smart-parking-system-The-logo.png'
+const image = 'https://i.imgur.com/dSivAVo.png'
 
 // Mongoose Setup
 const PORT = process.env.PORT || 9000;
@@ -52,9 +66,9 @@ mongoose
   })
   .then(() => {
 
-    console.log("Scheduler is Online...");
+    console.log("\nScheduler is Online...");
     scheduleTask();
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
+    app.listen(PORT, () => console.log(`Server Port: ${PORT}\n`));
 
   })
   .catch((error) => console.log(`${error} did not connect.`));
@@ -182,12 +196,22 @@ app.post('/registeruser', async (req, res) => {
 
 app.post('/loginuser', async (req, res) => {
 
-  const { email, password } = req.body
+  const { email, password } = req.body;
+
   User.findOne({ email: email })
     .then(user => {
       if (user) {
         if (user.password === password && user.role === 'user') {
-          return res.json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' })
+
+          const authToken = jsonwebtoken.sign({ email }, "DUMMYKEY");
+          res.cookie("authToken", authToken, {
+            path: "/",    //The cookie only accessible for all routes on the domain
+            maxAge: 24 * 60 * 60 * 1000,  //1 Day
+            httpOnly: true,
+            // secure: true,
+
+          });
+          return res.status(200).json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' });
         }
         else {
           return res.json({ message: '❌ Login Failed. Incorrect password.', toastType: 'error' })
@@ -199,7 +223,28 @@ app.post('/loginuser', async (req, res) => {
       }
     })
 
-})
+});
+
+app.get("/autoLogin", (req, res) => {
+
+  const token = req.cookies.authToken;
+
+  if (!token) {
+    return res.sendStatus(401);
+  }
+  try {
+    const decoded = jsonwebtoken.verify(token, "DUMMYKEY");
+    return res.sendStatus(200);
+  }
+  catch (err) {
+    return res.sendStatus(401);
+  }
+});
+
+app.get("/logout", (req, res) => {
+  res.clearCookie("authToken");
+  return res.sendStatus(200);
+});
 
 
 app.post("/slots", async (req, res) => {
