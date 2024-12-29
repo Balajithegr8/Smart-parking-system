@@ -4,7 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { useMemo } from "react";
 import { themeSettings } from "./theme";
 import Layout from "./scenes/layout/Layout";
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginRegister from './LoginRegister';
 import Today from './scenes/Today/Today';
 import Profile from './scenes/Profile/Profile';

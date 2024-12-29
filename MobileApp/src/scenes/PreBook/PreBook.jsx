@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import axios from "axios";
 import {
@@ -18,6 +19,19 @@ import { useGetallreservationQuery } from "../../state/api";
 import CustomToast from "../../CustomToast";
 
 export default function PreBook() {
+  const navigate = useNavigate();
+    useEffect(() => {
+      async function autoLogin() {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.status !== 200) {
+          navigate("/");
+        }
+      }
+      autoLogin();
+    }, [navigate]);
   const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
   const [selectedDate, setSelectedDate] = useState(null);
   const [toastMessage, setToastMessage] = useState(""); // Message for toast
@@ -94,7 +108,7 @@ export default function PreBook() {
         formData.date = formData.date.setUTCHours(0, 0, 0, 0);
         axios
           .post(
-            "http://localhost:9000/reservations",
+            "https://spark-backend-j18q.onrender.com/reservations",
             formData
           )
           .then((response) => {

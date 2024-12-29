@@ -1,4 +1,6 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useGetmobreportsQuery } from '../../state/api';
 import { 
   AppBar, 
@@ -59,6 +61,19 @@ const EventCard = styled(Card)(({ theme }) => ({
 }));
 
 export default function Report() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    async function autoLogin() {
+      const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.status !== 200) {
+        navigate("/");
+      }
+    }
+    autoLogin();
+  }, [navigate]);
 
   const email=localStorage.getItem("email");
   const {data, isloading, error} = useGetmobreportsQuery(email);

@@ -4,8 +4,6 @@ import axios from 'axios';
 import { ReactComponent as Icon } from '../../static/icon.svg';
 import { useNavigate } from "react-router-dom";
 
-
-
 const FloatingWindow1 = ({ setLoginUser }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState({
@@ -23,10 +21,6 @@ const FloatingWindow1 = ({ setLoginUser }) => {
 
   const login = () => {
     const { email, password } = user
-
-
-
-
     if (email && password) {
 
       axios.post('https://spark-backend-j18q.onrender.com/login', user)

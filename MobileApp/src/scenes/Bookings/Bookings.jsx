@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -11,6 +11,7 @@ import {
   CardContent,
   styled,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useGetreservationQuery } from "../../state/api";
 import { useGetpastbookingsQuery } from "../../state/api";
 import Maps from "./Maps";
@@ -48,6 +49,19 @@ const EventCard = styled(Card)(({ theme }) => ({
 }));
 
 export default function Bookings() {
+  const navigate = useNavigate();
+    useEffect(() => {
+      async function autoLogin() {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.status !== 200) {
+          navigate("/");
+        }
+      }
+      autoLogin();
+    }, [navigate]);
   const [activeTab, setActiveTab] = useState(0);
   const [selectedReservation, setSelectedReservation] = useState(null);
   const [bottomNavValue, setBottomNavValue] = useState(0);

@@ -22,7 +22,7 @@ function LoginRegister() {
 
   useEffect(() => {
     async function autoLogin() {
-      const response = await fetch("http://localhost:9000/autoLogin", {
+      const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
         method: "GET",
         credentials: "include",
       });
@@ -44,7 +44,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('http://localhost:9000/registeruser', {
+      const res = await fetch('https://spark-backend-j18q.onrender.com/registeruser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -88,7 +88,7 @@ function LoginRegister() {
     }
 
     try {
-      const res = await fetch('http://localhost:9000/loginuser', {
+      const res = await fetch('https://spark-backend-j18q.onrender.com/loginuser', {
         method: 'POST',
         credentials: "include",
         headers: { 'Content-Type': 'application/json' },

@@ -1,5 +1,7 @@
 import CloudIcon from "@mui/icons-material/Cloud";
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useGetmobuserQuery } from "../../state/api";
 import { useGetmoblocQuery } from "../../state/api";
@@ -7,6 +9,19 @@ import { styled } from "@mui/material/styles";
 import { Box, Grid, Paper, Tooltip } from "@mui/material";
 
 const Profile = () => {
+  const navigate = useNavigate();
+    useEffect(() => {
+      async function autoLogin() {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+          method: "GET",
+          credentials: "include",
+        });
+        if (response.status !== 200) {
+          navigate("/");
+        }
+      }
+      autoLogin();
+    }, [navigate]);
   const email = localStorage.getItem("email");
   const { data, isLoading, error } = useGetmobuserQuery(email);
   const {
@@ -49,7 +64,7 @@ const Profile = () => {
 
   async function Logout() {
 
-    const response = await fetch("http://localhost:9000/logout", {
+    const response = await fetch("https://spark-backend-j18q.onrender.com/logout", {
       method: "GET",
       credentials: "include",
     });

@@ -246,7 +246,6 @@ app.get("/logout", (req, res) => {
   return res.sendStatus(200);
 });
 
-
 app.post("/slots", async (req, res) => {
   const { name, email, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;
 
@@ -381,8 +380,6 @@ app.post("/reservations", async (req, res) => {
     res.status(500).send({ message: "Server error" });
   }
 });
-
-
 
 runPythonScript();
 setInterval(runPythonScript, 3000000);

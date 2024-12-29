@@ -32,7 +32,7 @@ const BookingItem = ({ booking }) => {
     const { slot_no, loc, booked = "no", name, licence_no, email } = isrelease;
 
     axios
-      .post("http://localhost:9000/slots", isrelease)
+      .post("https://spark-backend-j18q.onrender.com/slots", isrelease)
       .then((res) => {
         setToastMessage(`🎉 Successfully Released slot`);
         setToastType("success");

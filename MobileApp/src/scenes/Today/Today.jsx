@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography, IconButton, Button } from "@mui/material";
-import NotificationsIcon from "@mui/icons-material/Notifications";
+import UpdateIcon from "@mui/icons-material/Update";
+import { useNavigate } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 import Calendar from "./Calendar"; // Import the Calendar component
 import BookingsList from "./BookingList";
@@ -14,6 +15,7 @@ const Today = () => {
     email: "",
     token: "",
   });
+  const navigate = useNavigate();
   const email = localStorage.getItem("email");
   user.email = email;
   async function requestPermission() {
@@ -24,7 +26,7 @@ const Today = () => {
       });
       user.token = token;
       console.log("Notification permission granted");
-      axios.post("http://localhost:9000/notif", user).then((res) => {
+      axios.post("https://spark-backend-j18q.onrender.com/notif", user).then((res) => {
         console.log(res.data.message);
       });
     } else if (permission === "denied") {
@@ -33,6 +35,16 @@ const Today = () => {
   }
 
   useEffect(() => {
+    async function autoLogin() {
+      const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+        method: "GET",
+        credentials: "include",
+      });
+      if (response.status !== 200) {
+        navigate("/");
+      }
+    }
+    autoLogin();
     requestPermission();
   }, []);
 
@@ -91,7 +103,7 @@ const Today = () => {
             gridArea: "icon",
           }}
         >
-          <NotificationsIcon fontSize="large" />
+          <UpdateIcon fontSize="large" />
         </IconButton>
       </Box>
       <Box
@@ -149,6 +161,7 @@ const Today = () => {
               fontSize: "1.4em",
               textTransform: "none",
             }}
+            onClick={()=> window.location.reload(true)}
           >
             Check Today's Availability
           </Button>
