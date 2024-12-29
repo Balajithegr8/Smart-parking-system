@@ -208,7 +208,8 @@ app.post('/loginuser', async (req, res) => {
             path: "/",    //The cookie only accessible for all routes on the domain
             maxAge: 24 * 60 * 60 * 1000,  //1 Day
             httpOnly: true,
-            // secure: true,
+            secure: true,
+            sameSite: 'None'
 
           });
           return res.status(200).json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' });
