@@ -37,8 +37,21 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+const allowedOrigins = [
+  "https://spark-mobile.onrender.com",
+  "http://localhost:3000",
+  "https://spark-tyuo.onrender.com",
+];
+
 app.use(cors({
-  origin: "https://spark-mobile.onrender.com",
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
   allowedHeaders: [
     "set-cookie",
@@ -46,8 +59,8 @@ app.use(cors({
     "Access-Control-Allow-Origin",
     "Access-Control-Allow-Credentials",
   ],
-})
-);
+}));
+
 
 // Routes Setup
 app.use("/client", clientRoutes);
@@ -243,7 +256,12 @@ app.get("/autoLogin", (req, res) => {
 });
 
 app.get("/logout", (req, res) => {
-  res.clearCookie("authToken");
+  res.clearCookie("authToken", {
+    path: "/",
+    httpOnly: true,
+    secure: true,
+    sameSite: "None",
+  });
   return res.sendStatus(200);
 });
 
