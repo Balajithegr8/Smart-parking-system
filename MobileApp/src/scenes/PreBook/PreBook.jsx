@@ -1,5 +1,5 @@
 "use client";
-import React, { useState , useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import axios from "axios";
@@ -20,18 +20,21 @@ import CustomToast from "../../CustomToast";
 
 export default function PreBook() {
   const navigate = useNavigate();
-    useEffect(() => {
-      async function autoLogin() {
-        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+  useEffect(() => {
+    async function autoLogin() {
+      const response = await fetch(
+        "https://spark-backend-j18q.onrender.com/autoLogin",
+        {
           method: "GET",
           credentials: "include",
-        });
-        if (response.status !== 200) {
-          navigate("/");
         }
+      );
+      if (response.status !== 200) {
+        navigate("/");
       }
-      autoLogin();
-    }, [navigate]);
+    }
+    autoLogin();
+  }, [navigate]);
   const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
   const [selectedDate, setSelectedDate] = useState(null);
   const [toastMessage, setToastMessage] = useState(""); // Message for toast
@@ -169,7 +172,12 @@ export default function PreBook() {
   };
 
   return (
-    <div>
+    <div
+      style={{
+        overflowY: "auto", // Enable vertical scrolling
+        overflowX: "hidden", // Prevent horizontal scrolling
+      }}
+    >
       <div
         style={{
           paddingLeft: "25px",

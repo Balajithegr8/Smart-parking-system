@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 // Transaction Schema
@@ -17,4 +16,3 @@ const TransactionSchema = new mongoose.Schema(
 const Transaction = mongoose.model("Transaction", TransactionSchema);
 
 export default Transaction;
-

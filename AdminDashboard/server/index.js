@@ -41,6 +41,7 @@ const allowedOrigins = [
   "https://spark-mobile.onrender.com",
   "http://localhost:3000",
   "https://spark-tyuo.onrender.com",
+  "https://spark-backend-j18q.onrender.com",
 ];
 
 app.use(cors({
@@ -58,6 +59,7 @@ app.use(cors({
     "Content-Type",
     "Access-Control-Allow-Origin",
     "Access-Control-Allow-Credentials",
+    "Access-Control-Allow-Headers",
   ],
 }));
 
@@ -312,7 +314,7 @@ app.post("/slots", async (req, res) => {
       existingLocation.name = "";
       existingLocation.licence_no = "";
       existingLocation.booked = "no";
-      existingLocation.email = ""; // Clear email as well
+      existingLocation.email = "";
       existingLocation.entry_time = "";
       existingLocation.exit_time = "";
 
