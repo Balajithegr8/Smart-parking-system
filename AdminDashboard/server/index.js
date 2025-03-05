@@ -55,12 +55,11 @@ app.use(cors({
   },
   credentials: true,
   allowedHeaders: [
-    "set-cookie",
+    "Authorization",
     "Content-Type",
-    "Access-Control-Allow-Origin",
-    "Access-Control-Allow-Credentials",
-    "Access-Control-Allow-Headers",
+    "Set-Cookie"
   ],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 }));
 
 
@@ -208,64 +207,46 @@ app.post('/registeruser', async (req, res) => {
 });
 
 
-
 app.post('/loginuser', async (req, res) => {
-
   const { email, password } = req.body;
 
   User.findOne({ email: email })
     .then(user => {
       if (user) {
         if (user.password === password && user.role === 'user') {
-
           const authToken = jsonwebtoken.sign({ email }, "DUMMYKEY");
-          res.cookie("authToken", authToken, {
-            path: "/",    //The cookie only accessible for all routes on the domain
-            maxAge: 24 * 60 * 60 * 1000,  //1 Day
-            httpOnly: true,
-            secure: true,
-            sameSite: 'None'
 
+          return res.status(200).json({
+            message: '🎉 Login Successful! Redirecting to dashboard...',
+            toastType: 'success',
+            authToken // Send the token in response
           });
-          return res.status(200).json({ message: '🎉 Login Successful! Redirecting to dashboard...', toastType: 'success' });
+        } else {
+          return res.json({ message: '❌ Login Failed. Incorrect password.', toastType: 'error' });
         }
-        else {
-          return res.json({ message: '❌ Login Failed. Incorrect password.', toastType: 'error' })
-
-        }
+      } else {
+        return res.json({ message: '❌ Login Failed. User does not exist.', toastType: 'error' });
       }
-      else {
-        return res.json({ message: '❌ Login Failed. User does not exist.', toastType: 'error' })
-      }
-    })
-
+    });
 });
+
 
 app.get("/autoLogin", (req, res) => {
-
-  const token = req.cookies.authToken;
+  const authHeader = req.headers["authorization"];
+  const token = authHeader && authHeader.split(" ")[1]; // Extract token from "Bearer <token>"
 
   if (!token) {
-    return res.sendStatus(401);
+    return res.sendStatus(401); // Unauthorized
   }
+
   try {
     const decoded = jsonwebtoken.verify(token, "DUMMYKEY");
-    return res.sendStatus(200);
-  }
-  catch (err) {
-    return res.sendStatus(401);
+    return res.status(200).json({ message: "Auto-login successful", user: decoded });
+  } catch (err) {
+    return res.sendStatus(401); // Invalid token
   }
 });
 
-app.get("/logout", (req, res) => {
-  res.clearCookie("authToken", {
-    path: "/",
-    httpOnly: true,
-    secure: true,
-    sameSite: "None",
-  });
-  return res.sendStatus(200);
-});
 
 app.post("/slots", async (req, res) => {
   const { name, email, licence_no, slot_no, loc, v_type, booked, entry_time, exit_time } = req.body;

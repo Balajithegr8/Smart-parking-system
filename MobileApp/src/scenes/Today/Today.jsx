@@ -18,6 +18,7 @@ const Today = () => {
   const navigate = useNavigate();
   const email = localStorage.getItem("email");
   user.email = email;
+
   async function requestPermission() {
     const permission = await Notification.requestPermission();
     if (permission === "granted") {
@@ -36,17 +37,36 @@ const Today = () => {
 
   useEffect(() => {
     async function autoLogin() {
-      const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.status !== 200) {
+      const authToken = localStorage.getItem("auth");
+
+      if (!authToken) {
+        navigate("/"); // Redirect if no token
+        return;
+      }
+
+      try {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${authToken}`, // Send token
+          },
+        });
+
+        if (response.status !== 200) {
+          localStorage.removeItem("auth"); // Remove invalid token
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Auto-login failed:", error);
+        localStorage.removeItem("auth"); // Cleanup
         navigate("/");
       }
     }
+
     autoLogin();
-    requestPermission();
-  }, []);
+    requestPermission(); // Keep requestPermission() call
+  }, [navigate]);
 
   const isNonMobile = useMediaQuery("(min-width: 922px)");
   const { data, isLoading } = useGetmobuserQuery(email);
@@ -161,7 +181,7 @@ const Today = () => {
               fontSize: "1.4em",
               textTransform: "none",
             }}
-            onClick={()=> window.location.reload(true)}
+            onClick={() => window.location.reload(true)}
           >
             Check Today's Availability
           </Button>

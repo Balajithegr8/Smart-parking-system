@@ -20,21 +20,39 @@ import CustomToast from "../../CustomToast";
 
 export default function PreBook() {
   const navigate = useNavigate();
+
   useEffect(() => {
     async function autoLogin() {
-      const response = await fetch(
-        "https://spark-backend-j18q.onrender.com/autoLogin",
-        {
+      const authToken = localStorage.getItem("auth");
+  
+      if (!authToken) {
+        navigate("/"); // Redirect to login if no token
+        return;
+      }
+  
+      try {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
           method: "GET",
-          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`, // Send token in headers
+          },
+        });
+  
+        if (response.status !== 200) {
+          localStorage.removeItem("auth"); // Remove invalid token
+          navigate("/");
         }
-      );
-      if (response.status !== 200) {
+      } catch (error) {
+        console.error("Auto-login failed:", error);
+        localStorage.removeItem("auth"); // Cleanup if request fails
         navigate("/");
       }
     }
+  
     autoLogin();
   }, [navigate]);
+  
   const [currentWeek, setCurrentWeek] = useState(startOfWeek(new Date()));
   const [selectedDate, setSelectedDate] = useState(null);
   const [toastMessage, setToastMessage] = useState(""); // Message for toast

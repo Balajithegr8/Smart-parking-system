@@ -22,18 +22,38 @@ function LoginRegister() {
 
   useEffect(() => {
     async function autoLogin() {
-      const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
-        method: "GET",
-        credentials: "include",
-      });
-      if (response.status === 200) {
-        navigate("/today");
-      } else {
+      const authToken = localStorage.getItem("auth");
+
+      if (!authToken) {
+        navigate("/"); // Redirect to login if no token
+        return;
+      }
+
+      try {
+        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${authToken}`, // Send token in headers
+          },
+        });
+
+        if (response.status === 200) {
+          navigate("/today");
+        } else {
+          localStorage.removeItem("auth"); // Remove invalid token
+          navigate("/");
+        }
+      } catch (error) {
+        console.error("Auto-login failed:", error);
+        localStorage.removeItem("auth"); // Ensure cleanup on failure
         navigate("/");
       }
     }
+
     autoLogin();
   }, []);
+
 
   async function registerUser(e) {
     e.preventDefault();
@@ -90,20 +110,24 @@ function LoginRegister() {
     try {
       const res = await fetch('https://spark-backend-j18q.onrender.com/loginuser', {
         method: 'POST',
-        credentials: "include",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
       });
+
       const data = await res.json();
 
       setToastMessage(data.message);
       setToastType(data.toastType);
 
-      if (res.status === 200) {
-        // Clear form and redirect
+      if (res.status === 200 && data.authToken) {
+        // Store the auth token in local storage
+        localStorage.setItem("auth", data.authToken);
+
+        // Clear form fields
         setEmail('');
         setPassword('');
         localStorage.setItem("email", email);
+        // Redirect after a delay
         setTimeout(() => navigate('/today'), 3000);
       }
 
@@ -112,6 +136,7 @@ function LoginRegister() {
       setToastType('error');
     }
   };
+
 
   const handleLogin = () => {
     setIsLogin(true);
