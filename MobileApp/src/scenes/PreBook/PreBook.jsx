@@ -194,6 +194,7 @@ export default function PreBook() {
       style={{
         overflowY: "auto", // Enable vertical scrolling
         overflowX: "hidden", // Prevent horizontal scrolling
+        marginTop: "40px"
       }}
     >
       <div
@@ -206,9 +207,9 @@ export default function PreBook() {
           marginTop: "20px",
         }}
       >
-        <h1 style={{ margin: 0, fontSize: "2rem" }}>Reservation</h1>
-        <p style={{ margin: "0.5rem 0", fontSize: "0.7rem", color: "white" }}>
-          To Book your slot before you arrive
+        <h1 style={{ margin: 0, marginTop: -40, fontSize: "2rem" }}>Reservation</h1>
+        <p style={{ margin: "1.8rem 0", fontSize: "0.7rem", color: "white"  }}>
+          
         </p>
       </div>
       <div sx={{ overflow: "auto" }}>
@@ -223,6 +224,7 @@ export default function PreBook() {
             alignItems: "center",
             justifyContent: "center",
             p: 4,
+            marginTop: "-50px",
           }}
         >
           <Box
@@ -235,11 +237,11 @@ export default function PreBook() {
           >
             <Grid container spacing={4}>
               {/* Input Fields Section */}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} marginTop={-1}>
                 <Typography variant="h5" fontWeight="bold" color="white" mb={2}>
                   Parking Request
                 </Typography>
-                <Box sx={{ mb: 2 }}>
+                <Box sx={{ mb: 2 }} marginTop={3}>
                   <Typography color="white" mb={1}>
                     Location
                   </Typography>
@@ -294,7 +296,7 @@ export default function PreBook() {
               </Grid>
 
               {/* Calendar Section */}
-              <Grid item xs={12} md={6}>
+              <Grid item xs={12} md={6} marginTop={-4}>
                 <Typography variant="h5" fontWeight="bold" color="white" mb={2}>
                   Select Date
                 </Typography>

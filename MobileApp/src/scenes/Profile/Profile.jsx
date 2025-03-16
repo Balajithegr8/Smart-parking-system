@@ -21,13 +21,16 @@ const Profile = () => {
       }
 
       try {
-        const response = await fetch("https://spark-backend-j18q.onrender.com/autoLogin", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${authToken}`, // Send token in headers
-          },
-        });
+        const response = await fetch(
+          "https://spark-backend-j18q.onrender.com/autoLogin",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${authToken}`, // Send token in headers
+            },
+          }
+        );
 
         if (response.status !== 200) {
           localStorage.removeItem("auth"); // Remove invalid token
@@ -93,6 +96,7 @@ const Profile = () => {
     <div
       style={{
         height: "100vh",
+        overflowY: "auto",
         color: "white",
         display: "flex",
         flexDirection: "column",
