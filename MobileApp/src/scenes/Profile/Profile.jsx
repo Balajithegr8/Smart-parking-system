@@ -2,6 +2,7 @@ import CloudIcon from "@mui/icons-material/Cloud";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { useState } from "react";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { useGetmobuserQuery } from "../../state/api";
 import { useGetmoblocQuery } from "../../state/api";
@@ -9,6 +10,7 @@ import { styled } from "@mui/material/styles";
 import { Box, Grid, Paper, Tooltip } from "@mui/material";
 
 const Profile = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -134,23 +136,66 @@ const Profile = () => {
 
       <div>
         <Tooltip title="Check Weather in your Area" arrow>
-          <a
-            href="https://weather-app-reactjs-nvep.onrender.com"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <CloudIcon
-              style={{
-                color: "white",
-                position: "absolute",
-                right: "25px",
-                top: "40px",
-                fontSize: "3rem",
-                zIndex: 9999,
-              }}
-            />
-          </a>
+          <CloudIcon
+            style={{
+              color: "white",
+              position: "absolute",
+              right: "25px",
+              top: "40px",
+              fontSize: "3rem",
+              zIndex: 9999,
+              cursor: "pointer",
+            }}
+            onClick={() => setIsOpen(true)}
+          />
         </Tooltip>
+
+        {/* Full-Screen Modal */}
+        {isOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              background: "rgba(0, 0, 0, 0.9)",
+              zIndex: 10000,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                position: "absolute",
+                top: "10px",
+                right: "10px",
+                background: "white",
+                padding: "5px 10px",
+                border: "none",
+                cursor: "pointer",
+                fontSize: "1.5rem",
+                borderRadius: "5px",
+                zIndex: 10001,
+              }}
+            >
+              ✕
+            </button>
+
+            <iframe
+              src="https://weather-app-reactjs-nvep.onrender.com"
+              style={{
+                width: "100%",
+                height: "100%",
+                border: "none",
+              }}
+              allow="geolocation"
+            />
+          </div>
+        )}
       </div>
 
       {/* Profile Card */}
