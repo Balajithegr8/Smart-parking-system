@@ -1,5 +1,6 @@
 import getCountryISO3 from "country-iso-2-to-3";
 import _ from "lodash";
+import axios from "axios";
 
 // Models import
 import User from "../models/User.js";
@@ -11,6 +12,9 @@ import Product from "../models/Product.js";
 import ProductStat from "../models/ProductStat.js";
 import Reservations from "../models/Reservation.js";
 import PastBookings from "../models/PastBookings.js";
+
+const API_KEY = process.env.OPENWEATHER_API_KEY;
+const CITY = process.env.CITY;
 
 // Get Products
 export const getProducts = async (_, res) => {
@@ -132,18 +136,46 @@ export const getRealtime = async (req, res) => {
   }
 };
 
+const getWeatherCondition = async () => {
+  try {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`;
+    const response = await axios.get(url);
+    console.log(response.data.weather[0].main);
+    return response.data.weather[0].main; // Extracting main weather condition (e.g., Clear, Rain, Clouds)
+  } catch (error) {
+    console.error("Error fetching weather data:", error.message);
+    return "Clear"; // Default to Clear if API call fails
+  }
+};
+
 // Get Locations
 export const getLocations = async (req, res) => {
   try {
-    const locations = await Location.aggregate([
+    const weatherCondition = await getWeatherCondition(); // Fetch weather condition
 
+    // **Weather-based price adjustment**
+    let weatherPriceAdjustment = 0;
+    switch (weatherCondition) {
+      case "Clouds":
+        weatherPriceAdjustment = 0.25;
+        break;
+      case "Rain":
+        weatherPriceAdjustment = 1;
+        break;
+      case "Thunderstorm":
+        weatherPriceAdjustment = 1.25;
+        break;
+      default:
+        weatherPriceAdjustment = 0;
+    }
+
+    const locations = await Location.aggregate([
       {
         $group: {
           _id: "$loc",
           count: { $sum: 1 },
           slots: { $push: "$slot_no" },
           booked: { $sum: { $cond: [{ $eq: ["$booked", "yes"] }, 1, 0] } },
-
         }
       },
       {
@@ -158,23 +190,19 @@ export const getLocations = async (req, res) => {
             }
           },
           booked: 1,
-
         }
-      },
-      {
-        $addFields: {
-          currentPrice: {
-            $add: [1, { $multiply: ["$booked", 0.025] }], // Example: $10 + $0.5 per booking
-          },
-        },
-      },
+      }
     ]);
-    locations.forEach((location) => {
-      console.log("Location:", location.loc, "Current Price:", location.currentPrice);
+
+    // Apply weather-based pricing after aggregation
+    locations.forEach(location => {
+      location.currentPrice = 1 + (location.booked * 0.025) + weatherPriceAdjustment;
+      console.log("Location:", location.loc, "Current Price:", location.currentPrice, "Weather:", weatherCondition);
     });
+
     res.status(200).json(locations);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 };
 
